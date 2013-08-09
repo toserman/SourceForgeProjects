@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
    	   OnClickListener oclBtnCancel = new OnClickListener() {		
 		@Override
 		public void onClick(View v) {
-			view_status.setText("PRESS CANCEL !");			
+			view_status.setText("PRESS CANCEL!");			
 		}
 	};
 	button_cancel.setOnClickListener(oclBtnCancel);
