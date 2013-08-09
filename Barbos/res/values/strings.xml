@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Barbos</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello WORLD!</string>
+    <string name="hello_tvorog">Hello TVOROG TIME!</string>
+    <string name="bye_bye_tvorog">"BYE-BYE TVOROG"</string>        
+
+</resources>
