@@ -21,8 +21,8 @@ public class MainActivity extends Activity {
        view_status = (TextView)findViewById(R.id.statusButton);
    	   button_ok = (Button)findViewById(R.id.buttonOk);
    	   button_cancel = (Button)findViewById(R.id.buttonCancel);
-   	   
-   	   OnClickListener oclBtnCancel = new OnClickListener() {		
+   	   //Method with 2 handlers for each button
+   /*	   OnClickListener oclBtnCancel = new OnClickListener() {		
 		@Override
 		public void onClick(View v) {
 			view_status.setText("PRESS CANCEL!");			
@@ -38,7 +38,24 @@ public class MainActivity extends Activity {
 			}
 		};
 	button_ok.setOnClickListener(oclBtnOk);
-	
+	*/
+   	   OnClickListener oclBtnGeneral = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.buttonOk:
+				view_status.setText("BUTTON OK");
+				break;
+			case R.id.buttonCancel:
+				view_status.setText("BUTTON CANCEL");
+				break;
+			}			
+		}
+	};
+	button_ok.setOnClickListener(oclBtnGeneral);
+	button_cancel.setOnClickListener(oclBtnGeneral);
+   	   
     }
 
   //  @Override
@@ -51,7 +68,6 @@ public class MainActivity extends Activity {
    // @Deprecated
     public void startDiscover(View v)
     { 	
-    	
       	CharSequence text = "You have clicked Button 2";
       	
     	int duration = Toast.LENGTH_SHORT;
