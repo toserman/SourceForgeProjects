@@ -30,8 +30,7 @@ public class MainActivity extends Activity {
 	};
 	button_cancel.setOnClickListener(oclBtnCancel);
 	
-		OnClickListener oclBtnOk = new OnClickListener() {
-			
+		OnClickListener oclBtnOk = new OnClickListener() {			
 			@Override
 			public void onClick(View v) {				
 				view_status.setText("PRESS OK !");

@@ -28,8 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
     case R.id.btnActTwo:
       // TODO Call second activity
     	Intent intent = new Intent(this,ActivityTwo.class);
-    	startActivity(intent);
-    	
+    	startActivity(intent);    	
       break;
     default:
       break;
