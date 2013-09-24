@@ -8,30 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <TextView
-        android:id="@+id/wifiState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/wifi_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/wifiState"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:text="ON WIFI" />
-
     <Button
         android:id="@+id/wifi_off"
         android:layout_width="wrap_content"
@@ -39,5 +15,39 @@
         android:layout_alignRight="@+id/wifi_on"
         android:layout_below="@+id/wifi_on"
         android:text="OFF WIFI" />
+
+    <TextView
+        android:id="@+id/wifiInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/wifi_off"
+        android:layout_marginTop="53dp"
+        android:gravity="center"
+        android:maxLines="10"
+        android:text=""
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/wifiState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/wifiParam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifi_off"
+        android:layout_centerHorizontal="true"
+        android:text="Get Param" />
+
+    <Button
+        android:id="@+id/wifi_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifiState"
+        android:layout_centerHorizontal="true"
+        android:text="ON WIFI" />
 
 </RelativeLayout>
