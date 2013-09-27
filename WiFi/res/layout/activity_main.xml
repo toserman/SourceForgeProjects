@@ -8,25 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/wifi_off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/wifi_on"
-        android:layout_below="@+id/wifi_on"
-        android:text="OFF WIFI" />
-
-    <TextView
-        android:id="@+id/wifiInfo"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/wifi_off"
-        android:layout_marginTop="53dp"
-        android:gravity="center"
-        android:maxLines="10"
-        android:text=""
-        android:textSize="20sp" />
-
     <TextView
         android:id="@+id/wifiState"
         android:layout_width="wrap_content"
@@ -35,19 +16,194 @@
         android:text="TextView" />
 
     <Button
-        android:id="@+id/wifiParam"
+        android:id="@+id/wifi_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/wifi_off"
-        android:layout_centerHorizontal="true"
-        android:text="Get Param" />
+        android:layout_alignBaseline="@+id/wifi_on"
+        android:layout_alignBottom="@+id/wifi_on"
+        android:layout_alignParentLeft="true"
+        android:text="OFF WIFI" />
 
     <Button
         android:id="@+id/wifi_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/wifiState"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/wifiParam"
+        android:layout_alignBottom="@+id/wifiParam"
+        android:layout_toRightOf="@+id/wifi_off"
         android:text="ON WIFI" />
+
+    <Button
+        android:id="@+id/wifiParam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifiState"
+        android:layout_toRightOf="@+id/wifi_on"
+        android:text="Get Param" />
+
+    <TextView
+        android:id="@+id/wifiInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifi_off"
+        android:gravity="center"
+        android:maxLines="5"
+        android:text="INFO"
+        android:textSize="20sp" />
+
+<TableLayout
+    android:id="@+id/tableLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignRight="@+id/wifiParam"
+    android:layout_marginBottom="66dp"
+    android:shrinkColumns="*"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="6"
+            android:gravity="center"
+            android:text="Weather Report"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView android:id="@+id/TextView21" />
+
+        <TextView
+            android:id="@+id/TextView22"
+            android:gravity="center"
+            android:text="M"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/TextView23"
+            android:gravity="center"
+            android:text="T"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/TextView24"
+            android:gravity="center"
+            android:text="W"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/TextView25"
+            android:gravity="center"
+            android:text="T"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:gravity="center"
+            android:text="F"
+            android:textStyle="bold"
+            android:typeface="serif" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView31"
+            android:text="Day High"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:gravity="center_horizontal"
+            android:text="34°C" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:gravity="center_horizontal"
+            android:text="35°C" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:gravity="center_horizontal"
+            android:text="34°C" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:gravity="center_horizontal"
+            android:text="35°C" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:gravity="center_horizontal"
+            android:text="33°C" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView41"
+            android:text="Day Low"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView42"
+            android:gravity="center_horizontal"
+            android:text="28°C" />
+
+        <TextView
+            android:id="@+id/textView43"
+            android:gravity="center_horizontal"
+            android:text="27°C" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:gravity="center_horizontal"
+            android:text="29°C" />
+
+        <TextView
+            android:id="@+id/textView45"
+            android:gravity="center_horizontal"
+            android:text="26°C" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:gravity="center_horizontal"
+            android:text="29°C" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView8"
+            android:text="Conditions"
+            android:textStyle="bold" />
+    </TableRow>
+</TableLayout>
 
 </RelativeLayout>

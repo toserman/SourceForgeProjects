@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	TextView WifiState,WifiInfo;
 	Button WifiOn,WifiOff,WifiParam;
+	TextView RowSSID;
 	List<ScanResult> results;
 	int extraWifiState ;
 	
@@ -38,12 +40,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiParam = (Button)findViewById(R.id.wifiParam);
 	      WifiState = (TextView)findViewById(R.id.wifiState);
 	      WifiInfo = (TextView)findViewById(R.id.wifiInfo);
+	      RowSSID = (TextView)findViewById(R.id.textView11);
 	      this.registerReceiver(this.WifiStateChangedReceiver,
 	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
-	      WifiParam.setOnClickListener(this);
-	      
+	      WifiParam.setOnClickListener(this);	      
 	  }
 
 	  @Override  
@@ -76,41 +78,27 @@ public class MainActivity extends Activity implements OnClickListener {
 								+ "LINK SPEED: "     + myWifiInfo.getLinkSpeed() + "\n"
 								+ "SUPPLICANT:" + myWifiInfo.getSupplicantState()
 									);
-				wifiManager.startScan();
-		        // get list of the results in object format ( like an array )
-		        List<ScanResult> results = wifiManager.getScanResults();
-
-		        // loop that goes through list
-		        for (ScanResult result : results) {
-		            Toast.makeText(this, result.SSID + " " + result.level,
-		                    Toast.LENGTH_SHORT).show();
-		        }
-			
-		        wifiManager.startScan();
+				wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
 		         results = wifiManager.getScanResults();
 
 		        // loop that goes through list
-		        for (ScanResult result : results) {
+		        for (ScanResult result : results) {		        	
 		            Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		                    Toast.LENGTH_SHORT).show();
+		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");
+		            RowSSID.setText(result.SSID);
 		        }
 		        
-				
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());
-			break;
-			
-			
-			
-			}
-		    
+			break;			
+			}		    
 			
 		};
 		
 	  
 	  private BroadcastReceiver WifiStateChangedReceiver
-	  = new BroadcastReceiver(){
-		  
+	  = new BroadcastReceiver(){	  
 
 	@Override
 	 public void onReceive(Context context, Intent intent) {
@@ -141,16 +129,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	   break;
 	  case WifiManager.WIFI_STATE_UNKNOWN:
 	   WifiState.setText("WIFI STATE UNKNOWN");
-	   break;
-	  
-	  }
-	  
-	 
-	 }
-	 
-	  };
-	  
-		
+	   break;	  
+	  }	   
+	 }	 	  
+	  };	  
 	
 	
 	@Override
