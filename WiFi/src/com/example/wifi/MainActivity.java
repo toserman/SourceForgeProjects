@@ -29,7 +29,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	List<ScanResult> results;
 	int extraWifiState ;
 	
-/*JUST TEST*/
+/*JUST TEST ====*/
 	  /** Called when the activity is first created. */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
