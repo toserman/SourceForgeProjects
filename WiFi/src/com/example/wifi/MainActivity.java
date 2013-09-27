@@ -29,7 +29,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	List<ScanResult> results;
 	int extraWifiState ;
 	
-
+/*JUST TEST*/
 	  /** Called when the activity is first created. */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);	      
 	  }
-
+	   
+	  
 	  @Override  
 		public void onClick(View v) {
 			Log.d("MY TAG ","SWITCH on ACTION");		
