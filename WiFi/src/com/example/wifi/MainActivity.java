@@ -1,8 +1,7 @@
 package com.example.wifi;
+import android.app.Activity;
 
 import java.util.List;
-
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +15,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Toast; 
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -104,11 +102,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	 public void onReceive(Context context, Intent intent) {
 	  // TODO Auto-generated method stub
-	 
-		//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-		 // WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
-
-	  //WifiState.setText(myWifiInfo.getSSID());
 
 		
 	 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE ,
