@@ -1,11 +1,12 @@
 package com.example.wifi;
-import android.app.Activity;
-
 import java.util.List;
+
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -16,14 +17,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast; 
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener {
 
 	TextView WifiState,WifiInfo;
 	Button WifiOn,WifiOff,WifiParam;
-	TextView RowSSID;
+	TextView RowTableName,RowSSID_1,RowSSID_2,
+			 RowSSID_3;
 	List<ScanResult> results;
 	int extraWifiState ;
 	
@@ -38,7 +40,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiParam = (Button)findViewById(R.id.wifiParam);
 	      WifiState = (TextView)findViewById(R.id.wifiState);
 	      WifiInfo = (TextView)findViewById(R.id.wifiInfo);
-	      RowSSID = (TextView)findViewById(R.id.textView11);
+	      RowTableName = (TextView)findViewById(R.id.textTableName);	    
+	      RowSSID_1 = (TextView)findViewById(R.id.textView31);
+	      RowSSID_2 = (TextView)findViewById(R.id.textView41);
+	      RowSSID_3 = (TextView)findViewById(R.id.textView47);
 	      this.registerReceiver(this.WifiStateChangedReceiver,
 	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      WifiOn.setOnClickListener(this);
@@ -81,12 +86,28 @@ public class MainActivity extends Activity implements OnClickListener {
 		        // get list of the results in object format ( like an array )
 		         results = wifiManager.getScanResults();
 
+		         
+		        int count = 0;
 		        // loop that goes through list
-		        for (ScanResult result : results) {		        	
-		            Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
-		                    Toast.LENGTH_SHORT).show();
+		        for (ScanResult result : results) {	
+		        	
+		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
+		           //         Toast.LENGTH_SHORT).show();
 		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");
-		            RowSSID.setText(result.SSID);
+		            Log.d("MY TAG count = ", "" + count);
+		            switch(count) {
+		            case 0:
+		            	RowSSID_1.setText(result.SSID);
+		            	break;
+		            case 1:
+		            	RowSSID_2.setText(result.SSID);
+		            	break;
+		            case 2:
+		            	RowSSID_3.setText(result.SSID);
+		            	break;
+		            }
+		            count++;
+		            
 		        }
 		        
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());

@@ -52,12 +52,13 @@
         android:textSize="20sp" />
 
 <TableLayout
-    android:id="@+id/tableLayout1"
+    android:id="@+id/tableAPList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_alignRight="@+id/wifiParam"
-    android:layout_marginBottom="66dp"
+    android:layout_marginBottom="66dp"  
+    android:background="#dad8ce" 
     android:shrinkColumns="*"
     android:stretchColumns="*" >
 
@@ -65,17 +66,21 @@
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:showDividers="beginning" >
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textTableName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="6"
             android:gravity="center"
-            android:text="Weather Report"
-            android:textSize="18dp"
+            android:background="#dad8FF"
+            android:text="AP list:"
+            android:textColor="#0000FF"            
+            android:textSize="18dp"            
             android:textStyle="bold" />
+
     </TableRow>
 
     <TableRow
@@ -127,9 +132,9 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView31"
-            android:text="Day High"
-            android:textStyle="bold" />
+            android:id="@+id/textView31"            
+            android:textStyle="bold"
+            android:textColor="#228B22" />
 
         <TextView
             android:id="@+id/textView32"
@@ -163,9 +168,9 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView41"
-            android:text="Day Low"
-            android:textStyle="bold" />
+            android:id="@+id/textView41"            
+            android:textStyle="bold" 
+            android:textColor="#228B22" />/>
 
         <TextView
             android:id="@+id/textView42"
@@ -196,13 +201,15 @@
     <TableRow
         android:id="@+id/tableRow5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
-
+        android:layout_height="wrap_content" >
         <TextView
-            android:id="@+id/textView8"
-            android:text="Conditions"
-            android:textStyle="bold" />
+            android:id="@+id/textView47"            
+            android:textStyle="bold"
+            android:textColor="#228B22" />
+        <TextView
+            android:id="@+id/textView48"
+            android:gravity="center_horizontal"            
+            />
     </TableRow>
 </TableLayout>
 
