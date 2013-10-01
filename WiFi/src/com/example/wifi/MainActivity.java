@@ -1,4 +1,5 @@
 package com.example.wifi;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -6,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -15,9 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -27,9 +28,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	TextView RowTableName,RowSSID_1,RowSSID_2,
 			 RowSSID_3;
 	List<ScanResult> results;
+	ListView lvAP;
 	int extraWifiState ;
 	
-/*JUST TEST ====*/
+	//String[] apnames = {"              "};
+	final ArrayList<String> apnames = new ArrayList<String>() ;	
+
 	  /** Called when the activity is first created. */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
-	      WifiParam.setOnClickListener(this);	      
+	      WifiParam.setOnClickListener(this);	
+	      
+	  	  lvAP = (ListView)findViewById(R.id.listAP);
+		  //Create adapter
+		  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.my_listview, apnames);
+		  //Put adapter into list
+		  lvAP.setAdapter(adapter);	
 	  }
 	   
 	  
@@ -107,7 +117,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	break;
 		            }
 		            count++;
-		            
+		            apnames.add(result.SSID);    
 		        }
 		        
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());

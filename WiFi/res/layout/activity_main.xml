@@ -55,10 +55,9 @@
     android:id="@+id/tableAPList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignRight="@+id/wifiParam"
-    android:layout_marginBottom="66dp"  
-    android:background="#dad8ce" 
+    android:layout_alignLeft="@+id/wifiInfo"
+    android:layout_below="@+id/wifiInfo"
+    android:background="#dad8ce"
     android:shrinkColumns="*"
     android:stretchColumns="*" >
 
@@ -74,13 +73,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="6"
-            android:gravity="center"
             android:background="#dad8FF"
+            android:gravity="center"
             android:text="AP list:"
-            android:textColor="#0000FF"            
-            android:textSize="18dp"            
+            android:textColor="#0000FF"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
     </TableRow>
 
     <TableRow
@@ -132,9 +130,9 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView31"            
-            android:textStyle="bold"
-            android:textColor="#228B22" />
+            android:id="@+id/textView31"
+            android:textColor="#228B22"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView32"
@@ -168,9 +166,9 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView41"            
-            android:textStyle="bold" 
-            android:textColor="#228B22" />/>
+            android:id="@+id/textView41"
+            android:textColor="#228B22"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView42"
@@ -202,15 +200,28 @@
         android:id="@+id/tableRow5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
         <TextView
-            android:id="@+id/textView47"            
-            android:textStyle="bold"
-            android:textColor="#228B22" />
+            android:id="@+id/textView47"
+            android:textColor="#228B22"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textView48"
-            android:gravity="center_horizontal"            
-            />
+            android:gravity="center_horizontal" />
     </TableRow>
 </TableLayout>
+
+<ListView
+    android:id="@+id/listAP"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/tableAPList"
+    android:layout_below="@+id/tableAPList"         
+    android:divider="@color/reddivider"
+    android:dividerHeight="@dimen/twodp"
+    android:layout_marginTop="20dp" >       
+    
+</ListView>
 
 </RelativeLayout>
