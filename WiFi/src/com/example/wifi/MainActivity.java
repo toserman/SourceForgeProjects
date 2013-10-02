@@ -7,12 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -38,7 +40,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);
-	      setContentView(R.layout.activity_main);
+	      setContentView(R.layout.activity_main);	      
 	      WifiOn = (Button)findViewById(R.id.wifi_on);
 	      WifiOff = (Button)findViewById(R.id.wifi_off);
 	      WifiParam = (Button)findViewById(R.id.wifiParam);
@@ -53,6 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);	
+	      
 	      
 	  	  lvAP = (ListView)findViewById(R.id.listAP);
 		  //Create adapter
@@ -73,12 +76,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		  //WifiState.setText(myWifiInfo.getSSID());
 						    
-			switch (v.getId()) {
+			switch (v.getId()) {		
+			
 			case R.id.wifi_on:
 				WifiState.setText("WiFi ON");
 				wifiManager.setWifiEnabled(true);
-				Log.d("MY TAG ", "After Enable State = " + extraWifiState);
-			//Toast.makeText(getApplicationContext(), "PRESSED OK", Toast.LENGTH_LONG).show();
+				Log.d("MY TAG ", "After Enable State = " + extraWifiState);		
 			break;					
 			case R.id.wifi_off:			
 				WifiState.setText("WiFi OFF");
@@ -166,5 +169,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	  public boolean  onOptionsItemSelected(MenuItem item) {
+		    // TODO Auto-generated method stub
+		    switch (item.getItemId()) {
+		    // пункты меню для tvColor
+		    case R.id.switch_screen:
+		    	Log.d("MY TAG ", "Choose item = ");
+		    	Intent intent = new Intent(this, ActivityTwo.class);
+			    startActivity(intent);		    	
+		      //tvColor.setTextColor(Color.RED);
+		      //tvColor.setText("Text color = red");
+		      break;
+	
+		    }
+		    return super.onOptionsItemSelected(item);
+	  }
 
 }
