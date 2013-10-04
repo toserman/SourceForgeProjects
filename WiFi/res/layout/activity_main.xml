@@ -15,215 +15,49 @@
         android:layout_centerHorizontal="true"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/wifi_off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/wifi_on"
-        android:layout_alignBottom="@+id/wifi_on"
-        android:layout_alignParentLeft="true"
-        android:text="OFF WIFI" />
 
-    <Button
-        android:id="@+id/wifi_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/wifiParam"
-        android:layout_alignBottom="@+id/wifiParam"
-        android:layout_toRightOf="@+id/wifi_off"
-        android:text="ON WIFI" />
-
-    <Button
-        android:id="@+id/wifiParam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/wifiState"
-        android:layout_toRightOf="@+id/wifi_on"
-        android:text="Get Param" />
-
-    <TextView
-        android:id="@+id/wifiInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/wifi_off"
-        android:gravity="center"
-        android:maxLines="5"
-        android:text="INFO"
-        android:textSize="20sp" />
-
-<TableLayout
-    android:id="@+id/tableAPList"
+<ListView
+    android:id="@+id/listAP"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignLeft="@+id/wifiInfo"
     android:layout_below="@+id/wifiInfo"
-    android:background="#dad8ce"
-    android:shrinkColumns="*"
-    android:stretchColumns="*" >
-
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:showDividers="beginning" >
-
-        <TextView
-            android:id="@+id/textTableName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_span="6"
-            android:background="#dad8FF"
-            android:gravity="center"
-            android:text="AP list:"
-            android:textColor="#0000FF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView android:id="@+id/TextView21" />
-
-        <TextView
-            android:id="@+id/TextView22"
-            android:gravity="center"
-            android:text="M"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView23"
-            android:gravity="center"
-            android:text="T"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView24"
-            android:gravity="center"
-            android:text="W"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView25"
-            android:gravity="center"
-            android:text="T"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:gravity="center"
-            android:text="F"
-            android:textStyle="bold"
-            android:typeface="serif" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView31"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView32"
-            android:gravity="center_horizontal"
-            android:text="34°C" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:gravity="center_horizontal"
-            android:text="35°C" />
-
-        <TextView
-            android:id="@+id/textView34"
-            android:gravity="center_horizontal"
-            android:text="34°C" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:gravity="center_horizontal"
-            android:text="35°C" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:gravity="center_horizontal"
-            android:text="33°C" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView41"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView42"
-            android:gravity="center_horizontal"
-            android:text="28°C" />
-
-        <TextView
-            android:id="@+id/textView43"
-            android:gravity="center_horizontal"
-            android:text="27°C" />
-
-        <TextView
-            android:id="@+id/textView44"
-            android:gravity="center_horizontal"
-            android:text="29°C" />
-
-        <TextView
-            android:id="@+id/textView45"
-            android:gravity="center_horizontal"
-            android:text="26°C" />
-
-        <TextView
-            android:id="@+id/textView46"
-            android:gravity="center_horizontal"
-            android:text="29°C" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView47"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView48"
-            android:gravity="center_horizontal" />
-    </TableRow>
-</TableLayout>
-
-<ListView
-    android:id="@+id/listAP"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/tableAPList"
-    android:layout_below="@+id/tableAPList"         
     android:divider="@color/reddivider"
-    android:dividerHeight="@dimen/twodp"
-    android:layout_marginTop="20dp" >       
-    
+    android:dividerHeight="@dimen/twodp" >
 </ListView>
 
+<Button
+    android:id="@+id/wifi_off"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/wifiInfo"
+    android:layout_alignParentTop="true"
+    android:text="OFF WIFI" />
 
+<Button
+    android:id="@+id/wifi_on"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_toRightOf="@+id/wifi_off"
+    android:text="ON WIFI" />
+
+<Button
+    android:id="@+id/wifiParam"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/wifi_on"
+    android:layout_alignBottom="@+id/wifi_on"
+    android:layout_alignParentRight="true"
+    android:text="Param" />
+    <TextView
+        android:id="@+id/wifiInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:gravity="center"
+        android:layout_below="@+id/wifi_on"
+        android:maxLines="5"
+        android:text="INFO"
+        android:textSize="15sp" />
 
 </RelativeLayout>
