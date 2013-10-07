@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	int extraWifiState ;
 
 	final ArrayList<String> apnames = new ArrayList<String>() ;
-	
+	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 	String myString;
 	  /** Called when the activity is first created. */
 	  @Override
@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.d("MY TAG ", "State = " + extraWifiState);
 
 			//Intent intent_1 = new Intent(this, ActivityTwo.class);
-			Intent intent_1 = new Intent("com.example.wifi");
+			
 		    			
 			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//intent_1.putExtra("FirstRow", result.SSID.toString() );
 		            	//intent_1.putExtra("FirstRow", rowssid_1.getText().toString() );
 		            	  //RowSSID1
-		            	startActivity(intent_1);
+		            //	startActivity(intent_1);
 		            	//rowssid_1.setText(result.SSID);
 		            	//intent.putExtra("FirstRow", rowssid_1.getText().toString());
 		            	//startActivity(intent);
@@ -202,7 +202,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    	Log.d("MY TAG ", "Choose item = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
 			    startActivity(intent);
-			    //startActivity(intent_1);
+			    startActivity(intent_1);
 		      //tvColor.setTextColor(Color.RED);
 		      //tvColor.setText("Text color = red");
 		      break;

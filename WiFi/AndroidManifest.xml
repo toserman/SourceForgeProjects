@@ -23,7 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ActivityTwo"></activity>
+        
+        <activity android:name="ActivityTwo">
+            <intent-filter >
+                    <action android:name="my.action.bat.SCHEDULE_ACT" />
+
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+        </activity>
     </application>
 
 </manifest>
