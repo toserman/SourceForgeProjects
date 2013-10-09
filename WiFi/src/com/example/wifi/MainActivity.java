@@ -31,8 +31,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	List<ScanResult> results;
 	ListView lvAP;
 	int extraWifiState ;
-
-	final ArrayList<String> apnames = new ArrayList<String>() ;
+	
+	class wifiparam {
+		public int a;
+	};
+	final ArrayList<wifiparam> myparam = new ArrayList<MainActivity.wifiparam>();
+	
+	
+	
+	final ArrayList<String> apnames = new ArrayList<String>() ;	
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 	String myString;
 	  /** Called when the activity is first created. */
@@ -53,7 +60,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
-	      WifiParam.setOnClickListener(this);	
+	      WifiParam.setOnClickListener(this);      
+	      
 	      
 	      myString = "HELLO WORLD";
 	      //try {
@@ -84,7 +92,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    			
 			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-			 WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
+			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
 
 		  //WifiState.setText(myWifiInfo.getSSID());
 						    
@@ -123,6 +131,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            switch(count) {
 		            case 0:
 		            	intent_1.putExtra("FirstRow", myString.toString() );
+		            	
 		            	//intent_1.putExtra("FirstRow", result.SSID.toString() );
 		            	//intent_1.putExtra("FirstRow", rowssid_1.getText().toString() );
 		            	  //RowSSID1
@@ -134,10 +143,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//rowssid_1.setText(result.SSID);
 		          //      ActivityTwo.rowssid_1.setText("DDDDD");
 		       	     
-		            	
-		             	
 		            	break;
 		            case 1:
+		            	intent_1.putExtra("SecondRow", myString.toString());
 		            	//rowssid_2.setText(result.SSID);
 		            //	break;
 		            case 2:
@@ -145,7 +153,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//break;
 		            }
 		            count++;
-		            apnames.add(result.SSID);    
+		            
+		            apnames.add(result.SSID);   
+		            
 		        }
 		        
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());
@@ -201,6 +211,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
+		    	intent_1.putStringArrayListExtra("AP_NAMES", apnames);		    	
 			    startActivity(intent);
 			    startActivity(intent_1);
 		      //tvColor.setTextColor(Color.RED);
