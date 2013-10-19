@@ -15,7 +15,6 @@
         android:layout_centerHorizontal="true"
         android:text="TextView" />
 
-
 <ListView
     android:id="@+id/listAP"
     android:layout_width="wrap_content"

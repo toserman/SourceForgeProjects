@@ -153,7 +153,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//break;
 		            }
 		            count++;
-		            
 		            apnames.add(result.SSID);   
 		            
 		        }
@@ -165,38 +164,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		};
 		
 	  
-	  private BroadcastReceiver WifiStateChangedReceiver
-	  = new BroadcastReceiver(){	  
-
-	@Override
-	 public void onReceive(Context context, Intent intent) {
-	  // TODO Auto-generated method stub
-
-		
-	 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE ,
-	    WifiManager.WIFI_STATE_UNKNOWN);
-	
-	
-	  switch(extraWifiState){
-	  case WifiManager.WIFI_STATE_DISABLED:
-	   WifiState.setText("WIFI STATE DISABLED");
-	   break;
-	  case WifiManager.WIFI_STATE_DISABLING:
-	   WifiState.setText("WIFI STATE DISABLING");
-	   break;
-	  case WifiManager.WIFI_STATE_ENABLED:
-	   WifiState.setText("WIFI STATE ENABLED");
-	   break;
-	  case WifiManager.WIFI_STATE_ENABLING:
-	   WifiState.setText("WIFI STATE ENABLING");
-	   break;
-	  case WifiManager.WIFI_STATE_UNKNOWN:
-	   WifiState.setText("WIFI STATE UNKNOWN");
-	   break;	  
-	  }	   
-	 }	 	  
-	  };	  
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -222,4 +189,33 @@ public class MainActivity extends Activity implements OnClickListener {
 		    return super.onOptionsItemSelected(item);
 	  }
 
+
+	  
+	  private BroadcastReceiver WifiStateChangedReceiver
+	  = new BroadcastReceiver(){		  
+	  public void onReceive(Context context, Intent intent) {
+		  // TODO Auto-generated method stub
+	
+		 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE ,
+		    WifiManager.WIFI_STATE_UNKNOWN);
+				
+		  switch(extraWifiState){
+		  case WifiManager.WIFI_STATE_DISABLED:
+		   WifiState.setText("WIFI STATE DISABLED");
+		   break;
+		  case WifiManager.WIFI_STATE_DISABLING:
+		   WifiState.setText("WIFI STATE DISABLING");
+		   break;
+		  case WifiManager.WIFI_STATE_ENABLED:
+		   WifiState.setText("WIFI STATE ENABLED");
+		   break;
+		  case WifiManager.WIFI_STATE_ENABLING:
+		   WifiState.setText("WIFI STATE ENABLING");
+		   break;
+		  case WifiManager.WIFI_STATE_UNKNOWN:
+		   WifiState.setText("WIFI STATE UNKNOWN");
+		   break;	  
+		  }	   
+		 }	 	  
+		  };
 }

@@ -24,7 +24,7 @@ public class ActivityTwo extends Activity {
 //	      rowtablename = (TextView)findViewById(R.id.textTableName);	    
 	      rowssid_1 = (TextView)findViewById(R.id.textView31);
 	      rowssid_2 = (TextView)findViewById(R.id.textView41);
-	    //  rowssid_3 = (TextView)findViewById(R.id.textView47);
+	      rowssid_3 = (TextView)findViewById(R.id.textView47);
 	     // Intent i = new Intent(this, MainActivity.class);
 	     // Intent intent = new Intent(ActivityTwo.this,MainActivity.class).putExtra("myCustomerObj",this);	
 	      
@@ -40,7 +40,11 @@ public class ActivityTwo extends Activity {
 	   
 	      final ArrayList<String> apnames = intent_1.getStringArrayListExtra("AP_NAMES");
 	      Log.d("MY TAG :", "apnames = " +  apnames.get(0));
-	     
+	      Log.d("MY TAG :", "apnames = " +  apnames.get(1));
+	      Log.d("MY TAG :", "apnames = " +  apnames.get(2));
+	      rowssid_1.setText(apnames.get(0));
+	      rowssid_2.setText(apnames.get(1));
+	      rowssid_3.setText(apnames.get(1));
 	      
 	  }
   
