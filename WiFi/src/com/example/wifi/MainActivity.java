@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-//import ActivityTwo;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -32,16 +31,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	ListView lvAP;
 	int extraWifiState ;
 	
-	class wifiparam {
-		public int a;
-	};
-	final ArrayList<wifiparam> myparam = new ArrayList<MainActivity.wifiparam>();
-	
-	
+	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
 	
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
-	String myString;
+	
 	  /** Called when the activity is first created. */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -61,9 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
-	      
-	      
-	      myString = "HELLO WORLD";
+	     	     
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
@@ -74,13 +66,31 @@ public class MainActivity extends Activity implements OnClickListener {
 	     // Intent myIntent = new Intent(MainActivity.this, ActivityTwo.class);	      
      //     myIntent.putExtra("FirstRow",rowssid_1.getText());      
 	      
-	  	  lvAP = (ListView)findViewById(R.id.listAP);
+	  	  //lvAP = (ListView)findViewById(R.id.listAP);
 		  //Create adapter
-		  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.my_listview, apnames);
+		  //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.my_listview, apnames);
 		  //Put adapter into list
-		  lvAP.setAdapter(adapter);	
-	  }
+		  //lvAP.setAdapter(adapter);	
+		 
+	      scan_details = getListData();
+		 
+	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
+	      lvAP.setAdapter(new CustomListAdapter(this, scan_details));
+	    }
 	   
+		private ArrayList<ScanItem> getListData() {		
+			Log.d("MY TAG ", "getListData ");
+	        ArrayList<ScanItem> results = new ArrayList<ScanItem>();
+	        ScanItem test = new ScanItem();
+	        //newsData.setDate("DATA");
+	        test.setSsid("HELLO  WORLD");
+	        //newsData.setHeadline("Dance of Democracy");
+	        //newsData.setReporterName("Pankaj Gupta");
+	        //newsData.setDate("May 26, 2013, 13:35");
+	        results.add(test);
+	 
+	         return results;
+	    }
 	  
 	  @Override  
 		public void onClick(View v) {
@@ -89,7 +99,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			//Intent intent_1 = new Intent(this, ActivityTwo.class);
 			
-		    			
 			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
@@ -130,7 +139,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            Log.d("MY TAG count = ", "" + count);
 		            switch(count) {
 		            case 0:
-		            	intent_1.putExtra("FirstRow", myString.toString() );
+		            	//intent_1.putExtra("FirstRow", myString.toString() );
 		            	
 		            	//intent_1.putExtra("FirstRow", result.SSID.toString() );
 		            	//intent_1.putExtra("FirstRow", rowssid_1.getText().toString() );
@@ -145,7 +154,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		       	     
 		            	break;
 		            case 1:
-		            	intent_1.putExtra("SecondRow", myString.toString());
+		            	//intent_1.putExtra("SecondRow", myString.toString());
 		            	//rowssid_2.setText(result.SSID);
 		            //	break;
 		            case 2:
@@ -153,7 +162,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//break;
 		            }
 		            count++;
-		            apnames.add(result.SSID);   
+		            //apnames.add(result.SSID);
+		           // scan_details.ad
 		            
 		        }
 		        
@@ -188,8 +198,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    }
 		    return super.onOptionsItemSelected(item);
 	  }
-
-
+	  
 	  
 	  private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
