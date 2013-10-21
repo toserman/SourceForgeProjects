@@ -72,26 +72,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		  //Put adapter into list
 		  //lvAP.setAdapter(adapter);	
 		 
-	      scan_details = getListData();
+	      //scan_details = getListData();
 		 
 	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
 	      lvAP.setAdapter(new CustomListAdapter(this, scan_details));
 	    }
-	   
-		private ArrayList<ScanItem> getListData() {		
-			Log.d("MY TAG ", "getListData ");
-	        ArrayList<ScanItem> results = new ArrayList<ScanItem>();
-	        ScanItem test = new ScanItem();
-	        //newsData.setDate("DATA");
-	        test.setSsid("HELLO  WORLD");
-	        //newsData.setHeadline("Dance of Democracy");
-	        //newsData.setReporterName("Pankaj Gupta");
-	        //newsData.setDate("May 26, 2013, 13:35");
-	        results.add(test);
-	 
-	         return results;
-	    }
-	  
+		  
 	  @Override  
 		public void onClick(View v) {
 			Log.d("MY TAG ","SWITCH on ACTION");		
@@ -132,7 +118,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		        int count = 0;
 		        // loop that goes through list
 		        for (ScanResult result : results) {	
-		        	
+		        	 ScanItem scan_element = new ScanItem();
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
 		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");
@@ -161,10 +147,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	//rowssid_3.setText(result.SSID);
 		            	//break;
 		            }
-		            count++;
-		            //apnames.add(result.SSID);
-		           // scan_details.ad
-		            
+		            count++;		            
+		            scan_element.setSsid(result.SSID);
+		            scan_element.setChannelFreq(result.frequency);
+		            scan_element.setRSSIlevel(result.level);
+		            scan_details.add(scan_element);		            
 		        }
 		        
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());

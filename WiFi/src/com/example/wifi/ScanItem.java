@@ -2,7 +2,8 @@ package com.example.wifi;
 
 public class ScanItem {
 	private String ssid;
-    private String chanfreq;
+    private int chanfreq;
+    private int rssi; 
      
     public String getSsid() {
         return ssid;
@@ -12,12 +13,18 @@ public class ScanItem {
         this.ssid = ssid;
     }
  
-    public String getReporterName() {
+    public int getChannelFreq() {
         return chanfreq;
     }
+     public void setChannelFreq(int ch_freq) {
+        this.chanfreq = ch_freq;
+    }
+    public int getRSSIlevel() {
+        return rssi;
+    }
  
-    public void setReporterName(String reporterName) {
-        this.chanfreq = reporterName;
+    public void setRSSIlevel(int rssi) {
+        this.rssi = rssi;
     }
  
     

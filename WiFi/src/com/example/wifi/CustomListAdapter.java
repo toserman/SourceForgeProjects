@@ -51,6 +51,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.ssidname = (TextView) convertView.findViewById(R.id.ap_ssid);
             holder.channelfreq = (TextView) convertView.findViewById(R.id.ch_freq);
+            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -60,16 +61,16 @@ public class CustomListAdapter extends BaseAdapter {
         	//holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
     //    holder.reportedDateView.setText(listData.get(position).getDate());
         holder.ssidname.setText(listData.get(position).getSsid());
-        //holder.ssid.setText("ANTONIO");
-        //holder.ssid.setText(listData.get(position).);
-        //holder.ssid.setText(listData.get(position).)
-        holder.channelfreq.setText("EMILIO");
+        holder.channelfreq.setText(String.valueOf(listData.get(position).getChannelFreq()) + " MHz");
+        holder.rssilevel.setText(String.valueOf(listData.get(position).getRSSIlevel()) + " dBm");       
+        
         return convertView;
     }
  
     static class ViewHolder {
         TextView ssidname;
         TextView channelfreq;
+        TextView rssilevel;
         //TextView reportedDateView;
         //ImageView symbol_list;
     }
