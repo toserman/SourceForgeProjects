@@ -49,20 +49,21 @@ public class CustomListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);
             holder = new ViewHolder();
+            holder.ap_symbol = (ImageView)convertView.findViewById(R.id.icon);
             holder.ssidname = (TextView) convertView.findViewById(R.id.ap_ssid);
-            holder.channelfreq = (TextView) convertView.findViewById(R.id.ch_freq);
-            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);
+            holder.channelfreq = (TextView) convertView.findViewById(R.id.ap_freq);
+            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);            
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         
       //  holder.headlineView.setText(listData.get(position).getHeadline());
-        	//holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
+        //holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
     //    holder.reportedDateView.setText(listData.get(position).getDate());
         holder.ssidname.setText(listData.get(position).getSsid());
-        holder.channelfreq.setText(String.valueOf(listData.get(position).getChannelFreq()) + " MHz");
-        holder.rssilevel.setText(String.valueOf(listData.get(position).getRSSIlevel()) + " dBm");       
+        holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
+        holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");       
         
         return convertView;
     }
@@ -71,8 +72,9 @@ public class CustomListAdapter extends BaseAdapter {
         TextView ssidname;
         TextView channelfreq;
         TextView rssilevel;
+        ImageView ap_symbol;
         //TextView reportedDateView;
-        //ImageView symbol_list;
+        
     }
  
 }
