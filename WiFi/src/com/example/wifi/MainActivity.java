@@ -121,7 +121,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		        	 ScanItem scan_element = new ScanItem();
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
-		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");
+		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz"
+		           + result.capabilities);
 		            Log.d("MY TAG count = ", "" + count);
 		            switch(count) {
 		            case 0:
@@ -151,7 +152,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		            scan_element.setSsid(result.SSID);
 		            scan_element.setChannelFreq(result.frequency);
 		            scan_element.setRSSIlevel(result.level);
-		            scan_details.add(scan_element);		            
+		            scan_details.add(scan_element);		
+		            
 		        }
 		        
 				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());

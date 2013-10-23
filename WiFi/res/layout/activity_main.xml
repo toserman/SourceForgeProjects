@@ -21,10 +21,11 @@
     android:layout_height="wrap_content"
     android:layout_alignLeft="@+id/wifiInfo"
     android:layout_below="@+id/wifiInfo"
-    android:background="#000000"    
+    android:background="#000000"  
+    android:divider="#222222"  
     android:dividerHeight="@dimen/twodp" >
 </ListView>
-<!-- android:divider="@color/reddivider" -->
+<!--  -->
 <Button
     android:id="@+id/wifi_off"
     android:layout_width="wrap_content"
