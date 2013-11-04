@@ -14,8 +14,6 @@
     android:id="@+id/tableAPList"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/wifiInfo"
-    android:layout_below="@+id/wifiInfo"
     android:background="#dad8ce"
     android:shrinkColumns="*"
     android:stretchColumns="*" >

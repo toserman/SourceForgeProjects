@@ -24,7 +24,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	TextView WifiState,WifiInfo;
+	TextView WifiState;
+	TextView WifiInfo;
 	Button WifiOn,WifiOff,WifiParam;
 	TextView rowtablename,rowssid_1,rowssid_2,rowssid_3;
 	List<ScanResult> results;
@@ -44,8 +45,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOn = (Button)findViewById(R.id.wifi_on);
 	      WifiOff = (Button)findViewById(R.id.wifi_off);
 	      WifiParam = (Button)findViewById(R.id.wifiParam);
-	      WifiState = (TextView)findViewById(R.id.wifiState);
-	      WifiInfo = (TextView)findViewById(R.id.wifiInfo);
+	     // WifiState = (TextView)findViewById(R.id.wifiState);
+	    //  WifiInfo = (TextView)findViewById(R.id.wifiInfo);
 	      rowtablename = (TextView)findViewById(R.id.textTableName);	    
 	      rowssid_1 = (TextView)findViewById(R.id.textView31);
 	      rowssid_2 = (TextView)findViewById(R.id.textView41);
@@ -94,69 +95,51 @@ public class MainActivity extends Activity implements OnClickListener {
 			switch (v.getId()) {		
 			
 			case R.id.wifi_on:
-				WifiState.setText("WiFi ON");
+				//WifiState.setText("WiFi ON");
 				wifiManager.setWifiEnabled(true);
 				Log.d("MY TAG ", "After Enable State = " + extraWifiState);		
 			break;					
 			case R.id.wifi_off:			
-				WifiState.setText("WiFi OFF");
+				//WifiState.setText("WiFi OFF");
 				wifiManager.setWifiEnabled(false);	
-				Log.d("MY TAG ", "After Disable State = " + extraWifiState);
+				
 			break;
 			case R.id.wifiParam:
+				Log.d("MY TAG ", "After PUSH wifiParam = ");
+				/*]
 				WifiInfo.setText("BSSID:"     + myWifiInfo.getSSID() + "\n"
 								+ "RSSI:"     + myWifiInfo.getRssi() + "\n"
 							//	+ "MAC: "     + myWifiInfo.getMacAddress() + "\n"
 								+ "LINK SPEED: "     + myWifiInfo.getLinkSpeed() + "\n"
 								+ "SUPPLICANT:" + myWifiInfo.getSupplicantState()
 									);
+									*/
 				wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
-		         results = wifiManager.getScanResults();
-
-		         
-		        int count = 0;
+		         results = wifiManager.getScanResults();	         
+		        
 		        // loop that goes through list
 		        for (ScanResult result : results) {	
 		        	 ScanItem scan_element = new ScanItem();
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
 		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz"
-		           + result.capabilities);
-		            Log.d("MY TAG count = ", "" + count);
-		            switch(count) {
-		            case 0:
-		            	//intent_1.putExtra("FirstRow", myString.toString() );
-		            	
-		            	//intent_1.putExtra("FirstRow", result.SSID.toString() );
-		            	//intent_1.putExtra("FirstRow", rowssid_1.getText().toString() );
-		            	  //RowSSID1
-		            //	startActivity(intent_1);
-		            	//rowssid_1.setText(result.SSID);
-		            	//intent.putExtra("FirstRow", rowssid_1.getText().toString());
-		            	//startActivity(intent);
-		            	
-		            	//rowssid_1.setText(result.SSID);
-		          //      ActivityTwo.rowssid_1.setText("DDDDD");
-		       	     
-		            	break;
-		            case 1:
-		            	//intent_1.putExtra("SecondRow", myString.toString());
-		            	//rowssid_2.setText(result.SSID);
-		            //	break;
-		            case 2:
-		            	//rowssid_3.setText(result.SSID);
-		            	//break;
-		            }
-		            count++;		            
+		           + result.capabilities);           
+		            
+		            
 		            scan_element.setSsid(result.SSID);
 		            scan_element.setChannelFreq(result.frequency);
 		            scan_element.setRSSIlevel(result.level);
-		            scan_details.add(scan_element);		
-		            
+		            scan_element.setBSSI(result.BSSID);
+		            if (result.SSID.matches(myWifiInfo.getSSID()))
+		            {
+		            	scan_element.setConnectFlag(true);
+		            	Log.d("MY TAG ", "CONNECTED SSID = " + myWifiInfo.getSSID());
+		            }
+		            Log.d("MY TAG ", "flag = " + scan_element.getConnectFlag());
+		            scan_details.add(scan_element);		                     
 		        }
-		        
-				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());
+		       
 			break;			
 			}		    
 			
@@ -198,19 +181,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 		  switch(extraWifiState){
 		  case WifiManager.WIFI_STATE_DISABLED:
-		   WifiState.setText("WIFI STATE DISABLED");
+		   //WifiState.setText("WIFI STATE DISABLED");
 		   break;
 		  case WifiManager.WIFI_STATE_DISABLING:
-		   WifiState.setText("WIFI STATE DISABLING");
+		   //WifiState.setText("WIFI STATE DISABLING");
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLED:
-		   WifiState.setText("WIFI STATE ENABLED");
+		   //WifiState.setText("WIFI STATE ENABLED");
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLING:
-		   WifiState.setText("WIFI STATE ENABLING");
+		   //WifiState.setText("WIFI STATE ENABLING");
 		   break;
 		  case WifiManager.WIFI_STATE_UNKNOWN:
-		   WifiState.setText("WIFI STATE UNKNOWN");
+		   //WifiState.setText("WIFI STATE UNKNOWN");
 		   break;	  
 		  }	   
 		 }	 	  

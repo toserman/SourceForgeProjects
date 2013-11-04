@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/icon"       
         android:layout_marginTop="5dip"        
-        android:paddingRight="5dip"
+        android:paddingRight="1dip"
         android:text=""        
         android:textStyle = "bold"
         android:typeface="serif"
@@ -27,7 +27,6 @@
      	android:paddingRight="5dip"     	
      	android:layout_alignParentLeft ="true"         
         android:src="@drawable/wireless" />
-
         
     <TextView
         android:id="@+id/ap_rssi"
@@ -37,7 +36,6 @@
         android:textColor="#0000FF"         
         android:text=""   
         android:textSize="12sp"  />    
-                
  
     <TextView
         android:id="@+id/ap_freq"
@@ -49,8 +47,26 @@
         android:text=""
         android:textColor="#0000FF" 
         android:textSize="12sp" />
- 
+    
+	<TextView
+        android:id="@+id/ap_bssid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"       
+        android:layout_toRightOf="@+id/ap_ssid"
+        android:layout_marginTop="10dip"     
+        android:text=""
+        android:textColor="#0000FF" 
+        android:textSize="12sp" />
+	    
+	    <ImageView
+        android:id="@+id/wifi_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+     	android:layout_alignParentRight ="true" />
+    	<!-- android:src="@drawable/wifi_connected" -->
+    	
 
- 
+  
  
 </RelativeLayout>

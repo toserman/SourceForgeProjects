@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.ClipData.Item;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,33 +28,32 @@ public class CustomListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-    	Log.d("MY TAG ", "getCount");
+    public int getCount() {    	
         return listData.size();
     }
  
     @Override
-    public Object getItem(int position) {
-    	Log.d("MY TAG ", "getItem ");
+    public Object getItem(int position) {    	
         return listData.get(position);
     }
  
     @Override
-    public long getItemId(int position) {
-    	Log.d("MY TAG ", "getItemId ");
+    public long getItemId(int position) {    	
         return position;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        Log.d("MY TAG ", "getView ");
+        ViewHolder holder;     
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);
             holder = new ViewHolder();
-            holder.ap_symbol = (ImageView)convertView.findViewById(R.id.icon);
-            holder.ssidname = (TextView) convertView.findViewById(R.id.ap_ssid);
+            holder.ap_symbol_icon = (ImageView)convertView.findViewById(R.id.icon);         
+            holder.ssidname = (TextView)convertView.findViewById(R.id.ap_ssid);
+            holder.bssid = (TextView)convertView.findViewById(R.id.ap_bssid);
             holder.channelfreq = (TextView) convertView.findViewById(R.id.ap_freq);
-            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);            
+            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);  
+            Log.d("MY TAG ", "Get flag = " + listData.get(position).getConnectFlag());
+           
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -61,18 +62,39 @@ public class CustomListAdapter extends BaseAdapter {
       //  holder.headlineView.setText(listData.get(position).getHeadline());
         //holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
     //    holder.reportedDateView.setText(listData.get(position).getDate());
+        //if(listData.get(position).getConnectFlag())            	
+        holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_connect);
         holder.ssidname.setText(listData.get(position).getSsid());
+        holder.bssid.setText("("+listData.get(position).getBSSID()+")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
-        holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");       
+        holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");
+       
         
+       // if(countryName.equals("us")){
+         //   imageview.setImageRsource(R.drawable.us);
+        if(listData.get(position).getConnectFlag() == true){
+        	   Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
+        	   holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);
+        //	holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_test);
+            //holder.wifi_state_icon.setImageResource(R.id.wifi_test); 
+        	   
+        	  // imageview= (ImageView)findViewById(R.id.imageView);
+        	   //imageview.setImageDrawable(getResources().getDrawable(R.drawable.frnd_inactive));
+        }
+        
+       /// Resources res = this.getResources();
+       // Drawable drawable = res.getDrawable(R.drawable.wifi_connected);
+        //holder.wifi_state_icon.setImageDrawable(drawable); 
         return convertView;
     }
  
     static class ViewHolder {
         TextView ssidname;
+        TextView bssid;
         TextView channelfreq;
         TextView rssilevel;
-        ImageView ap_symbol;
+        ImageView ap_symbol_icon;
+        ImageView wifi_state_icon;
         //TextView reportedDateView;
         
     }
