@@ -69,22 +69,13 @@ public class CustomListAdapter extends BaseAdapter {
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
         holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");
        
-        
-       // if(countryName.equals("us")){
-         //   imageview.setImageRsource(R.drawable.us);
         if(listData.get(position).getConnectFlag() == true){
-        	   Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
-        	   holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);
-        //	holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_test);
-            //holder.wifi_state_icon.setImageResource(R.id.wifi_test); 
-        	   
-        	  // imageview= (ImageView)findViewById(R.id.imageView);
-        	   //imageview.setImageDrawable(getResources().getDrawable(R.drawable.frnd_inactive));
+        	Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
+        	Log.d("MY TAG ", "Adapter TRUE BSSID:" + listData.get(position).getBSSID());
+        	holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);       
+        } else {
+        	holder.wifi_state_icon.setImageResource(0);        	
         }
-        
-       /// Resources res = this.getResources();
-       // Drawable drawable = res.getDrawable(R.drawable.wifi_connected);
-        //holder.wifi_state_icon.setImageDrawable(drawable); 
         return convertView;
     }
  
@@ -96,7 +87,6 @@ public class CustomListAdapter extends BaseAdapter {
         ImageView ap_symbol_icon;
         ImageView wifi_state_icon;
         //TextView reportedDateView;
-        
     }
  
 }

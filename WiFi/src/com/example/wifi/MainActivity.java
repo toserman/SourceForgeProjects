@@ -89,13 +89,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
 
-		  //WifiState.setText(myWifiInfo.getSSID());
-						    
-			switch (v.getId()) {		
-			
+		  //WifiState.setText(myWifiInfo.getSSID());						    
+			switch (v.getId()) {					
 			case R.id.wifi_on:
 				WifiState.setText("WiFi ON");
-				wifiManager.setWifiEnabled(true);
+				wifiManager.setWifiEnabled(true);				
 				Log.d("MY TAG ", "After Enable State = " + extraWifiState);		
 			break;					
 			case R.id.wifi_off:			
@@ -115,57 +113,46 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
-		         results = wifiManager.getScanResults();
-
-		         
-		        int count = 0;
+		         results = wifiManager.getScanResults();	         
+	        
 		        // loop that goes through list
 		        for (ScanResult result : results) {	
 		        	 ScanItem scan_element = new ScanItem();
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
-		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz"
-		           + result.capabilities);
-		            Log.d("MY TAG count = ", "" + count);
-		            switch(count) {
-		            case 0:
-		            	//intent_1.putExtra("FirstRow", myString.toString() );
-		            	
-		            	//intent_1.putExtra("FirstRow", result.SSID.toString() );
-		            	//intent_1.putExtra("FirstRow", rowssid_1.getText().toString() );
-		            	  //RowSSID1
-		            //	startActivity(intent_1);
-		            	//rowssid_1.setText(result.SSID);
-		            	//intent.putExtra("FirstRow", rowssid_1.getText().toString());
-		            	//startActivity(intent);
-		            	
-		            	//rowssid_1.setText(result.SSID);
-		          //      ActivityTwo.rowssid_1.setText("DDDDD");
-		       	     
-		            	break;
-		            case 1:
-		            	//intent_1.putExtra("SecondRow", myString.toString());
-		            	//rowssid_2.setText(result.SSID);
-		            //	break;
-		            case 2:
-		            	//rowssid_3.setText(result.SSID);
-		            	//break;
-		            }
-		            count++;		            
+		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");	
+		            
+		            //result.capabilities
+		            //[WPA2-EAP-TKIP+CCMP] - cipher; [ESS] - no cipher
+		            //[WPA-PSK-TKIP+CCMP][WPA2-PSK-TKIP-CCMP][WPS][ESS]		            
+		                     	            
 		            scan_element.setSsid(result.SSID);
 		            scan_element.setChannelFreq(result.frequency);
 		            scan_element.setRSSIlevel(result.level);
-		            scan_element.setBSSI(result.BSSID);
-		            if (result.SSID.matches(myWifiInfo.getSSID()))
+		            scan_element.setBSSID(result.BSSID);
+		            scan_element.setCipherType(result.capabilities);		            
+		            
+		            if (result.BSSID.matches(myWifiInfo.getBSSID()))
 		            {
 		            	scan_element.setConnectFlag(true);
 		            	Log.d("MY TAG ", "CONNECTED SSID = " + myWifiInfo.getSSID());
+		            	Log.d("MY TAG ", "CONNECTED BSSID = " + myWifiInfo.getBSSID());
 		            }
 		            Log.d("MY TAG ", "flag = " + scan_element.getConnectFlag());
+		            Log.d("MY TAG ", "CAPABILITIES = " + scan_element.getCipherType());
+		           
+		            /*
+		            if(result.capabilities.matches("[WPA2-PSK-CCMP][ESS]"))
+		            		Log.d("MY TAG ", "CAPABILITIES = [WPA2-PSK-CCMP][ESS]");
+		            if(result.capabilities.matches("[ESS]"))
+	            		Log.d("MY TAG ", "CAPABILITIES = [ESS]");
+		            if(result.capabilities.matches("[WPA-PSK-TKIP+CCMP]"))
+	            		Log.d("MY TAG ", "CAPABILITIES = [WPA-PSK-TKIP+CCMP]");
+	            */
+		            
 		            scan_details.add(scan_element);		                     
-		        }
-		        
-				Log.d("MY TAG ", "Get BSSID = " + myWifiInfo.getSSID());
+		        }		        
+				
 			break;			
 			}		    
 			
