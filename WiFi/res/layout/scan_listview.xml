@@ -64,6 +64,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
      	android:layout_alignParentRight ="true" />
+	    
+	    <ImageView      
+	    android:id="@+id/wifi_capabilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ap_ssid"
+        android:paddingLeft="5dip"
+        android:layout_toRightOf="@+id/ap_freq"/>
     	<!-- android:src="@drawable/wifi_connected" -->
     	
 

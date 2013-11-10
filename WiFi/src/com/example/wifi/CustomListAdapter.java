@@ -51,7 +51,9 @@ public class CustomListAdapter extends BaseAdapter {
             holder.ssidname = (TextView)convertView.findViewById(R.id.ap_ssid);
             holder.bssid = (TextView)convertView.findViewById(R.id.ap_bssid);
             holder.channelfreq = (TextView) convertView.findViewById(R.id.ap_freq);
-            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);  
+            holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);
+            holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_connect);
+            holder.wifi_capab_icon = (ImageView)convertView.findViewById(R.id.wifi_capabilities);
             Log.d("MY TAG ", "Get flag = " + listData.get(position).getConnectFlag());
            
             convertView.setTag(holder);
@@ -63,7 +65,7 @@ public class CustomListAdapter extends BaseAdapter {
         //holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
     //    holder.reportedDateView.setText(listData.get(position).getDate());
         //if(listData.get(position).getConnectFlag())            	
-        holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_connect);
+       
         holder.ssidname.setText(listData.get(position).getSsid());
         holder.bssid.setText("("+listData.get(position).getBSSID()+")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
@@ -72,10 +74,20 @@ public class CustomListAdapter extends BaseAdapter {
         if(listData.get(position).getConnectFlag() == true){
         	Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
         	Log.d("MY TAG ", "Adapter TRUE BSSID:" + listData.get(position).getBSSID());
-        	holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);       
+        	holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);        	 
         } else {
         	holder.wifi_state_icon.setImageResource(0);        	
         }
+        
+        Log.d("MY TAG ", "Adapter: " + listData.get(position).getCipherType());
+        if(listData.get(position).getCipherType() == "WPA"){
+        	holder.wifi_capab_icon.setImageResource(R.drawable.padlock_closed);
+        	Log.d("MY TAG ", "WPA " + listData.get(position).getCipherType());
+            
+    	} else {
+    		holder.wifi_state_icon.setImageResource(0);        	
+    	}
+    	
         return convertView;
     }
  
@@ -86,6 +98,7 @@ public class CustomListAdapter extends BaseAdapter {
         TextView rssilevel;
         ImageView ap_symbol_icon;
         ImageView wifi_state_icon;
+        ImageView wifi_capab_icon;
         //TextView reportedDateView;
     }
  

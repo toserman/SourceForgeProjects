@@ -88,6 +88,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
+			
+					
 
 		  //WifiState.setText(myWifiInfo.getSSID());						    
 			switch (v.getId()) {					
@@ -113,7 +115,9 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
-		         results = wifiManager.getScanResults();	         
+		         results = wifiManager.getScanResults();
+		         
+		       //In Android 4.0.x, getConnectionInfo() calls 
 	        
 		        // loop that goes through list
 		        for (ScanResult result : results) {	
@@ -149,7 +153,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		            if(result.capabilities.matches("[WPA-PSK-TKIP+CCMP]"))
 	            		Log.d("MY TAG ", "CAPABILITIES = [WPA-PSK-TKIP+CCMP]");
 	            */
+		            if(result.capabilities.contains("WPA2"))
+		            	scan_element.setCipherType("WPA2");
 		            
+		            if(result.capabilities.contains("WPA"))
+		            	scan_element.setCipherType("WPA");
+		            	
+		     //       if(result.capabilities.contains("WEP"))		                  		
+		       //     	Log.d("MY TAG ", "NO CIPHER = [WEP]" + myWifiInfo.getSSID());
+		      	            
 		            scan_details.add(scan_element);		                     
 		        }		        
 				
