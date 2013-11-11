@@ -65,13 +65,24 @@
         android:layout_marginTop="15dip"
      	android:layout_alignParentRight ="true" />
 	    
+	  <TextView
+        android:id="@+id/crypted_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ap_ssid"       
+        android:layout_toRightOf="@+id/ap_freq"
+        android:paddingLeft="5dip"     
+        android:text=""
+        android:textColor="#0000FF" 
+        android:textSize="12sp" />
+	    	
 	    <ImageView      
 	    android:id="@+id/wifi_capabilities"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid"
-        android:paddingLeft="5dip"
-        android:layout_toRightOf="@+id/ap_freq"/>
+        android:paddingLeft="1dip"
+        android:layout_toRightOf="@+id/crypted_mode"/>
     	<!-- android:src="@drawable/wifi_connected" -->
     	
 

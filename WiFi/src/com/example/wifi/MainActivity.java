@@ -158,6 +158,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		            
 		            if(result.capabilities.contains("WPA"))
 		            	scan_element.setCipherType("WPA");
+		            if(result.capabilities.contains("WPS"))
+		            	scan_element.setCipherType("WPS");
+		            
 		            	
 		     //       if(result.capabilities.contains("WEP"))		                  		
 		       //     	Log.d("MY TAG ", "NO CIPHER = [WEP]" + myWifiInfo.getSSID());
