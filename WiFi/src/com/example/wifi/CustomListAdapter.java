@@ -60,15 +60,10 @@ public class CustomListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-        }
-        
-      //  holder.headlineView.setText(listData.get(position).getHeadline());
-        //holder.reporterNameView.setText("By, " + listData.get(position).getReporterName());
-    //    holder.reportedDateView.setText(listData.get(position).getDate());
-        //if(listData.get(position).getConnectFlag())            	
+        }       	
        
         holder.ssidname.setText(listData.get(position).getSsid());
-        holder.bssid.setText("("+listData.get(position).getBSSID()+")");
+       // holder.bssid.setText("("+listData.get(position).getBSSID()+")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
         holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");
        
@@ -79,22 +74,24 @@ public class CustomListAdapter extends BaseAdapter {
         	holder.wifi_state_icon.setImageResource(R.drawable.internet_radio_new);  
         } else {
         	holder.wifi_state_icon.setImageResource(0);        	
-        }
-       
-            
-        Log.d("MY TAG ", "Adapter: " + listData.get(position).getCipherType());
+        }     
+                 
         if( listData.get(position).getCipherType() == "WPA2" ||
              listData.get(position).getCipherType() == "WPA" ||
-             listData.get(position).getCipherType() == "WPS" ){
+             listData.get(position).getCipherType() == "WPS" ||
+             listData.get(position).getCipherType() == "WEP" ){
         	//holder.wifi_capab_icon.setImageResource(R.drawable.padlock_closed);
         	//holder.wifi_capab_icon.setImageResource(R.drawable.wireless_new);
         	holder.crypted_mode.setText(listData.get(position).getCipherType());
         	holder.wifi_capab_icon.setImageResource(R.drawable.encrypted);
-        	Log.d("MY TAG ", "WPA2 " + listData.get(position).getCipherType());            
-    	} else {    		
-    		holder.wifi_capab_icon.setImageResource(0);
-    		//holder.wifi_capab_icon.setImageResource(R.drawable.decrypted);
-    	}    	
+        	Log.d("MY TAG ", "ENCRYPTED: " + listData.get(position).getCipherType() + " :"
+        		  + listData.get(position).getSsid());            
+    	} else {   		
+    		holder.wifi_capab_icon.setImageResource(0);    		
+    	}
+        if( listData.get(position).getCipherType() == "ESS")
+        	holder.wifi_capab_icon.setImageResource(R.drawable.decrypted);
+                		
         return convertView;
     }
  

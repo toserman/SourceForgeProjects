@@ -124,6 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		        	 ScanItem scan_element = new ScanItem();
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
+		        	 Log.d("MY TAG ", "***********************");
 		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");	
 		            
 		            //result.capabilities
@@ -144,27 +145,19 @@ public class MainActivity extends Activity implements OnClickListener {
 		            }
 		            Log.d("MY TAG ", "flag = " + scan_element.getConnectFlag());
 		            Log.d("MY TAG ", "CAPABILITIES = " + scan_element.getCipherType());
-		           
-		            /*
-		            if(result.capabilities.matches("[WPA2-PSK-CCMP][ESS]"))
-		            		Log.d("MY TAG ", "CAPABILITIES = [WPA2-PSK-CCMP][ESS]");
-		            if(result.capabilities.matches("[ESS]"))
-	            		Log.d("MY TAG ", "CAPABILITIES = [ESS]");
-		            if(result.capabilities.matches("[WPA-PSK-TKIP+CCMP]"))
-	            		Log.d("MY TAG ", "CAPABILITIES = [WPA-PSK-TKIP+CCMP]");
-	            */
+		          
+		    
 		            if(result.capabilities.contains("WPA2"))
 		            	scan_element.setCipherType("WPA2");
-		            
-		            if(result.capabilities.contains("WPA"))
+		            else if (result.capabilities.contains("WPA"))
 		            	scan_element.setCipherType("WPA");
-		            if(result.capabilities.contains("WPS"))
-		            	scan_element.setCipherType("WPS");
-		            
-		            	
-		     //       if(result.capabilities.contains("WEP"))		                  		
-		       //     	Log.d("MY TAG ", "NO CIPHER = [WEP]" + myWifiInfo.getSSID());
-		      	            
+		            else if (result.capabilities.contains("WPS"))
+		            	scan_element.setCipherType("WPS");	
+		            else if (result.capabilities.contains("WEP"))
+		            	scan_element.setCipherType("WEP");	
+		            else 
+		            	scan_element.setCipherType("ESS");          
+		            		      	            
 		            scan_details.add(scan_element);		                     
 		        }		        
 				
@@ -189,11 +182,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		    	Intent intent = new Intent(this, ActivityTwo.class);
 		    	intent_1.putStringArrayListExtra("AP_NAMES", apnames);		    	
 			    startActivity(intent);
-			    startActivity(intent_1);
-		      //tvColor.setTextColor(Color.RED);
-		      //tvColor.setText("Text color = red");
-		      break;
-	
+			    startActivity(intent_1);		     
+		      break;	
 		    }
 		    return super.onOptionsItemSelected(item);
 	  }
