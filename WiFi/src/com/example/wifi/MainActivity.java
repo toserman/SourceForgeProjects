@@ -87,10 +87,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
-			
+			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();			
 					
-
 		  //WifiState.setText(myWifiInfo.getSSID());						    
 			switch (v.getId()) {					
 			case R.id.wifi_on:
