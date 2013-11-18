@@ -16,8 +16,8 @@
         android:paddingRight="1dip"
         android:text=""        
         android:textStyle = "bold"
-        android:typeface="serif"
-        android:textColor="#67E667"        
+                  
+        android:textColor="#A9F3A9"        
         android:textSize="16sp" />
     <!-- accented analogic  
     http://colorschemedesigner.com/#
@@ -51,7 +51,7 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid" 
-        android:textColor="#009999"         
+        android:textColor="#A0E6E6"         
         android:text=""   
         android:textSize="12sp"  />    
  
@@ -63,7 +63,7 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:paddingLeft="5dip"
         android:layout_toRightOf="@+id/ap_rssi"         
         android:text=""
-        android:textColor="#009999" 
+        android:textColor="#A0E6E6" 
         android:textSize="12sp" />
     
 	<TextView
@@ -73,7 +73,7 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:layout_toRightOf="@+id/ap_ssid"
         android:layout_marginTop="10dip"     
         android:text=""
-        android:textColor="#009999" 
+        android:textColor="#A0E6E6" 
         android:textSize="12sp" />
 	    
 	    <ImageView
@@ -91,7 +91,7 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:layout_toRightOf="@+id/ap_freq"
         android:paddingLeft="5dip"     
         android:text=""
-        android:textColor="#009999" 
+        android:textColor="#A0E6E6" 
         android:textSize="12sp" />
 	    	
 	    <ImageView      

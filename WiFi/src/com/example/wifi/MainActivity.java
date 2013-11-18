@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
-	     	     
+	      
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
@@ -74,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		 
 	      //scan_details = getListData();
 		 
-	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
+	      final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
 	      lvAP.setAdapter(new CustomListAdapter(this, scan_details));
 	    }
 		  
@@ -113,9 +114,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 				wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
-		         results = wifiManager.getScanResults();
-		         
-		       //In Android 4.0.x, getConnectionInfo() calls 
+		         results = wifiManager.getScanResults();	       
+		     
 	        
 		        // loop that goes through list
 		        for (ScanResult result : results) {	

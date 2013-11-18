@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.ClipData.Item;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +21,14 @@ public class CustomListAdapter extends BaseAdapter {
 	 
     private ArrayList<ScanItem> listData;
     private LayoutInflater layoutInflater;
- 
+    public AssetManager mngr; //For fonts
+    public Typeface font_roboto;
+    
     public CustomListAdapter(Context context, ArrayList<ScanItem> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
-        
+        mngr = context.getAssets();
+        font_roboto = Typeface.createFromAsset(mngr, "fonts/Roboto-Regular.ttf");
         Log.d("MY TAG ", "Constructor CustomListAdapter ");
     }
 
@@ -67,6 +72,19 @@ public class CustomListAdapter extends BaseAdapter {
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
         holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");
        
+      
+      // Typeface font_roboto = Typeface.createFromAsset(mngr, "fonts/Roboto-Regular.ttf");
+     //  Typeface type = Typeface.createFromAsset(mngr, "fonts/Roboto-Medium.ttf");
+      // Typeface type = Typeface.createFromAsset(mngr, "fonts/Roboto-MediumItalic.ttf");
+        //Typeface type = Typeface.createFromAsset(mngr, "fonts/Roboto-Light.ttf");
+        //Typeface type = Typeface.createFromAsset(mngr, "fonts/Roboto-Thin.ttf");
+        //Typeface type = Typeface.createFromAsset(mngr, "fonts/Roboto-Condensed.ttf");
+        holder.ssidname.setTypeface(font_roboto);
+        holder.bssid.setTypeface(font_roboto);
+        holder.channelfreq.setTypeface(font_roboto);
+        holder.crypted_mode.setTypeface(font_roboto);
+        holder.rssilevel.setTypeface(font_roboto);
+
         if(listData.get(position).getConnectFlag() == true){
         	Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
         	Log.d("MY TAG ", "Adapter TRUE BSSID:" + listData.get(position).getBSSID());
@@ -90,8 +108,10 @@ public class CustomListAdapter extends BaseAdapter {
     		holder.wifi_capab_icon.setImageResource(0);    		
     	}
         if( listData.get(position).getCipherType() == "ESS")
+        {
+        	holder.crypted_mode.setText(listData.get(position).getCipherType());
         	holder.wifi_capab_icon.setImageResource(R.drawable.decrypted);
-                		
+        }       		
         return convertView;
     }
  

@@ -22,7 +22,7 @@ tools:context=".MainActivity" >
     android:layout_height="wrap_content"
     android:layout_alignLeft="@+id/wifiInfo"
     android:layout_below="@+id/wifiInfo"
-	android:background="@drawable/gradient"        
+	android:background="#1c1c1c"        
     android:divider="#222222"  
     android:dividerHeight="@dimen/twodp" >
 </ListView>
