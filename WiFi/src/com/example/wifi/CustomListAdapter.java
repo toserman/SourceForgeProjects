@@ -29,7 +29,7 @@ public class CustomListAdapter extends BaseAdapter {
         layoutInflater = LayoutInflater.from(context);
         mngr = context.getAssets();
         font_roboto = Typeface.createFromAsset(mngr, "fonts/Roboto-Regular.ttf");
-        Log.d("MY TAG ", "Constructor CustomListAdapter ");
+        Log.d("MY Constructor ", "Constructor CustomListAdapter ");
     }
 
     @Override

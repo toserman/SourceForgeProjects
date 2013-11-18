@@ -30,6 +30,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	TextView rowtablename,rowssid_1,rowssid_2,rowssid_3;
 	List<ScanResult> results;
 	ListView lvAP;
+	WifiManager wifiManager;
 	int extraWifiState ;
 	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
@@ -57,6 +58,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
 	      
+	      Log.d("MY ON_CREATE ", "Call onCreate " );
+	      wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+	      
+	      Log.d("MY ON_CREATE ", "Call onCreate " );
+	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
+	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
+	         
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
@@ -86,7 +94,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			//Intent intent_1 = new Intent(this, ActivityTwo.class);
 			
-			WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE); 
+			//WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
+			//wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
 			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();			
 					
