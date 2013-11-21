@@ -72,19 +72,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	    	//  Log.e("ERROR", "ERROR IN CODE" + e.toString());
 	    	 // e.printStackTrace();
 	      //}	      
-	     // Intent myIntent = new Intent(MainActivity.this, ActivityTwo.class);	      
-     //     myIntent.putExtra("FirstRow",rowssid_1.getText());      
 	      
-	  	  //lvAP = (ListView)findViewById(R.id.listAP);
-		  //Create adapter
-		  //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.my_listview, apnames);
-		  //Put adapter into list
-		  //lvAP.setAdapter(adapter);	
-		 
-	      //scan_details = getListData();
-		 
-	      final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
-	      lvAP.setAdapter(new CustomListAdapter(this, scan_details));
+	      wifiManager.startScan(); 
+	        // get list of the results in object format ( like an array )
+		
+		  results = wifiManager.getScanResults();
+	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
+	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
+	      
+			  //Switch to old version
+	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
+	      //lvAP.setAdapter(new CustomListAdapter(this, scan_details));
+	     
 	    }
 		  
 	  @Override  
@@ -92,14 +91,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.d("MY TAG ","SWITCH on ACTION");		
 			Log.d("MY TAG ", "State = " + extraWifiState);
 
-			//Intent intent_1 = new Intent(this, ActivityTwo.class);
-			
+			//Intent intent_1 = new Intent(this, ActivityTwo.class);			
 			//WifiManager wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
 			//wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
-			//WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();			
-					
-		  //WifiState.setText(myWifiInfo.getSSID());						    
+			
+			WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
+		  						    
 			switch (v.getId()) {					
 			case R.id.wifi_on:
 				WifiState.setText("WiFi ON");
@@ -121,14 +118,22 @@ public class MainActivity extends Activity implements OnClickListener {
 								+ "SUPPLICANT:" + myWifiInfo.getSupplicantState()
 									);
 				
-				wifiManager.startScan(); 
+			//	wifiManager.startScan(); 
 		        // get list of the results in object format ( like an array )
-		         results = wifiManager.getScanResults();	       
-		     
-	        
+			
+				//  results = wifiManager.getScanResults();
+				  Log.d("MY TAG ", "Point 1");   
+		         //results = wifiManager.getScanResults();      
+		         //lvAP.setAdapter(new CustomScanListAdapter(this,results));
+		         
+		        
+		         
 		        // loop that goes through list
-		        for (ScanResult result : results) {	
-		        	 ScanItem scan_element = new ScanItem();
+		        for (ScanResult result : results) {
+		        	Log.d("MY TAG ", "Point 2"); 
+		        	
+		        	ScanItem scan_element = new ScanItem();
+		        	   	 
 		         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 		           //         Toast.LENGTH_SHORT).show();
 		        	 Log.d("MY TAG ", "***********************");
@@ -162,7 +167,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            	scan_element.setCipherType("WPS");	
 		            else if (result.capabilities.contains("WEP"))
 		            	scan_element.setCipherType("WEP");	
-		            else 
+		            else
 		            	scan_element.setCipherType("ESS");          
 		            		      	            
 		            scan_details.add(scan_element);		                     
@@ -187,7 +192,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
-		    	intent_1.putStringArrayListExtra("AP_NAMES", apnames);		    	
+		    	intent_1.putStringArrayListExtra("AP_NAMES", apnames);
+		    	
 			    startActivity(intent);
 			    startActivity(intent_1);		     
 		      break;	

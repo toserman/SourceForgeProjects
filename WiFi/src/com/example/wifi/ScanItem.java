@@ -1,5 +1,8 @@
 package com.example.wifi;
 
+import android.content.Context;
+import android.util.Log;
+
 public class ScanItem {
 	private String ssid;
 	private String bssid;
@@ -7,7 +10,7 @@ public class ScanItem {
     private int rssi;
     private boolean connect_flag;
     private String cipher;
-     
+    
     //SSID name
     public String getSsid(){
         return ssid;
