@@ -3,11 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Notification.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -17,10 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -32,6 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	ListView lvAP;
 	WifiManager wifiManager;
 	int extraWifiState ;
+	final int DIALOG_EXIT = 1;
 	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
 	
@@ -64,6 +68,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	      Log.d("MY ON_CREATE ", "Call onCreate " );
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
+	      
+	      CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this);
+	      cdd.show();
+	      
+	    //  showSettingsAlert();
 	         
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
@@ -78,14 +87,62 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		  results = wifiManager.getScanResults();
 	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
-	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
+	     // lvAP.setAdapter(new CustomScanListAdapter(this,results));
 	      
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
 	      //lvAP.setAdapter(new CustomListAdapter(this, scan_details));
 	     
 	    }
+	  
+	  @SuppressWarnings("deprecation")
+	public void showSettingsAlert(){
+		  /*
+		    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 		  
+		    // Setting Dialog Title
+		    alertDialog.setTitle("GPS is settings");
+
+		    // Setting Dialog Message
+		    alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+
+		    // Setting Icon to Dialog
+		    //alertDialog.setIcon(R.drawable.delete);
+
+		    // on pressing cancel button
+		//    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		//        public void onClick(DialogInterface dialog, int which) {
+		//        dialog.cancel();
+		//        }
+		//    });
+
+		    // Showing Alert Message
+		    alertDialog.show();
+		    
+		    */
+		
+		  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			AlertDialog dialog = builder.create();	
+			dialog.setTitle("Do you want to enable WiFi service?");			
+			dialog.setMessage("You can't use this app unless you enable WiFi.");
+			dialog.setButton2( "No", listenerDoesNotAccept);
+			dialog.setButton("Yes",listenerAccept);			
+			dialog.setCancelable(false);
+			dialog.show();
+		    
+		}
+		DialogInterface.OnClickListener listenerAccept = new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {		
+				Log.d("MY TAG ","PRESS YES");
+			}
+		};
+		DialogInterface.OnClickListener listenerDoesNotAccept = new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {		
+				Log.d("MY TAG ","PRESS NO");
+			}
+		};
+	
+
 	  @Override  
 		public void onClick(View v) {
 			Log.d("MY TAG ","SWITCH on ACTION");		
@@ -138,11 +195,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		           //         Toast.LENGTH_SHORT).show();
 		        	 Log.d("MY TAG ", "***********************");
 		            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");	
-		            
-		            //result.capabilities
-		            //[WPA2-EAP-TKIP+CCMP] - cipher; [ESS] - no cipher
-		            //[WPA-PSK-TKIP+CCMP][WPA2-PSK-TKIP-CCMP][WPS][ESS]		            
-		                     	            
 		            scan_element.setSsid(result.SSID);
 		            scan_element.setChannelFreq(result.frequency);
 		            scan_element.setRSSIlevel(result.level);
@@ -157,18 +209,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		            }
 		            Log.d("MY TAG ", "flag = " + scan_element.getConnectFlag());
 		            Log.d("MY TAG ", "CAPABILITIES = " + scan_element.getCipherType());
-		          
-		    
-		            if(result.capabilities.contains("WPA2"))
-		            	scan_element.setCipherType("WPA2");
-		            else if (result.capabilities.contains("WPA"))
-		            	scan_element.setCipherType("WPA");
-		            else if (result.capabilities.contains("WPS"))
-		            	scan_element.setCipherType("WPS");	
-		            else if (result.capabilities.contains("WEP"))
-		            	scan_element.setCipherType("WEP");	
-		            else
-		            	scan_element.setCipherType("ESS");          
+		          	    
+		                   
 		            		      	            
 		            scan_details.add(scan_element);		                     
 		        }		        
