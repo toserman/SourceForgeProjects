@@ -2,35 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87847E"
+    android:background="#999999"
     android:orientation="vertical" >
-
+    
+<!-- android:background="@drawable/dialog_window_style" -->
+<!-- android:background="#999999" -->
     <TextView
         android:id="@+id/title_dialog"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="#59595E"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#444344"
+        android:divider="#ffffff"
         android:gravity="center_vertical|center_horizontal"
+        android:lines="2"
         android:text="Do you want to enable WiFi service ?"
-        android:textColor="#E7E7E7"
-        android:textSize="15dp"
-        android:textStyle="bold" >
-
-    </TextView>
+        android:textColor="#D0D0D0"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/message_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="#444344"
+        android:gravity="center_vertical|center_horizontal"
+        android:hint="2"
         android:text="You can&apos;t use this app unless you enable WiFi."
-        android:textColor="@android:color/black"
+        android:textColor="#D0D0D0"
         android:textSize="15dp"
-        android:textStyle="bold" >
-    </TextView>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,24 +46,30 @@
 
         <Button
             android:id="@+id/btn_yes"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="30dp"
-            android:background="@android:color/white"
-            android:clickable="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/dialog_button"
             android:text="Yes"
-            android:textColor="#5DBCD2"
+            android:textColor="#403f40"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_no"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/white"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="7dp"
+            android:layout_weight="3.5"
+            android:background="@drawable/dialog_button"
             android:clickable="true"
             android:text="No"
-            android:textColor="#5DBCD2"
+            android:textColor="#403f40"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 </LinearLayout>

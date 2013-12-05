@@ -69,8 +69,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
 	      
-	      CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this);
-	      cdd.show();
+	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
+	    	  {
+	    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
+	    	     cdd.show();  
+	    	  }
+	    	  
+	      
 	      
 	    //  showSettingsAlert();
 	         
@@ -86,15 +91,19 @@ public class MainActivity extends Activity implements OnClickListener {
 	        // get list of the results in object format ( like an array )
 		
 		  results = wifiManager.getScanResults();
-	      final ListView lvAP = (ListView) findViewById(R.id.listAP);
-	     // lvAP.setAdapter(new CustomScanListAdapter(this,results));
-	      
+		  final ListView lvAP = (ListView) findViewById(R.id.listAP);
+		  
+		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
+		 {	     
+	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
+	      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
+		 }
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
 	      //lvAP.setAdapter(new CustomListAdapter(this, scan_details));
 	     
 	    }
-	  
+/*	  
 	  @SuppressWarnings("deprecation")
 	public void showSettingsAlert(){
 		  /*
@@ -121,17 +130,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		    
 		    */
 		
-		  AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			AlertDialog dialog = builder.create();	
-			dialog.setTitle("Do you want to enable WiFi service?");			
-			dialog.setMessage("You can't use this app unless you enable WiFi.");
-			dialog.setButton2( "No", listenerDoesNotAccept);
-			dialog.setButton("Yes",listenerAccept);			
-			dialog.setCancelable(false);
-			dialog.show();
-		    
-		}
-		DialogInterface.OnClickListener listenerAccept = new DialogInterface.OnClickListener() {
+	//	  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		//	AlertDialog dialog = builder.create();	
+		//	dialog.setTitle("Do you want to enable WiFi service?");			
+		//	dialog.setMessage("You can't use this app unless you enable WiFi.");
+		//	dialog.setButton2( "No", listenerDoesNotAccept);
+		//	dialog.setButton("Yes",listenerAccept);			
+		//	dialog.setCancelable(false);
+		//	dialog.show();		    
+		//}
+	/*	DialogInterface.OnClickListener listenerAccept = new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {		
 				Log.d("MY TAG ","PRESS YES");
 			}
@@ -140,7 +148,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onClick(DialogInterface dialog, int which) {		
 				Log.d("MY TAG ","PRESS NO");
 			}
-		};
+		}; */
 	
 
 	  @Override  
@@ -182,9 +190,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				  Log.d("MY TAG ", "Point 1");   
 		         //results = wifiManager.getScanResults();      
 		         //lvAP.setAdapter(new CustomScanListAdapter(this,results));
-		         
-		        
-		         
+		      
 		        // loop that goes through list
 		        for (ScanResult result : results) {
 		        	Log.d("MY TAG ", "Point 2"); 
@@ -209,9 +215,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		            }
 		            Log.d("MY TAG ", "flag = " + scan_element.getConnectFlag());
 		            Log.d("MY TAG ", "CAPABILITIES = " + scan_element.getCipherType());
-		          	    
-		                   
-		            		      	            
+		          	    		            		      	            
 		            scan_details.add(scan_element);		                     
 		        }		        
 				
