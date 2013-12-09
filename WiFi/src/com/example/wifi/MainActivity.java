@@ -15,6 +15,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,8 +57,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	      rowssid_1 = (TextView)findViewById(R.id.textView31);
 	      rowssid_2 = (TextView)findViewById(R.id.textView41);
 	      rowssid_3 = (TextView)findViewById(R.id.textView47);
-	      this.registerReceiver(this.WifiStateChangedReceiver,
-	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	  //    this.registerReceiver(this.WifiStateChangedReceiver,
+	    //          new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
@@ -74,11 +75,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
 	    	     cdd.show();  
 	    	  }
-	    	  
-	      
-	      
-	    //  showSettingsAlert();
-	         
+	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");
+
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
@@ -86,10 +84,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	    	//  Log.e("ERROR", "ERROR IN CODE" + e.toString());
 	    	 // e.printStackTrace();
 	      //}	      
-	      
-	      wifiManager.startScan(); 
+	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
+    	  {	      wifiManager.startScan();} 
 	        // get list of the results in object format ( like an array )
 		
+	      Log.d("MY ON_CREATE ", "BEFORE RESULT ");
 		  results = wifiManager.getScanResults();
 		  final ListView lvAP = (ListView) findViewById(R.id.listAP);
 		  
@@ -247,7 +246,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    return super.onOptionsItemSelected(item);
 	  }
 	  
-	  
+	  /*
 	  private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
 	  public void onReceive(Context context, Intent intent) {
@@ -275,4 +274,5 @@ public class MainActivity extends Activity implements OnClickListener {
 		  }	   
 		 }	 	  
 		  };
+		  */
 }

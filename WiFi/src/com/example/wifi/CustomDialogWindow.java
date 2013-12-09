@@ -3,12 +3,14 @@ package com.example.wifi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -32,7 +34,7 @@ public class CustomDialogWindow extends Dialog implements
     // TODO Auto-generated constructor stub
     this.c = a;
     wifi_mngr = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);  
-    
+   
     Log.d("MY Constructor ", "Constructor CSListAdapter ");
   }
 
@@ -63,8 +65,17 @@ public class CustomDialogWindow extends Dialog implements
     	  //yes.setBackgroundColor(0x000000);
     	yes.setTextColor(Color.BLACK);
     	Log.d("MY TAG ","PRESS YES");
-     // c.finish();
+    	
+    	Intent intent = new Intent(this.c, MainActivity.class);      
+     
+    	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);             
+    	    	
     	wifi_mngr.setWifiEnabled(true);
+    
+        this.c.startActivity(intent);
+        
+    	
+    	 //startActivity(intent);
     	//if (wifi_mngr.getWifiState() ==  wifi_mngr.WIFI_STATE_DISABLED)
   		  //Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
       dismiss();
@@ -73,7 +84,7 @@ public class CustomDialogWindow extends Dialog implements
     	Log.d("MY TAG ","PRESS NO");
     	if (wifi_mngr.getWifiState() ==  wifi_mngr.WIFI_STATE_DISABLED)
     		  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
-    	  
+    	  this.c.finish();
       dismiss();
       break;
     default:
