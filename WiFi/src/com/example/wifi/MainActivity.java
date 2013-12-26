@@ -37,7 +37,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	WifiManager wifiManager;
 	int extraWifiState ;
 	final int DIALOG_EXIT = 1;
-	
+
+	int TEST;
+
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
 	
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
@@ -76,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	    	     cdd.show();  
 	    	  }
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");
-
+	 
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
