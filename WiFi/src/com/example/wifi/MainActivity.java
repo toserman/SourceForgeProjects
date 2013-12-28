@@ -3,19 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.Notification.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +31,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	ListView lvAP;
 	WifiManager wifiManager;
 	int extraWifiState ;
+	boolean scanState ;
+	String scanState_string;
+	int scanState_integer;
+	List<ScanResult> results_new_intent;
+	
 	final int DIALOG_EXIT = 1;
-
-	int TEST;
-
+	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
 	
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
@@ -59,8 +57,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	      rowssid_1 = (TextView)findViewById(R.id.textView31);
 	      rowssid_2 = (TextView)findViewById(R.id.textView41);
 	      rowssid_3 = (TextView)findViewById(R.id.textView47);
-	  //    this.registerReceiver(this.WifiStateChangedReceiver,
-	    //          new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	      this.registerReceiver(this.WifiStateChangedReceiver,
+	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	      
+	      //MY TEST !!!
+	      this.registerReceiver(this.WifiScanResultReceiver,
+	              new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+	      
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
@@ -75,30 +78,49 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  {
 	    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
+	    	     unregisterReceiver(WifiStateChangedReceiver);
+	    	     
 	    	     cdd.show();  
 	    	  }
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");
-	 
+
 	      //try {
 	    	  //rowssid_1.setText("MAIN");  
 	    //  } 
 	     // catch (Exception e) {
 	    	//  Log.e("ERROR", "ERROR IN CODE" + e.toString());
 	    	 // e.printStackTrace();
-	      //}	      
+	      //}	    
+	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));     
+ 
+	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
-    	  {	      wifiManager.startScan();} 
+    	  {	 
+	    	  Log.d("MY ON_CREATE results !!!  ", "WIFI_STATE_ENABLED");
+	    	 //wifiManager.startScan();
+    	 // 	 results = wifiManager.getScanResults();
+    	  
+	    	// for (ScanResult result : results) {
+		      // 	Log.d("MY ON_CREATE results !!!  ", result.SSID);     	
+		       //}
+	          
+    	  } 
 	        // get list of the results in object format ( like an array )
 		
-	      Log.d("MY ON_CREATE ", "BEFORE RESULT ");
+	     // Log.d("MY ON_CREATE ", "BEFORE RESULT ");
 		  results = wifiManager.getScanResults();
+		  	
 		  final ListView lvAP = (ListView) findViewById(R.id.listAP);
+		  
+		  //Log.d("MY TAG ", results.SSID + " " + result.level + " " + result.frequency + " MHz");	 	        
 		  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
 		 {	     
 	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
 	      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
 		 }
+		 
+		 
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
 	      //lvAP.setAdapter(new CustomListAdapter(this, scan_details));
@@ -224,16 +246,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			}		    
 			
 		};
-			  
-	
+			  	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	  public boolean  onOptionsItemSelected(MenuItem item) {
+	public boolean  onOptionsItemSelected(MenuItem item) {
 		    // TODO Auto-generated method stub
 		    switch (item.getItemId()) {		    
 		    case R.id.switch_screen:
@@ -248,7 +268,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    return super.onOptionsItemSelected(item);
 	  }
 	  
-	  /*
+	  
 	  private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
 	  public void onReceive(Context context, Intent intent) {
@@ -266,15 +286,100 @@ public class MainActivity extends Activity implements OnClickListener {
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLED:
 		   WifiState.setText("WIFI STATE ENABLED");
+		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
+		   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();
+		  
+          
+		   if (wifiManager.getScanResults() == null)
+			   Toast.makeText(getApplicationContext(), "getScanResults == NULL", Toast.LENGTH_LONG).show();
+
+		   List<ScanResult> result_TEST;
+		   result_TEST = wifiManager.getScanResults();  
+		   if (result_TEST != null)
+		   {	  				 		   
+		     	  	   
+			   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
+			   for (ScanResult result : result_TEST) {
+				   Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
+		       }
+		   } 
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLING:
 		   WifiState.setText("WIFI STATE ENABLING");
 		   break;
 		  case WifiManager.WIFI_STATE_UNKNOWN:
 		   WifiState.setText("WIFI STATE UNKNOWN");
-		   break;	  
-		  }	   
+		   break;	   
+		  }   
+
 		 }	 	  
 		  };
-		  */
+		  
+		  private BroadcastReceiver WifiScanResultReceiver
+		  = new BroadcastReceiver(){		  
+		  public void onReceive(Context context, Intent intent) {
+			  // TODO Auto-generated method stub
+		//	  scanState = intent.getIntExtra(name, defaultValue)
+			  Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );
+		//	  scanState_integer = intent.getIntExtra(WifiManager.EXTRA_NEW_STATE ,
+			//		    WifiManager.WIFI_STATE_UNKNOWN);
+			 //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState_integer, Toast.LENGTH_LONG).show();
+					  //scanState_string = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
+					  results_new_intent = wifiManager.getScanResults();
+					  if (results_new_intent == null)
+						   Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
+					  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
+
+		//  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
+		  //scanState = intent.getBooleanExtra(wifiManager.EXTRA_SUPPLICANT_CONNECTED,false);
+		  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
+			  
+					 //intent.get
+					//  scanState = intent.getCharExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+					  
+		/*
+			 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE l,
+			    WifiManager.WIFI_STATE_UNKNOWN);
+					
+			  switch(extraWifiState){
+			  case WifiManager.WIFI_STATE_DISABLED:
+			   WifiState.setText("WIFI STATE DISABLED");
+			   break;
+			  case WifiManager.WIFI_STATE_DISABLING:
+			   WifiState.setText("WIFI STATE DISABLING");
+			   break;
+			  case WifiManager.WIFI_STATE_ENABLED:
+			   WifiState.setText("WIFI STATE ENABLED");
+			   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
+			   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();
+			   if (wifiManager.getScanResults() == null)
+				   Toast.makeText(getApplicationContext(), "getScanResults == NULL", Toast.LENGTH_LONG).show();
+			   
+			  // wifiManager.startScan();
+			   if (wifiManager.getScanResults() == null)
+				   Log.d("MY BroadcastReceiver !!!  ", "getScanResults == NULL !!!!" );
+			   List<ScanResult> result_TEST;
+			   result_TEST = wifiManager.getScanResults();  
+			   if (result_TEST != null)
+			   {
+				  				 		   
+			     	  	   
+				   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
+				   for (ScanResult result : result_TEST) {
+					   Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
+			       }
+			   } 
+			   break;
+			  case WifiManager.WIFI_STATE_ENABLING:
+			   WifiState.setText("WIFI STATE ENABLING");
+			   break;
+			  case WifiManager.WIFI_STATE_UNKNOWN:
+			   WifiState.setText("WIFI STATE UNKNOWN");
+			   break;	  
+			  }
+			  */	   
+			 }	 	 
+			  
+			  };
+		  
 }
