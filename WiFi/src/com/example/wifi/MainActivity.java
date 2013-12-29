@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.wifi.CustomScanListAdapter;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button WifiOn,WifiOff,WifiParam;
 	TextView rowtablename,rowssid_1,rowssid_2,rowssid_3;
 	List<ScanResult> results;
-	ListView lvAP;
+	//ListView lvAP;
 	WifiManager wifiManager;
 	int extraWifiState ;
 	boolean scanState ;
@@ -36,10 +36,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	int scanState_integer;
 	List<ScanResult> results_new_intent;
 	
+	
 	final int DIALOG_EXIT = 1;
 	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
-	
+	 final ListView lvAP = (ListView) findViewById(R.id.listAP);
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 	
@@ -69,19 +70,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiParam.setOnClickListener(this);      
 	      
 	      Log.d("MY ON_CREATE ", "Call onCreate " );
-	      wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);
-	      
-	      Log.d("MY ON_CREATE ", "Call onCreate " );
+	      wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);	    
+	   
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
 	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
-	    	  {
-	    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
-	    	     unregisterReceiver(WifiStateChangedReceiver);
-	    	     
-	    	     cdd.show();  
-	    	  }
+    	  {
+    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
+    	     unregisterReceiver(WifiStateChangedReceiver);	    	     
+    	     cdd.show();  
+    	  }
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");
 
 	      //try {
@@ -97,9 +96,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
     	  {	 
 	    	  Log.d("MY ON_CREATE results !!!  ", "WIFI_STATE_ENABLED");
-	    	 //wifiManager.startScan();
-    	 // 	 results = wifiManager.getScanResults();
-    	  
+	    	
 	    	// for (ScanResult result : results) {
 		      // 	Log.d("MY ON_CREATE results !!!  ", result.SSID);     	
 		       //}
@@ -110,69 +107,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	     // Log.d("MY ON_CREATE ", "BEFORE RESULT ");
 		  results = wifiManager.getScanResults();
 		  	
-		  final ListView lvAP = (ListView) findViewById(R.id.listAP);
-		  
-		  //Log.d("MY TAG ", results.SSID + " " + result.level + " " + result.frequency + " MHz");	 	        
-		  
+		 
+	  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
 		 {	     
 	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
 	      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
 		 }
 		 
-		 
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
 	      //lvAP.setAdapter(new CustomListAdapter(this, scan_details));
 	     
-	    }
-/*	  
-	  @SuppressWarnings("deprecation")
-	public void showSettingsAlert(){
-		  /*
-		    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-		  
-		    // Setting Dialog Title
-		    alertDialog.setTitle("GPS is settings");
+	  }
 
-		    // Setting Dialog Message
-		    alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-
-		    // Setting Icon to Dialog
-		    //alertDialog.setIcon(R.drawable.delete);
-
-		    // on pressing cancel button
-		//    alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		//        public void onClick(DialogInterface dialog, int which) {
-		//        dialog.cancel();
-		//        }
-		//    });
-
-		    // Showing Alert Message
-		    alertDialog.show();
-		    
-		    */
-		
-	//	  AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		//	AlertDialog dialog = builder.create();	
-		//	dialog.setTitle("Do you want to enable WiFi service?");			
-		//	dialog.setMessage("You can't use this app unless you enable WiFi.");
-		//	dialog.setButton2( "No", listenerDoesNotAccept);
-		//	dialog.setButton("Yes",listenerAccept);			
-		//	dialog.setCancelable(false);
-		//	dialog.show();		    
-		//}
-	/*	DialogInterface.OnClickListener listenerAccept = new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {		
-				Log.d("MY TAG ","PRESS YES");
-			}
-		};
-		DialogInterface.OnClickListener listenerDoesNotAccept = new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {		
-				Log.d("MY TAG ","PRESS NO");
-			}
-		}; */
-	
 
 	  @Override  
 		public void onClick(View v) {
@@ -267,8 +215,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    }
 		    return super.onOptionsItemSelected(item);
 	  }
-	  
-	  
+	  	  
 	  private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
 	  public void onReceive(Context context, Intent intent) {
@@ -314,72 +261,78 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		 }	 	  
 		  };
+			  
 		  
-		  private BroadcastReceiver WifiScanResultReceiver
-		  = new BroadcastReceiver(){		  
-		  public void onReceive(Context context, Intent intent) {
-			  // TODO Auto-generated method stub
-		//	  scanState = intent.getIntExtra(name, defaultValue)
-			  Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );
-		//	  scanState_integer = intent.getIntExtra(WifiManager.EXTRA_NEW_STATE ,
-			//		    WifiManager.WIFI_STATE_UNKNOWN);
-			 //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState_integer, Toast.LENGTH_LONG).show();
-					  //scanState_string = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
-					  results_new_intent = wifiManager.getScanResults();
-					  if (results_new_intent == null)
-						   Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
-					  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
+	  private BroadcastReceiver WifiScanResultReceiver
+	  = new BroadcastReceiver(){		  
+	  public void onReceive(Context context, Intent intent) {
+		  // TODO Auto-generated method stub
+	//	  scanState = intent.getIntExtra(name, defaultValue)
+		  Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );
+		  
+		  
+	//	  scanState_integer = intent.getIntExtra(WifiManager.EXTRA_NEW_STATE ,
+		//		    WifiManager.WIFI_STATE_UNKNOWN);
+		 //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState_integer, Toast.LENGTH_LONG).show();
+				  //scanState_string = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
+	  results_new_intent = wifiManager.getScanResults();
+	  if(results_new_intent == null)
+		   Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
+	  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
 
-		//  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
-		  //scanState = intent.getBooleanExtra(wifiManager.EXTRA_SUPPLICANT_CONNECTED,false);
-		  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
-			  
-					 //intent.get
-					//  scanState = intent.getCharExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
-					  
-		/*
-			 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE l,
-			    WifiManager.WIFI_STATE_UNKNOWN);
-					
-			  switch(extraWifiState){
-			  case WifiManager.WIFI_STATE_DISABLED:
-			   WifiState.setText("WIFI STATE DISABLED");
-			   break;
-			  case WifiManager.WIFI_STATE_DISABLING:
-			   WifiState.setText("WIFI STATE DISABLING");
-			   break;
-			  case WifiManager.WIFI_STATE_ENABLED:
-			   WifiState.setText("WIFI STATE ENABLED");
-			   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
-			   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();
-			   if (wifiManager.getScanResults() == null)
-				   Toast.makeText(getApplicationContext(), "getScanResults == NULL", Toast.LENGTH_LONG).show();
-			   
-			  // wifiManager.startScan();
-			   if (wifiManager.getScanResults() == null)
-				   Log.d("MY BroadcastReceiver !!!  ", "getScanResults == NULL !!!!" );
-			   List<ScanResult> result_TEST;
-			   result_TEST = wifiManager.getScanResults();  
-			   if (result_TEST != null)
-			   {
-				  				 		   
-			     	  	   
-				   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
-				   for (ScanResult result : result_TEST) {
-					   Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
-			       }
-			   } 
-			   break;
-			  case WifiManager.WIFI_STATE_ENABLING:
-			   WifiState.setText("WIFI STATE ENABLING");
-			   break;
-			  case WifiManager.WIFI_STATE_UNKNOWN:
-			   WifiState.setText("WIFI STATE UNKNOWN");
-			   break;	  
-			  }
-			  */	   
-			 }	 	 
-			  
-			  };
+	 // lvAP.setAdapter(adapter)
+	 // lvAP.setAdapter(new CustomScanListAdapter(this,results_new_intent));
+	  
+	//  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
+	  //scanState = intent.getBooleanExtra(wifiManager.EXTRA_SUPPLICANT_CONNECTED,false);
+	  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState, Toast.LENGTH_LONG).show();
+		  
+				 //intent.get
+				//  scanState = intent.getCharExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
+				  
+	/*
+		 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE l,
+		    WifiManager.WIFI_STATE_UNKNOWN);
+				
+		  switch(extraWifiState){
+		  case WifiManager.WIFI_STATE_DISABLED:
+		   WifiState.setText("WIFI STATE DISABLED");
+		   break;
+		  case WifiManager.WIFI_STATE_DISABLING:
+		   WifiState.setText("WIFI STATE DISABLING");
+		   break;
+		  case WifiManager.WIFI_STATE_ENABLED:
+		   WifiState.setText("WIFI STATE ENABLED");
+		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
+		   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();
+		   if (wifiManager.getScanResults() == null)
+			   Toast.makeText(getApplicationContext(), "getScanResults == NULL", Toast.LENGTH_LONG).show();
+		   
+		  // wifiManager.startScan();
+		   if (wifiManager.getScanResults() == null)
+			   Log.d("MY BroadcastReceiver !!!  ", "getScanResults == NULL !!!!" );
+		   List<ScanResult> result_TEST;
+		   result_TEST = wifiManager.getScanResults();  
+		   if (result_TEST != null)
+		   {
+			  				 		   
+		     	  	   
+			   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
+			   for (ScanResult result : result_TEST) {
+				   Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
+		       }
+		   } 
+		   break;
+		  case WifiManager.WIFI_STATE_ENABLING:
+		   WifiState.setText("WIFI STATE ENABLING");
+		   break;
+		  case WifiManager.WIFI_STATE_UNKNOWN:
+		   WifiState.setText("WIFI STATE UNKNOWN");
+		   break;	  
+		  }
+		  */	   
+		 }	 	 
+		  
+		  };
 		  
 }
