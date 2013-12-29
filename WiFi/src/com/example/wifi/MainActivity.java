@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.wifi.CustomScanListAdapter;
+//import com.example.wifi.CustomScanListAdapter;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button WifiOn,WifiOff,WifiParam;
 	TextView rowtablename,rowssid_1,rowssid_2,rowssid_3;
 	List<ScanResult> results;
-	//ListView lvAP;
+	ListView lvAP;
 	WifiManager wifiManager;
 	int extraWifiState ;
 	boolean scanState ;
@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	final int DIALOG_EXIT = 1;
 	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
-	 final ListView lvAP = (ListView) findViewById(R.id.listAP);
+	// final ListView lvAP = (ListView) findViewById(R.id.listAP);
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 	
@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  results = wifiManager.getScanResults();
 		  	
 		 
-	  
+		  final ListView lvAP = (ListView) findViewById(R.id.listAP);	 
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
 		 {	     
 	      lvAP.setAdapter(new CustomScanListAdapter(this,results));
@@ -276,10 +276,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		 //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver:" + scanState_integer, Toast.LENGTH_LONG).show();
 				  //scanState_string = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
 	  results_new_intent = wifiManager.getScanResults();
-	  if(results_new_intent == null)
+	  if(results_new_intent == null) {
 		   Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
-	  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
-
+	  } else {
+		  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
+//		  lvAP.setAdapter(new CustomScanListAdapter(context,results_new_intent));
+	  }
 	 // lvAP.setAdapter(adapter)
 	 // lvAP.setAdapter(new CustomScanListAdapter(this,results_new_intent));
 	  
