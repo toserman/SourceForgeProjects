@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	int scanState_integer;
 	List<ScanResult> results_new_intent;
 	
-	
+	int NEED_REMOVE;
 	final int DIALOG_EXIT = 1;
 	
 	ArrayList<ScanItem> scan_details = new ArrayList<ScanItem>();
