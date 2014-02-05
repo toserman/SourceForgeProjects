@@ -105,7 +105,7 @@ public class CustomScanListAdapter extends BaseAdapter {
     //	 Log.d("MY CSListAdapter: ", "Start getView() " + Integer.toString(call_counter++));
     	 	ViewHolder holder; 
         
-        	Log.d("MY CSListAdapter", "getView()");        	
+        	//Log.d("MY CSListAdapter", "getView()");        	
     	 //	Log.d("MY CSListAdapter: position =  ", Integer.toString(position));
         if (convertView == null) {        	
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);            
@@ -130,9 +130,9 @@ public class CustomScanListAdapter extends BaseAdapter {
         
         //}
    //   Log.d("MY CSListAdapter: SSID: ", listData.get(position).SSID +
-    //		" position = " + Integer.toString(position));
-      
-        Log.d("MY getView() !!!  ", Integer.toString(listData.get(1).level) + " dBM");
+    //		" position = " + Integer.toString(position));      
+      //  Log.d("MY getView() !!!  ", Integer.toString(listData.get(1).level) + " dBM");
+        
         holder.ssidname.setText(listData.get(position).SSID);
       //  holder.bssid.setText("("+listData.get(position).BSSID +")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).frequency) + " MHz");

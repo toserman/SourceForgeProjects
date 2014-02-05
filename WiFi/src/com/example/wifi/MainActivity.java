@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -273,11 +272,19 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		  protected void onPause() {
 			  unregisterReceiver(WifiScanResultReceiver);
-			//  unregisterReceiver(WifiStateChangedReceiver);
+			  unregisterReceiver(WifiStateChangedReceiver);
 			  Log.d("MY ON_CREATE ", "onPause" );			  
 			  timer_scan_update.cancel();//Timer stop
 		      super.onPause();
 		    }
+		  @Override
+		  protected void onStop()
+		  {
+		     // unregisterReceiver(WifiScanResultReceiver);
+		      //unregisterReceiver(WifiStateChangedReceiver);
+		      Log.d("MY ON_CREATE ", "onStop" );
+		      super.onStop();
+		  }
 		  
 	  private BroadcastReceiver WifiScanResultReceiver
 	  = new BroadcastReceiver(){
@@ -292,7 +299,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			  
 			  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));
 			  			  				  
-			  if(results_new_intent != null)
+			  //if(results_new_intent != null)
 				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
 			  			  
 			  if(results_new_intent == null) {
