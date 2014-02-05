@@ -43,26 +43,32 @@ public class CustomScanListAdapter extends BaseAdapter {
         wifi_info = wifiservice.getConnectionInfo();
         Log.d("MY Constructor ", "Constructor CSListAdapter ");
     }
-
+    
+    public void setData(List<ScanResult> listData)
+    {
+    	this.listData = listData;	
+    	        
+        Log.d("MY CSListAdapter ", "setData() ");
+    }
  
     @Override
     public int getCount() {    	
-    	Log.d("MY CSListAdapter: ", "getCount() size list = " + Integer.toString(listData.size()));
+  //  	Log.d("MY CSListAdapter: ", "getCount() size list = " + Integer.toString(listData.size()));
         return listData.size();
     }
  
     @Override
     public Object getItem(int position) {    	
-    	Log.d("MY CSListAdapter: ", "getItem() position = " + Integer.toString(position));
+  //  	Log.d("MY CSListAdapter: ", "getItem() position = " + Integer.toString(position));
         return listData.get(position);
     }
  
     @Override
     public long getItemId(int position) {    	
-    	Log.d("MY CSListAdapter: ", "getItemId() position = " + Integer.toString(position));
-    	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).capabilities);
-    	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).SSID);
-    	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).BSSID);
+  //  	Log.d("MY CSListAdapter: ", "getItemId() position = " + Integer.toString(position));
+    //	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).capabilities);
+    //  Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).SSID);
+    //	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).BSSID);
         return position;
     }
     
@@ -96,11 +102,11 @@ public class CustomScanListAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-    	 Log.d("MY CSListAdapter: ", "Start getView() " + Integer.toString(call_counter++));
+    //	 Log.d("MY CSListAdapter: ", "Start getView() " + Integer.toString(call_counter++));
     	 	ViewHolder holder; 
         
-        	Log.d("MY CSListAdapter: position =  ", Integer.toString(position));        	
-      
+        	Log.d("MY CSListAdapter", "getView()");        	
+    	 //	Log.d("MY CSListAdapter: position =  ", Integer.toString(position));
         if (convertView == null) {        	
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);            
            // for (ScanResult result : listData)    		
@@ -123,9 +129,10 @@ public class CustomScanListAdapter extends BaseAdapter {
         }  
         
         //}
-      Log.d("MY CSListAdapter: SSID: ", listData.get(position).SSID +
-    		" position = " + Integer.toString(position));
+   //   Log.d("MY CSListAdapter: SSID: ", listData.get(position).SSID +
+    //		" position = " + Integer.toString(position));
       
+        Log.d("MY getView() !!!  ", Integer.toString(listData.get(1).level) + " dBM");
         holder.ssidname.setText(listData.get(position).SSID);
       //  holder.bssid.setText("("+listData.get(position).BSSID +")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).frequency) + " MHz");
