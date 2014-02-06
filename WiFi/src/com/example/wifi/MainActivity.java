@@ -64,12 +64,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	      rowssid_3 = (TextView)findViewById(R.id.textView47);
 	      //final ListView lvAP = (ListView)findViewById(R.id.listAP);	 
 	      lvAP = (ListView)findViewById(R.id.listAP);	 
-	      this.registerReceiver(this.WifiStateChangedReceiver,
-	              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	//      this.registerReceiver(this.WifiStateChangedReceiver,
+	  //            new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	      
 	      //MY TEST !!!
-	      this.registerReceiver(this.WifiScanResultReceiver,
-	              new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+	    //  this.registerReceiver(this.WifiScanResultReceiver,
+	      //        new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 	      
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
@@ -255,7 +255,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		   { 				 		   
 			   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
 			   for (ScanResult result : result_TEST) {
-				   Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
+				   //Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
 		       }
 		   } 
 		   break;
@@ -269,27 +269,54 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		 }	 	  
 		  };
-			
+		  
+		  protected void onStart() {
+			  this.registerReceiver(this.WifiStateChangedReceiver,
+		              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+		      this.registerReceiver(this.WifiScanResultReceiver,
+		              new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+			  super.onStart();
+			  Log.d("MY ON_CREATE ", "onStart" );
+		  }
 		  protected void onPause() {
-			  unregisterReceiver(WifiScanResultReceiver);
-			  unregisterReceiver(WifiStateChangedReceiver);
+			//  unregisterReceiver(WifiScanResultReceiver);
+			 // unregisterReceiver(WifiStateChangedReceiver);
 			  Log.d("MY ON_CREATE ", "onPause" );			  
 			  timer_scan_update.cancel();//Timer stop
 		      super.onPause();
 		    }
 		  @Override
+		  protected void onResume() {
+			  super.onResume();
+			  
+			  Log.d("MY ON_CREATE ", "onResume" );
+		  }
 		  protected void onStop()
+		  {
+		      unregisterReceiver(WifiScanResultReceiver);
+		      unregisterReceiver(WifiStateChangedReceiver);
+		      Log.d("MY ON_CREATE ", "onStop" );
+		      super.onStop();
+		  }
+		 		 
+		//  protected void onRestart() {
+			//  Log.d("MY ON_CREATE ", "onRestart" );
+			  //super.onRestart();		    
+		 // }
+		  
+		  protected void onDestroy()
 		  {
 		     // unregisterReceiver(WifiScanResultReceiver);
 		      //unregisterReceiver(WifiStateChangedReceiver);
-		      Log.d("MY ON_CREATE ", "onStop" );
-		      super.onStop();
+		      Log.d("MY ON_CREATE ", "onDestroy" );
+		      timer_scan_update.cancel();//Timer stop
+		      super.onDestroy();
 		  }
 		  
 	  private BroadcastReceiver WifiScanResultReceiver
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
-			  Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
+			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
 			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();
 			  			   
 			  //if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)		   		   
@@ -297,7 +324,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				   
 			  results_new_intent = wifiManager.getScanResults();
 			  
-			  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));
+			//  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));
 			  			  				  
 			  //if(results_new_intent != null)
 				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
