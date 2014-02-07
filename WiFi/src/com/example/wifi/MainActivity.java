@@ -35,9 +35,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	String scanState_string;
 	int scanState_integer;
 	List<ScanResult> results_new_intent;
-	CustomScanListAdapter adapterlist;
-	
-	int flag = 0;	
+	CustomScanListAdapter adapterlist;	
+		
 	final int DIALOG_EXIT = 1;
 	ListView test;
 	
@@ -45,7 +44,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	// final ListView lvAP = (ListView) findViewById(R.id.listAP);
 	final ArrayList<String> apnames = new ArrayList<String>() ;	
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
-		
+	
+	/** Intents for Broadcast receivers */
+	IntentFilter wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+	IntentFilter wifiScanAvailIntent =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+	
 	Timer timer_scan_update = new Timer();
 	
 	  /** Called when the activity is first created. */
@@ -64,13 +67,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	      rowssid_3 = (TextView)findViewById(R.id.textView47);
 	      //final ListView lvAP = (ListView)findViewById(R.id.listAP);	 
 	      lvAP = (ListView)findViewById(R.id.listAP);	 
-	//      this.registerReceiver(this.WifiStateChangedReceiver,
-	  //            new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	      //this.registerReceiver(this.WifiStateChangedReceiver,
+	        //      new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+	      this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
 	      
-	      //MY TEST !!!
-	    //  this.registerReceiver(this.WifiScanResultReceiver,
-	      //        new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-	      
+	      //this.registerReceiver(this.WifiScanResultReceiver,
+	        //      new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+	      this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntent);	      
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);      
@@ -117,7 +120,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  results = wifiManager.getScanResults();	
 		  
 		  //Run timer for scanning
-		  timerMethod();
+		//  timerMethod();
 		  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
 		 {	     
@@ -243,7 +246,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLED:
 		   WifiState.setText("WIFI STATE ENABLED");
-		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
+		//   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
 		   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();		  
           
 		   if (wifiManager.getScanResults() == null)
@@ -271,31 +274,31 @@ public class MainActivity extends Activity implements OnClickListener {
 		  };
 		  
 		  protected void onStart() {
-			  this.registerReceiver(this.WifiStateChangedReceiver,
-		              new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
-		      this.registerReceiver(this.WifiScanResultReceiver,
-		              new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
+		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
+		      timerMethod();
 			  super.onStart();
-			  Log.d("MY ON_CREATE ", "onStart" );
+			  Log.d("MY ON_STATE ", "onStart" );
 		  }
 		  protected void onPause() {
 			//  unregisterReceiver(WifiScanResultReceiver);
 			 // unregisterReceiver(WifiStateChangedReceiver);
-			  Log.d("MY ON_CREATE ", "onPause" );			  
-			  timer_scan_update.cancel();//Timer stop
+			  Log.d("MY ON_STATE ", "onPause" );			  
+			  //timer_scan_update.cancel();//Timer stop
 		      super.onPause();
 		    }
 		  @Override
 		  protected void onResume() {
 			  super.onResume();
-			  
-			  Log.d("MY ON_CREATE ", "onResume" );
+			  //timerMethod();
+			  Log.d("MY ON_STATE ", "onResume" );
 		  }
 		  protected void onStop()
 		  {
 		      unregisterReceiver(WifiScanResultReceiver);
 		      unregisterReceiver(WifiStateChangedReceiver);
-		      Log.d("MY ON_CREATE ", "onStop" );
+		      Log.d("MY ON_STATE ", "onStop Timer Stop" );
+		      timer_scan_update.cancel();//Timer stop
 		      super.onStop();
 		  }
 		 		 
@@ -306,10 +309,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		  
 		  protected void onDestroy()
 		  {
-		     // unregisterReceiver(WifiScanResultReceiver);
-		      //unregisterReceiver(WifiStateChangedReceiver);
-		      Log.d("MY ON_CREATE ", "onDestroy" );
-		      timer_scan_update.cancel();//Timer stop
+		      Log.d("MY ON_STATE ", "onDestroy" );
+		      //timer_scan_update.cancel();//Timer stop
 		      super.onDestroy();
 		  }
 		  
@@ -339,8 +340,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			     if (adapterlist == null)
 			     {
 			    	 adapterlist = new CustomScanListAdapter(getApplicationContext(),results_new_intent);	   	 
-			    	 lvAP.setAdapter(adapterlist);
-			    	 flag++;
+			    	 lvAP.setAdapter(adapterlist);			    	
 			     }
 			     	//Refresh adapter list
 			     	adapterlist.setData(results_new_intent);
@@ -353,7 +353,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	  	{
 	  		timer_scan_update.schedule(new TimerTask() {
 	  			public void run() {	  				
-	  				Log.d("MY Timer", "run code");
+	  				Log.d("MY Timer", "run code");	  				
 	  				wifiManager.startScan(); 				
 	  			}
 	  		}, 5000, 5000);
