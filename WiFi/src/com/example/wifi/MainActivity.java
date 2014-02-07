@@ -49,7 +49,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	IntentFilter wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
 	IntentFilter wifiScanAvailIntent =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 	
-	Timer timer_scan_update = new Timer();
+	Timer timer_scan_update;
+	TimerTask task;
 	
 	  /** Called when the activity is first created. */
 	  @Override
@@ -298,7 +299,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		      unregisterReceiver(WifiScanResultReceiver);
 		      unregisterReceiver(WifiStateChangedReceiver);
 		      Log.d("MY ON_STATE ", "onStop Timer Stop" );
-		      timer_scan_update.cancel();//Timer stop
+		      if(timer_scan_update != null)timer_scan_update.cancel();//Timer stop
 		      super.onStop();
 		  }
 		 		 
@@ -350,12 +351,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	  };
 	  
 	  	void timerMethod()
-	  	{
-	  		timer_scan_update.schedule(new TimerTask() {
+	  	{	
+	  		timer_scan_update = new Timer();
+	  		task = new TimerTask() {
 	  			public void run() {	  				
 	  				Log.d("MY Timer", "run code");	  				
 	  				wifiManager.startScan(); 				
 	  			}
-	  		}, 5000, 5000);
+	  		};
+	      
+	  		timer_scan_update.schedule(task, 5000, 5000);
 	  	}		  
 }
