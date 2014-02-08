@@ -1,0 +1,26 @@
+//Register receivers
+this.registerReceiver(this.WifiStateChangedReceiver,new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+this.registerReceiver(this.WifiScanResultReceiver,new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+
+unregisterReceiver(WifiScanResultReceiver);
+unregisterReceiver(WifiStateChangedReceiver);
+------------------------------------------------------------------------------------------
+// LOG in console
+Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
+Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));    
+-------------------------------------------------------------------------------------------
+ //Print whole list
+ List<ScanResult> listData;
+ for (ScanResult result : listData)    		
+ 	Log.d("MY CSListAdapter CHECK: SSID: ", result.SSID);
+-------------------------------------------------------------------------------------------
+// POP-UP WINDOW
+Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

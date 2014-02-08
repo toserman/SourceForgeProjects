@@ -64,20 +64,11 @@ public class CustomDialogWindow extends Dialog implements
     case R.id.btn_yes:    	 
     	  //yes.setBackgroundColor(0x000000);
     	yes.setTextColor(Color.BLACK);
-    	Log.d("MY TAG ","PRESS YES");
-    	
-    	Intent intent = new Intent(this.c, MainActivity.class);      
-     
+    	Log.d("MY TAG ","PRESS YES"); 	
+    	Intent intent = new Intent(this.c, MainActivity.class); 
     	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);             
-    	    	
     	wifi_mngr.setWifiEnabled(true);
-    
         this.c.startActivity(intent);
-        
-    	
-    	 //startActivity(intent);
-    	//if (wifi_mngr.getWifiState() ==  wifi_mngr.WIFI_STATE_DISABLED)
-  		  //Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
       dismiss();
       break;
     case R.id.btn_no:    	
