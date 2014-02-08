@@ -93,18 +93,9 @@ public class MainActivity extends Activity implements OnClickListener {
     	     unregisterReceiver(WifiScanResultReceiver);    	     
     	     cdd.show();  
     	  }
-	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");
-
-	      //try {
-	    	  //rowssid_1.setText("MAIN");  
-	    //  } 
-	     // catch (Exception e) {
-	    	//  Log.e("ERROR", "ERROR IN CODE" + e.toString());
-	    	 // e.printStackTrace();
-	      //}	    
-	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));     
- 
-	      
+	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
+	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));  
+ 	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
     	  {	 
 	    	  Log.d("MY ON_CREATE results !!!  ", "WIFI_STATE_ENABLED");   	
