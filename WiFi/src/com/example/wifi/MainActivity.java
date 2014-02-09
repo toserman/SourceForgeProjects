@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	IntentFilter wifiScanAvailIntent;
 	
 	Timer timerScanUpdate;
-	TimerTask task;
+	TimerTask task;	
 	
 	  /** Called when the activity is first created. */
 	  @Override
@@ -65,21 +65,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	      rowssid_3 = (TextView)findViewById(R.id.textView47);	      	 
 	      lvAP = (ListView)findViewById(R.id.listAP);
 	      scanDetails = new ArrayList<ScanItem>();
-	      //this.registerReceiver(this.WifiStateChangedReceiver,
-	        //      new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
-	      //this.registerReceiver(this.WifiScanResultReceiver,
-	        //      new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+      
 	      /** Intents for Broadcast receivers */
 	  	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
 	  	  wifiScanAvailIntent =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 	  	  /** Register Receivers */
 	      this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
 	      this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntent);
+	    
+		  
 	      /**Debug Buttons */
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
-	      WifiParam.setOnClickListener(this);      
-	      
+	      WifiParam.setOnClickListener(this);
+	     
 	      Log.d("MY ON_CREATE ", "Call onCreate " );
 	      wifiManager = (WifiManager)getBaseContext().getSystemService(Context.WIFI_SERVICE);	    
 	   
@@ -88,31 +87,35 @@ public class MainActivity extends Activity implements OnClickListener {
 	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {
-    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);
-    	     unregisterReceiver(WifiStateChangedReceiver);
-    	     unregisterReceiver(WifiScanResultReceiver);    	     
-    	     cdd.show();  
+    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);  
+    	     cdd.setCancelable(false);
+    	     cdd.show();
     	  }
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
 	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));  
- 	      
+	     
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
     	  {	 
 	    	  Log.d("MY ON_CREATE results !!!  ", "WIFI_STATE_ENABLED");   	
     	  } 
 	      
+	      Log.d("MY ON_CREATE ", "CALL Progress ICON");     
+
+	      
 	      /** Get result for first run */
-		  results = wifiManager.getScanResults();	
-		  
+		  results = wifiManager.getScanResults();
+	  
 		  //Run timer for scanning
 		//  timerMethod();
 		  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
-		 {	     
+		 {			
+
 		  adapterlist = new CustomScanListAdapter(this,results); 	 
 	      //lvAP.setAdapter(new CustomScanListAdapter(this,results));
 		  lvAP.setAdapter(adapterlist);
 	      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
+
 		 }	 		 
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
@@ -131,7 +134,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		WifiInfo myWifiInfo = wifiManager.getConnectionInfo();
 	  						    
-		switch (v.getId()) {					
+		switch (v.getId()) {
 		case R.id.wifi_on:
 			WifiState.setText("WiFi ON");
 			wifiManager.setWifiEnabled(true);				
@@ -151,21 +154,16 @@ public class MainActivity extends Activity implements OnClickListener {
 							+ "LINK SPEED: "     + myWifiInfo.getLinkSpeed() + "\n"
 							+ "SUPPLICANT:" + myWifiInfo.getSupplicantState()
 								);
-			
-		//	wifiManager.startScan(); 
-	        // get list of the results in object format ( like an array )
 		
 			//  results = wifiManager.getScanResults();
-			  Log.d("MY TAG ", "Point 1");   
+			   
 	         //results = wifiManager.getScanResults();      
 	         //lvAP.setAdapter(new CustomScanListAdapter(this,results));
 	      
 	        // loop that goes through list
-	        for (ScanResult result : results) {
-	        	Log.d("MY TAG ", "Point 2"); 
+	        for (ScanResult result : results) {        	
 	        	
-	        	ScanItem scan_element = new ScanItem();
-	        	   	 
+	        	ScanItem scan_element = new ScanItem();	        	   	 
 	         //   Toast.makeText(this, result.SSID + " " + result.level + " " + result.frequency + " MHz",
 	           //         Toast.LENGTH_SHORT).show();
 	        	 Log.d("MY TAG ", "***********************");
@@ -188,7 +186,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	            scanDetails.add(scan_element);		                     
 	        }		        
 			
-		break;			
+	        break;			
 		}		    
 		
 	};
@@ -333,17 +331,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			 }			 
 		}	 	 		  
 	  };
-	  
-	  	void timerMethod()
-	  	{	
-	  		timerScanUpdate = new Timer();
-	  		task = new TimerTask() {
-	  			public void run() {	  				
-	  				Log.d("MY Timer", "run code");	  				
-	  				wifiManager.startScan(); 				
-	  			}
-	  		};
-	      
-	  		timerScanUpdate.schedule(task, 5000, 5000);
-	  	}		  
+	  void timerMethod()
+	  {
+		  timerScanUpdate = new Timer();
+		  task = new TimerTask() {
+			  public void run() {
+				  Log.d("MY Timer", "run code in Timer");
+				  wifiManager.startScan();
+			  }
+  		  };
+  		  timerScanUpdate.schedule(task, 5000, 5000);
+	  }		  
 }

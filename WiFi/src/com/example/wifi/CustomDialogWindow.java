@@ -2,15 +2,15 @@ package com.example.wifi;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.sax.StartElementListener;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -27,15 +27,17 @@ public class CustomDialogWindow extends Dialog implements
   public AssetManager mngr; //For fonts
   WifiManager wifi_mngr;
   TextView title,message; 
-  
+  ProgressDialog dialog;
+ // MyProgressDialog myicon;
+  MyProgressDialog myicon = new MyProgressDialog(getContext());
   public CustomDialogWindow(Activity a,Context context) {
     super(a);
     mngr = context.getAssets();
     // TODO Auto-generated constructor stub
     this.c = a;
     wifi_mngr = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);  
-   
-    Log.d("MY Constructor ", "Constructor CSListAdapter ");
+    dialog = new ProgressDialog(context,R.style.NewDialog);    
+    Log.d("MY Constructor ", "Constructor CustomDialogWindow ");
   }
 
   @Override
@@ -56,23 +58,37 @@ public class CustomDialogWindow extends Dialog implements
     no.setTypeface(font_roboto);
     title.setTypeface(font_roboto);
     message.setTypeface(font_roboto);
+    
   }
 
   @Override
   public void onClick(View v) {
     switch (v.getId()) {
     case R.id.btn_yes:    	 
-    	  //yes.setBackgroundColor(0x000000);
-    	yes.setTextColor(Color.BLACK);
+   	  //yes.setBackgroundColor(0x000000);
+    	yes.setTextColor(Color.BLUE);
     	Log.d("MY TAG ","PRESS YES"); 	
-    	Intent intent = new Intent(this.c, MainActivity.class); 
-    	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);             
+    	//Intent intent = new Intent(this.c, MainActivity.class); 
+    	//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);             
     	wifi_mngr.setWifiEnabled(true);
-        this.c.startActivity(intent);
+    	 myicon.show(getContext(),"Please Wait ...",true,true);
+    	// Intent intent = new Intent(getContext(), MainActivity.class);
+    	  //intent.putExtra("PROGRESS_ICON", (Parcelable)myicon);
+	    	
+		    //startActivity(intent);
+    	/*
+    	dialog.setMessage("Please wait...");
+    	dialog.setIndeterminate(true);
+    	dialog.setCancelable(true);//false
+    	dialog.show();
+    	 */
+    	
+        //this.c.startActivity(intent);
       dismiss();
       break;
     case R.id.btn_no:    	
     	Log.d("MY TAG ","PRESS NO");
+    	no.setTextColor(Color.BLUE);
     	if (wifi_mngr.getWifiState() ==  wifi_mngr.WIFI_STATE_DISABLED)
     		  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
     	  this.c.finish();
@@ -83,6 +99,7 @@ public class CustomDialogWindow extends Dialog implements
     }
   //  dismiss();
   }
+  
 }
 
 
