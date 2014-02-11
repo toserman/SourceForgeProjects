@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -47,8 +50,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	IntentFilter wifiScanAvailIntent;
 	
 	Timer timerScanUpdate;
-	TimerTask task;	
+	TimerTask tasktimer;	
 	
+	CustomDialogWindow cdd;
+	MyProgressDialog waiting_icon, temp_waiting_icon;
+		 
 	  /** Called when the activity is first created. */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	  	  /** Register Receivers */
 	      this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
 	      this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntent);
-	    
+	      waiting_icon = new MyProgressDialog(this);
+	      temp_waiting_icon = new MyProgressDialog(this);
 		  
 	      /**Debug Buttons */
 	      WifiOn.setOnClickListener(this);
@@ -85,37 +92,49 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
 	      
+	      
+	      //Just test	      
+	      /*
+	      CustomDialogWindow obj1 = new CustomDialogWindow(MainActivity.this,this,test);
+	      CustomDialogWindow obj2 = new CustomDialogWindow(MainActivity.this,this,test);
+	      obj1.setX(10);
+	      System.out.println("obj1 = " + obj1);
+	      Log.e("MY JUST TEST obj1.x = ", Integer.toString(obj1.getX()));
+	      obj2.setX(20);
+	      //Log.d("MY JUST TEST REFERENCE obj2 = ", obj2);
+	      System.out.println("obj2 = " + obj2);	      
+	      Log.e("MY JUST TEST obj2.x = ", Integer.toString(obj2.getX()));
+	      obj1 = obj2;
+	      System.out.println("AFTER equal: obj1 = " + obj1);
+	      Log.e("MY JUST TEST AFTER equal: obj1.x = ", Integer.toString(obj1.getX()));
+	      */	      
+	      cdd = new CustomDialogWindow(MainActivity.this,this);
+	      //MyProgressDialog waiting_icon = new MyProgressDialog(this);
+	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
-    	  {
-    	     CustomDialogWindow cdd = new CustomDialogWindow(MainActivity.this,this);  
+    	  {    	     
     	     cdd.setCancelable(false);
-    	     cdd.show();
+    	     cdd.show();    	    
+		     // if(cdd.status_icon == 1)
+		      //{		    	  
+		      	 // waiting_icon.show(this,"Please Wait ...",true,true);
+		      	  //Log.e("MY ON_CREATE", "CALL icon");   	
+	 	      //}
     	  }
+	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
-	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));  
-	     
-	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
-    	  {	 
-	    	  Log.d("MY ON_CREATE results !!!  ", "WIFI_STATE_ENABLED");   	
-    	  } 
-	      
-	      Log.d("MY ON_CREATE ", "CALL Progress ICON");     
-
-	      
+	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() )); 	     
+      
 	      /** Get result for first run */
 		  results = wifiManager.getScanResults();
-	  
-		  //Run timer for scanning
-		//  timerMethod();
+  
 		  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
-		 {			
-
-		  adapterlist = new CustomScanListAdapter(this,results); 	 
-	      //lvAP.setAdapter(new CustomScanListAdapter(this,results));
-		  lvAP.setAdapter(adapterlist);
-	      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
-
+		 {			 		 
+			  adapterlist = new CustomScanListAdapter(this,results); 	 
+		      //lvAP.setAdapter(new CustomScanListAdapter(this,results));
+			  lvAP.setAdapter(adapterlist);
+		      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
 		 }	 		 
 			  //Switch to old version
 	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
@@ -218,8 +237,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		  // TODO Auto-generated method stub
 	
 		 extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE ,
-		    WifiManager.WIFI_STATE_UNKNOWN);
-				
+		    WifiManager.WIFI_STATE_UNKNOWN);	
+		 
 		  switch(extraWifiState){
 		  case WifiManager.WIFI_STATE_DISABLED:
 		   WifiState.setText("WIFI STATE DISABLED");
@@ -229,24 +248,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLED:
 		   WifiState.setText("WIFI STATE ENABLED");
-		//   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );
-		   Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show();		  
-          
-		   if (wifiManager.getScanResults() == null)
-			   Toast.makeText(getApplicationContext(), "getScanResults == NULL", Toast.LENGTH_LONG).show();
-
-		   List<ScanResult> result_TEST;
-		   result_TEST = wifiManager.getScanResults();  
-		   if (result_TEST != null)
-		   { 				 		   
-			   // 	Log.d("MY MAIN ACTIVITY BroadcastReceiver :", "WIFI_STATE_ENABLED");
-			   //for (ScanResult result : result_TEST) {
-				   //Log.d("MY BroadcastReceiver !!!  ", result.SSID);     	
-		       //}
-		   } 
+		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );  
+		   //Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show(); 
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLING:
 		   WifiState.setText("WIFI STATE ENABLING");
+		   /** Enable waiting icon */
+		   if(cdd.status_icon == true)
+			temp_waiting_icon = waiting_icon.show(context,"Please Wait ...",true,false);	
 		   break;
 		  case WifiManager.WIFI_STATE_UNKNOWN:
 		   WifiState.setText("WIFI STATE UNKNOWN");
@@ -259,6 +268,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  protected void onStart() {
 			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
 		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
+		      /** Run timer*/
 		      timerMethod();
 			  super.onStart();
 			  Log.d("MY ON_STATE ", "onStart" );
@@ -301,12 +311,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
-			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();
-			  			   
-			  //if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)		   		   
-			   //wifiManager.WIFI_MODE_SCAN_ONLY 
+			  //Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
 				   
-			  results_new_intent = wifiManager.getScanResults();
+		  results_new_intent = wifiManager.getScanResults();
 			  
 			//  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));
 			  			  				  
@@ -314,11 +321,17 @@ public class MainActivity extends Activity implements OnClickListener {
 				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
 			  			  
 			  if(results_new_intent == null) {
-				  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
-			  } else {		  
+				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent == NULL", Toast.LENGTH_LONG).show();
+			  } else {
+				  /** Disable waiting icon */
+				  if(cdd.status_icon == true)
+				  {					  
+					  temp_waiting_icon.cancel();
+					  cdd.status_icon = false;				
+				  }
 				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
-				  if(lvAP != null)
-					  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver lvAP EXIST", Toast.LENGTH_LONG).show();
+				 // if(lvAP != null)
+					//  Toast.makeText(getApplicationContext(), "WifiScanResultReceiver lvAP EXIST", Toast.LENGTH_LONG).show();
 			
 			     if (adapterlist == null)
 			     {
@@ -334,12 +347,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	  void timerMethod()
 	  {
 		  timerScanUpdate = new Timer();
-		  task = new TimerTask() {
+		  tasktimer = new TimerTask() {
 			  public void run() {
 				  Log.d("MY Timer", "run code in Timer");
 				  wifiManager.startScan();
 			  }
   		  };
-  		  timerScanUpdate.schedule(task, 5000, 5000);
+  		  timerScanUpdate.schedule(tasktimer, 5000, 5000);
 	  }		  
 }

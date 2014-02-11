@@ -1,16 +1,12 @@
 package com.example.wifi;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.wifi.CustomListAdapter.ViewHolder;
-
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
-import android.content.ClipData.Item;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -20,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 public class CustomScanListAdapter extends BaseAdapter {
@@ -41,6 +36,7 @@ public class CustomScanListAdapter extends BaseAdapter {
         font_roboto = Typeface.createFromAsset(mngr, "fonts/Roboto-Regular.ttf");
         wifiservice = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         wifi_info = wifiservice.getConnectionInfo();
+
         Log.d("MY Constructor ", "Constructor CSListAdapter ");
     }
     
@@ -111,6 +107,8 @@ public class CustomScanListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);            
            // for (ScanResult result : listData)    		
             //	Log.d("MY CSListAdapter CHECK: SSID: ", result.SSID);                
+            
+
             
             holder = new ViewHolder();
             holder.ap_symbol_icon = (ImageView)convertView.findViewById(R.id.icon);         

@@ -27,4 +27,9 @@ public class MyProgressDialog extends Dialog {
         super(context, R.style.NewDialog);
     }
 	
+	public void test()
+	{
+		Log.e("MY MyProgressDialog ", "test method");	
+	}
+	
 }

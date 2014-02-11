@@ -28,8 +28,11 @@ public class CustomDialogWindow extends Dialog implements
   WifiManager wifi_mngr;
   TextView title,message; 
   ProgressDialog dialog;
- // MyProgressDialog myicon;
-  MyProgressDialog myicon = new MyProgressDialog(getContext());
+  
+  boolean status_icon = false; // Flag for enable/disable waiting_icon
+  
+  ScanItem internal_test = new ScanItem();
+  
   public CustomDialogWindow(Activity a,Context context) {
     super(a);
     mngr = context.getAssets();
@@ -37,7 +40,7 @@ public class CustomDialogWindow extends Dialog implements
     this.c = a;
     wifi_mngr = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);  
     dialog = new ProgressDialog(context,R.style.NewDialog);    
-    Log.d("MY Constructor ", "Constructor CustomDialogWindow ");
+    Log.d("MY Constructor ", "Constructor CustomDialogWindow ");   
   }
 
   @Override
@@ -66,29 +69,17 @@ public class CustomDialogWindow extends Dialog implements
     switch (v.getId()) {
     case R.id.btn_yes:    	 
    	  //yes.setBackgroundColor(0x000000);
-    	yes.setTextColor(Color.BLUE);
-    	Log.d("MY TAG ","PRESS YES"); 	
-    	//Intent intent = new Intent(this.c, MainActivity.class); 
-    	//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);             
+    	//yes.setTextColor(Color.BLUE);
+    	yes.setTextColor(Color.parseColor("#cc3300"));
+    	Log.d("MY TAG ","PRESS YES status_icon = 1"); 	
     	wifi_mngr.setWifiEnabled(true);
-    	 myicon.show(getContext(),"Please Wait ...",true,true);
-    	// Intent intent = new Intent(getContext(), MainActivity.class);
-    	  //intent.putExtra("PROGRESS_ICON", (Parcelable)myicon);
-	    	
-		    //startActivity(intent);
-    	/*
-    	dialog.setMessage("Please wait...");
-    	dialog.setIndeterminate(true);
-    	dialog.setCancelable(true);//false
-    	dialog.show();
-    	 */
-    	
-        //this.c.startActivity(intent);
+    	/** Set flag for enable display waiting_icon*/
+    	status_icon = true;    	
       dismiss();
       break;
     case R.id.btn_no:    	
     	Log.d("MY TAG ","PRESS NO");
-    	no.setTextColor(Color.BLUE);
+    	no.setTextColor(Color.parseColor("#cc3300"));
     	if (wifi_mngr.getWifiState() ==  wifi_mngr.WIFI_STATE_DISABLED)
     		  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
     	  this.c.finish();
