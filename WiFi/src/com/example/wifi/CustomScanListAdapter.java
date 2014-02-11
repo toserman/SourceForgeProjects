@@ -2,8 +2,6 @@ package com.example.wifi;
 
 import java.util.List;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -21,8 +19,7 @@ import android.widget.TextView;
 public class CustomScanListAdapter extends BaseAdapter {
 	 
     private List<ScanResult> listData;
-    private LayoutInflater layoutInflater;
-    public AssetManager mngr; //For fonts
+    private LayoutInflater layoutInflater;    
     public WifiManager wifiservice;
     public WifiInfo wifi_info;
     public Typeface font_roboto;
@@ -31,9 +28,8 @@ public class CustomScanListAdapter extends BaseAdapter {
     
     public CustomScanListAdapter(Context context, List<ScanResult> listData) {
         this.listData = listData;
-        layoutInflater = LayoutInflater.from(context);
-        mngr = context.getAssets();
-        font_roboto = Typeface.createFromAsset(mngr, "fonts/Roboto-Regular.ttf");
+        layoutInflater = LayoutInflater.from(context);        
+        font_roboto = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
         wifiservice = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         wifi_info = wifiservice.getConnectionInfo();
 

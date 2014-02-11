@@ -166,18 +166,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		break;
 		case R.id.wifiParam:
 			Log.d("MY TAG ", "After PUSH wifiParam = ");
+			int ip = myWifiInfo.getIpAddress();			
+			  String ipString = String.format(
+					   "%d.%d.%d.%d",
+					   (ip & 0xff),
+					   (ip >> 8 & 0xff),
+					   (ip >> 16 & 0xff),
+					   (ip >> 24 & 0xff));
 			
 			WifiInfo.setText("BSSID:"     + myWifiInfo.getSSID() + "\n"
 							+ "RSSI:"     + myWifiInfo.getRssi() + "\n"
 						//	+ "MAC: "     + myWifiInfo.getMacAddress() + "\n"
 							+ "LINK SPEED: "     + myWifiInfo.getLinkSpeed() + "\n"
-							+ "SUPPLICANT:" + myWifiInfo.getSupplicantState()
+							+ "SUPPLICANT:" + myWifiInfo.getSupplicantState() + "\n"
+							+ "IP ADDRESS:" + ipString
 								);
-		
-			//  results = wifiManager.getScanResults();
-			   
-	         //results = wifiManager.getScanResults();      
-	         //lvAP.setAdapter(new CustomScanListAdapter(this,results));
 	      
 	        // loop that goes through list
 	        for (ScanResult result : results) {        	
@@ -269,8 +272,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
 		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
 		      /** Run timer*/
-		      timerMethod();
-			  super.onStart();
+		      timerMethod();//Need investigate: no need to run timer when 
+			  super.onStart();// WIFI state is DISABLED !!!!!!!!!!
 			  Log.d("MY ON_STATE ", "onStart" );
 		  }
 		  protected void onPause() {
