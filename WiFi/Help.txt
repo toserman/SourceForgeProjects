@@ -17,7 +17,7 @@ Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));
 // POP-UP WINDOW
 Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();
 -------------------------------------------------------------------------------------------
-// Execption
+// Exception
 try {
 	  rowssid_1.setText("MAIN");  
 	} 
@@ -28,6 +28,18 @@ try {
 -------------------------------------------------------------------------------------------
 // Comment lines in XML file
 <!--...--> 
+-------------------------------------------------------------------------------------------
+//Add new jar in project
+ You have two ways to integrate GraphView into your project:
+    Download .jar file and copy it into the /libs folder of your project.
+    GraphView-3.1.1.jar
+    Download or clone the git repository and link your project with the GraphView library project.
+    jjoe64/GraphView on GitHub = https://github.com/jjoe64/GraphView
+-------------------------------------------------------------------------------------------
+    
+ http://www.edumobile.org/android/android-development/creating-bar-chart-using-graphview/
+ http://android-graphview.org/#doc_valuecolor
+
 
 
 

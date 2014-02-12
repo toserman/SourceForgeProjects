@@ -65,10 +65,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	      WifiParam = (Button)findViewById(R.id.wifiParam);
 	      WifiState = (TextView)findViewById(R.id.wifiState);
 	      WifiInfo = (TextView)findViewById(R.id.wifiInfo);
-	      rowtablename = (TextView)findViewById(R.id.textTableName);	    
-	      rowssid_1 = (TextView)findViewById(R.id.textView31);
-	      rowssid_2 = (TextView)findViewById(R.id.textView41);
-	      rowssid_3 = (TextView)findViewById(R.id.textView47);	      	 
 	      lvAP = (ListView)findViewById(R.id.listAP);
 	      scanDetails = new ArrayList<ScanItem>();
       
@@ -225,10 +221,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
-		    	intent_1.putStringArrayListExtra("AP_NAMES", apnames);
-		    	
-			    startActivity(intent);
-			    startActivity(intent_1);		     
+		    	startActivity(intent);
+		    	//intent_1.putStringArrayListExtra("AP_NAMES", apnames);
+		    	//startActivity(intent_1);		    			     
 		      break;	
 		    }
 		    return super.onOptionsItemSelected(item);

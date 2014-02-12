@@ -141,8 +141,8 @@ public class CustomScanListAdapter extends BaseAdapter {
       //  holder.bssid.setText("("+listData.get(position).BSSID +")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).frequency) + " MHz");
         holder.channelnum.setText("Ch:" + Integer.toString(convertFreqtoChannelNum(listData.get(position).frequency,arr_freq)));
-        holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).level) + " dBm");     
-           
+        holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).level) + " dBm");   
+         
         /*Set fonts*/
         holder.ssidname.setTypeface(font_roboto);
         holder.bssid.setTypeface(font_roboto);

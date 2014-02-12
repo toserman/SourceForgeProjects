@@ -1,172 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
- xmlns:android="http://schemas.android.com/apk/res/android"
- android:orientation="vertical"
- android:layout_width="match_parent"
- android:layout_height="match_parent">
-<TextView
- android:id="@+id/textView1"
- android:layout_width="wrap_content"
- android:layout_height="wrap_content"
- android:text="This is Activity Two">
-</TextView>
-<TableLayout
-    android:id="@+id/tableAPList"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#dad8ce"
-    android:shrinkColumns="*"
-    android:stretchColumns="*" >
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+	android:paddingTop="@dimen/activity_vertical_margin"
+	tools:context=".ActivityTwo"
+	android:orientation="vertical"
+	 android:id="@+id/graph1">
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:showDividers="beginning" >
+<LinearLayout
+   android:orientation="vertical"
+   android:layout_width="fill_parent"
+   android:layout_height="250dip"
+   android:id="@+id/graph2" />
 
-        <TextView
-            android:id="@+id/textTableName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_span="6"
-            android:background="#dad8FF"
-            android:gravity="center"
-            android:text="AP list:"
-            android:textColor="#0000FF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView android:id="@+id/TextView21" />
-
-        <TextView
-            android:id="@+id/TextView22"
-            android:gravity="center"
-            android:text="M"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView23"
-            android:gravity="center"
-            android:text="T"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView24"
-            android:gravity="center"
-            android:text="W"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/TextView25"
-            android:gravity="center"
-            android:text="T"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:gravity="center"
-            android:text="F"
-            android:textStyle="bold"
-            android:typeface="serif" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView31"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView32"
-            android:gravity="center_horizontal"
-            android:text="34°C" />
-
-        <TextView
-            android:id="@+id/textView33"
-            android:gravity="center_horizontal"
-            android:text="35°C" />
-
-        <TextView
-            android:id="@+id/textView34"
-            android:gravity="center_horizontal"
-            android:text="34°C" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:gravity="center_horizontal"
-            android:text="35°C" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:gravity="center_horizontal"
-            android:text="33°C" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView41"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView42"
-            android:gravity="center_horizontal"
-            android:text="28°C" />
-
-        <TextView
-            android:id="@+id/textView43"
-            android:gravity="center_horizontal"
-            android:text="27°C" />
-
-        <TextView
-            android:id="@+id/textView44"
-            android:gravity="center_horizontal"
-            android:text="29°C" />
-
-        <TextView
-            android:id="@+id/textView45"
-            android:gravity="center_horizontal"
-            android:text="26°C" />
-
-        <TextView
-            android:id="@+id/textView46"
-            android:gravity="center_horizontal"
-            android:text="29°C" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView47"
-            android:textColor="#228B22"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView48"
-            android:gravity="center_horizontal" />
-    </TableRow>
-</TableLayout>
+	<TextView
+	 android:id="@+id/textView1"
+	 android:layout_width="wrap_content"
+	 android:layout_height="wrap_content"
+	 android:text="This is Activity Two">
+	</TextView>
 
 </LinearLayout>
