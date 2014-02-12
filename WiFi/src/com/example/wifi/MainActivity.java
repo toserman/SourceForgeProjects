@@ -165,10 +165,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 		break;
 		case R.id.wifiParam:
-			Log.d("MY TAG ", "After PUSH wifiParam = ");
-			int ip = myWifiInfo.getIpAddress();			
-			  String ipString = String.format(
-					   "%d.%d.%d.%d",
+			Log.d("MY TAG ", "After PUSH wifiParam");			
+			int ip = myWifiInfo.getIpAddress();		
+			Log.d("MY TAG ", "After PUSH wifiParam ip = " + Integer.toString(ip));
+			  String ipString = String.format("%d.%d.%d.%d",
 					   (ip & 0xff),
 					   (ip >> 8 & 0xff),
 					   (ip >> 16 & 0xff),
@@ -318,8 +318,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				   
 		  results_new_intent = wifiManager.getScanResults();
 			  
-			//  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));
-			  			  				  
+			//  Log.d("MY WifiScanResultReceiver !!!  ", results_new_intent.get(1).SSID + ": " +Integer.toString(results_new_intent.get(1).level));			  			  				  
 			  //if(results_new_intent != null)
 				  //Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_new_intent = " + results_new_intent, Toast.LENGTH_LONG).show();
 			  			  

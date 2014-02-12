@@ -66,11 +66,22 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:textColor="#A0E6E6" 
         android:textSize="12sp" />
     
+    <TextView
+        android:id="@+id/ap_channel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ap_ssid"
+        android:paddingLeft="5dip"
+        android:layout_toRightOf="@+id/ap_freq"         
+        android:text=""
+        android:textColor="#A0E6E6" 
+        android:textSize="12sp" />
+    
 	<TextView
         android:id="@+id/ap_bssid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"       
-        android:layout_toRightOf="@+id/ap_ssid"
+        android:layout_toRightOf="@+id/ap_channel"
         android:layout_marginTop="10dip"     
         android:text=""
         android:textColor="#A0E6E6" 
@@ -88,7 +99,7 @@ FF0000	BF3030	A60000	FF4040	FF7373
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid"       
-        android:layout_toRightOf="@+id/ap_freq"
+        android:layout_toRightOf="@+id/ap_channel"
         android:paddingLeft="5dip"     
         android:text=""
         android:textColor="#A0E6E6" 
