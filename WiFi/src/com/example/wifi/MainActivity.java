@@ -220,10 +220,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		    switch (item.getItemId()) {		    
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
-		    	Intent intent = new Intent(this, ActivityTwo.class);
-		    	startActivity(intent);
-		    	//intent_1.putStringArrayListExtra("AP_NAMES", apnames);
-		    	//startActivity(intent_1);		    			     
+		    	//Intent intent = new Intent(this, ActivityTwo.class);
+		    	//startActivity(intent);
+		    	BarGraph barchart = new BarGraph();
+			      Intent intent = barchart.getIntent(this);
+			      startActivity(intent);
+		    			    			     
 		      break;	
 		    }
 		    return super.onOptionsItemSelected(item);

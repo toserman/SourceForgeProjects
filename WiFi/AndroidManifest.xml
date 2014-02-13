@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+        <activity android:name="org.achartengine.GraphicalActivity"/> 
         <activity android:name="ActivityTwo">
             <intent-filter >
                     <action android:name="my.action.bat.SCHEDULE_ACT" />
