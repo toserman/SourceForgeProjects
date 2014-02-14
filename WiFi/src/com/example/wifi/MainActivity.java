@@ -223,7 +223,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    	//Intent intent = new Intent(this, ActivityTwo.class);
 		    	//startActivity(intent);
 		    	BarGraph barchart = new BarGraph();
-			      Intent intent = barchart.getIntent(this);
+			      Intent intent = barchart.getIntent(this,results);		      
 			      startActivity(intent);
 		    			    			     
 		      break;	
@@ -294,12 +294,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		      if(timerScanUpdate != null)timerScanUpdate.cancel();//Timer stop
 		      super.onStop();
 		  }
-		 		 
-		//  protected void onRestart() {
-			//  Log.d("MY ON_CREATE ", "onRestart" );
-			  //super.onRestart();		    
-		 // }
-		  
+
 		  protected void onDestroy()
 		  {
 		      Log.d("MY ON_STATE ", "onDestroy" );

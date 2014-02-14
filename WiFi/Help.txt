@@ -35,10 +35,23 @@ try {
     GraphView-3.1.1.jar
     Download or clone the git repository and link your project with the GraphView library project.
     jjoe64/GraphView on GitHub = https://github.com/jjoe64/GraphView
--------------------------------------------------------------------------------------------
-    
+-------------------------------------------------------------------------------------------    
  http://www.edumobile.org/android/android-development/creating-bar-chart-using-graphview/
  http://android-graphview.org/#doc_valuecolor
+ -------------------------------------------------------------------------------------------
+ //Follow Field Naming Conventions
+ - Non-public, non-static field names start with m.
+ - Static field names start with s.
+ - Other fields start with a lower case letter.
+ - Public static final fields (constants) are ALL_CAPS_WITH_UNDERSCORES.
+ -------------------------------------------------------------------------------------------
+ 
+ Just for home:
+ http://www.cnx-software.com/2011/09/02/drawing-charts-in-android-with-achartengine-library/
+ 
+
+ 
+ 
 
 
 
