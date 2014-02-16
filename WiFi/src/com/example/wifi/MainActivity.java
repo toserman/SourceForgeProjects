@@ -110,12 +110,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {    	     
     	     cdd.setCancelable(false);
-    	     cdd.show();    	    
-		     // if(cdd.status_icon == 1)
-		      //{		    	  
-		      	 // waiting_icon.show(this,"Please Wait ...",true,true);
-		      	  //Log.e("MY ON_CREATE", "CALL icon");   	
-	 	      //}
+    	  //   cdd.show();  
     	  }
 	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
@@ -223,8 +218,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		    	//Intent intent = new Intent(this, ActivityTwo.class);
 		    	//startActivity(intent);
 		    	BarGraph barchart = new BarGraph();
-			      Intent intent = barchart.getIntent(this,results);		      
+			 //     Intent intent = barchart.getIntent(this,results);
+		    	//Enable Bubble chart
+		    	Intent intent = barchart.executeBubble(this);
 			      startActivity(intent);
+			      
+			      
 		    			    			     
 		      break;	
 		    }
