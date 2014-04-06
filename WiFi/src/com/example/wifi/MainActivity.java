@@ -110,7 +110,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {    	     
     	     cdd.setCancelable(false);
-    	  //   cdd.show();  
+    	     cdd.show();  
     	  }
 	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
@@ -215,15 +215,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		    switch (item.getItemId()) {		    
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
-		    	//Intent intent = new Intent(this, ActivityTwo.class);
-		    	//startActivity(intent);
-		    	BarGraph barchart = new BarGraph();
-			 //     Intent intent = barchart.getIntent(this,results);
-		    	//Enable Bubble chart
-		    	Intent intent = barchart.executeBubble(this);
-			      startActivity(intent);
-			      
-			      
+		    	Intent intent = new Intent(this, ActivityTwo.class);
+		    	startActivity(intent);
+		    
+		    	//BarGraph barchart = new BarGraph();
+			    //  Intent intent = barchart.getIntent(this,results);
+
+			      /*Enable Bubble chart*/
+		    	  //Intent intent = barchart.executeBubble(this);
+		    	
+		    	
+			    
 		    			    			     
 		      break;	
 		    }

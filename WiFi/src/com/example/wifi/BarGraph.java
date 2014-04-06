@@ -12,7 +12,10 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.net.wifi.ScanResult;
 import android.util.Log;
@@ -31,6 +34,26 @@ public class BarGraph {
 		   // renderer.setAxesColor(axesColor);
 		    //renderer.setLabelsColor(labelsColor);
 		  }
+	
+	public Intent drawSomething(Context context) {
+	    XYMultipleSeriesDataset series = new XYMultipleSeriesDataset();
+	    XYValueSeries newTicketSeries = new XYValueSeries("New Tickets");
+	    XYValueSeries fixedTicketSeries = new XYValueSeries("Fixed Tickets");
+	    XYSeriesRenderer newTicketRenderer = new XYSeriesRenderer();
+	    XYSeriesRenderer fixedTicketRenderer = new XYSeriesRenderer();
+	    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+	    
+	    Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#CD5C5C"));
+        Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bg); 
+        canvas.drawRect(50, 50, 200, 200, paint); 
+
+
+	    return ChartFactory.getBubbleChartIntent(context, series, renderer, "RSSI Level");
+	    
+	  }
+
 	
 	public Intent executeBubble(Context context) {
 	    XYMultipleSeriesDataset series = new XYMultipleSeriesDataset();
@@ -94,7 +117,6 @@ public class BarGraph {
  
 	    setChartSettings(renderer, "RSSI Level", "Channels", "Signal strength(dBm)",0,14,-20,-110);
 
-
 	    return ChartFactory.getBubbleChartIntent(context, series, renderer, "RSSI Level");
 	  }
 
@@ -104,7 +126,7 @@ public class BarGraph {
 	    
 		Log.e("MY TAG ", "********* BarGraph **************");	
 		
-        int y[] = {-95};
+        int y[] = {-95,-90};
         int y1[] = {-85};
         int y2[] = {-65};
         int y3[] = {-45};
@@ -261,51 +283,6 @@ public class BarGraph {
        
         return intent;
 	}
-	/*
-	public Intent BACKUP(Context context) {
-	    XYMultipleSeriesDataset series = new XYMultipleSeriesDataset();
-	    XYValueSeries newTicketSeries = new XYValueSeries("New Tickets");
-	    newTicketSeries.add(1f, 2, 14);
-	    newTicketSeries.add(2f, 2, 12);
-	    newTicketSeries.add(3f, 2, 18);
-	    newTicketSeries.add(4f, 2, 5);
-	    newTicketSeries.add(5f, 2, 1);
-	    series.addSeries(newTicketSeries);
-	    XYValueSeries fixedTicketSeries = new XYValueSeries("Fixed Tickets");
-	    fixedTicketSeries.add(1f, 1, 7);
-	    fixedTicketSeries.add(2f, 1, 4);
-	    fixedTicketSeries.add(3f, 1, 18);
-	    fixedTicketSeries.add(4f, 1, 3);
-	    fixedTicketSeries.add(5f, 1, 1);
-	    series.addSeries(fixedTicketSeries);
-
-	    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-	    renderer.setAxisTitleTextSize(16);
-	    renderer.setChartTitleTextSize(20);
-	    renderer.setLabelsTextSize(15);
-	    renderer.setLegendTextSize(15);
-	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    XYSeriesRenderer newTicketRenderer = new XYSeriesRenderer();
-	    newTicketRenderer.setColor(Color.BLUE);
-	    renderer.addSeriesRenderer(newTicketRenderer);
-	    XYSeriesRenderer fixedTicketRenderer = new XYSeriesRenderer();
-	    fixedTicketRenderer.setColor(Color.GREEN);
-	    renderer.addSeriesRenderer(fixedTicketRenderer);
-	    
-	    renderer.setDisplayChartValues(true);
-	    
-	   // renderer.getSeriesRendererAt(0).setGradientEnabled(true);
-        //renderer.getSeriesRendererAt(0).setGradientStart(1, Color.RED);
-        //renderer.getSeriesRendererAt(0).setGradientStop(2,Color.parseColor("#00000000"));
-
-	    setChartSettings(renderer, "Project work status", "Priority", "", 0.5, 5.5, 0, 5, Color.GRAY,
-	        Color.LTGRAY);
-	    renderer.setXLabels(7);
-	    renderer.setYLabels(0);
-	    renderer.setShowGrid(false);
-	    return ChartFactory.getBubbleChartIntent(context, series, renderer, "Project tickets");
-	  }
-*/
-	
+		
 	 
 }

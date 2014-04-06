@@ -5,9 +5,18 @@ package com.example.wifi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,64 +36,46 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 public class ActivityTwo extends Activity {
-	public static TextView rowtablename,rowssid_1,rowssid_2,rowssid_3;
-	public void onCreate(Bundle savedInstanceState) {
-	      super.onCreate(savedInstanceState);
-	      setContentView(R.layout.activity_two);
-	      Log.e("MY TAG :", "onCreate = ActivityTwo");
-	      
-	      Intent intent = buildIntent();	      
-	      startActivity(intent);
-	      
-	      
-	 /*     GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {	    	      
-	    	      new GraphViewData(1, 6.0d), new GraphViewData(2, 6.0d),
-					new GraphViewData(3, 5.0d), new GraphViewData(4,5.0d),new GraphViewData(5, 10.0d), new GraphViewData(6,21.0d)
-	    	});*/
-	    
-	      /* WORKING VERSION
-	      GraphViewSeries exampleSeries = new GraphViewSeries(
-	    			new GraphViewData[] { new GraphViewData(1, 3),
-	    					new GraphViewData(2, 6), new GraphViewData(3, 6),
-	    					new GraphViewData(4, 5), new GraphViewData(5, 3)
-	    			});
-	      
-	      GraphView graphView = new BarGraphView(
-	    	      this
-	    	      , "GraphViewDemo"
-	    	);
-	      
-	      graphView.addSeries(exampleSeries);
-	      //graphView.setDrawBackground(true);
-	      //graphView.setBackgroundColor(Color.rgb(120, 30, 30));
-	      LinearLayout layout = (LinearLayout) findViewById(R.id.graph2);
-	      layout.addView(graphView);
-	    */		
-	  }
-	
-	public Intent buildIntent() {
-        int[] values = new int[] { 5, 15, 25, 50, 75 };        // ÑˆÐ°Ð³ 2
-        String[] bars = new String[] {"Francesca's",  "King of Clubs", 
-                                 "Zen Lounge", "Tied House", "Molly Magees"};
-        int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.MAGENTA, 
-                                   Color.YELLOW, Color.CYAN };
- 
-        CategorySeries series = new CategorySeries("Pie Chart");  // ÑˆÐ°Ð³ 3
-        DefaultRenderer dr = new DefaultRenderer();   // ÑˆÐ°Ð³ 4
- 
-        for (int v=0; v<5; v++){    // ÑˆÐ°Ð³ 5
-            series.add(bars[v], values[v]);
-            SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-            r.setColor(colors[v]);
-            dr.addSeriesRenderer(r);
-        }
-        dr.setZoomButtonsVisible(true);
-        dr.setZoomEnabled(true);
-        dr.setChartTitleTextSize(20);
-        return ChartFactory.getPieChartIntent(    // ÑˆÐ°Ð³ 6
-                              this, series, dr, "Pie of bars");    
-    }
-	
+	 protected void onCreate(Bundle savedInstanceState) {
+		    super.onCreate(savedInstanceState);
+		    setContentView(new DrawView(this));
+		  }
+
+		  class DrawView extends View {	
+			  Paint p;
+		    public DrawView(Context context) {		    	
+		      super(context);
+		      p = new Paint();
+		    }
+		    
+		    @Override
+		    protected void onDraw(Canvas canvas) {
+		    	 Log.d("MY ActivityTwo ", "Draw !!!");
+		    	 Display display = getWindowManager().getDefaultDisplay();
+		    	 Point size = new Point();
+		    	 display.getSize(size);
+		    	 int width = size.x;
+		    	 int height = size.y;
+		    	 
+		    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
+		    			 		+ Integer.toString(height)); 
+		    	 
+		    	  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
+		    	 // brush preferences
+		            p.setColor(Color.WHITE);
+		            // òîëùèíà ëèíèè = 10
+		           // p.setStrokeWidth(10);
+		            canvas.drawLine(2 ,600,100,100,p);
+		           
+		            ///invalidate();
+		    }
+		    protected void reDraw() {
+		    	 Log.d("MY ActivityTwo ", "reDraw !!!");
+		        this.invalidate();
+		       }
+		    
+		  }
 }
+
 
 
