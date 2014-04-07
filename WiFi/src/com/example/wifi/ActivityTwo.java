@@ -43,29 +43,35 @@ public class ActivityTwo extends Activity {
 
 		  class DrawView extends View {	
 			  Paint p;
+			  ChartEngine chart;
 		    public DrawView(Context context) {		    	
 		      super(context);
-		      p = new Paint();
+		    //  p = new Paint();
+		      chart = new ChartEngine(context);
 		    }
 		    
 		    @Override
 		    protected void onDraw(Canvas canvas) {
 		    	 Log.d("MY ActivityTwo ", "Draw !!!");
+		    /*
 		    	 Display display = getWindowManager().getDefaultDisplay();
 		    	 Point size = new Point();
 		    	 display.getSize(size);
 		    	 int width = size.x;
 		    	 int height = size.y;
-		    	 
+		    	 //width = 480 height = 800
 		    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
 		    			 		+ Integer.toString(height)); 
+		    	*/ 
+		    	 chart.getDisplaySize(ActivityTwo.this);
+		    	 chart.drawAxisXY(canvas);
 		    	 
-		    	  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
+		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
 		    	 // brush preferences
-		            p.setColor(Color.WHITE);
+		          //  p.setColor(Color.WHITE);
 		            // толщина линии = 10
 		           // p.setStrokeWidth(10);
-		            canvas.drawLine(2 ,600,100,100,p);
+		           // canvas.drawLine(2 ,788,2,2,p);
 		           
 		            ///invalidate();
 		    }
