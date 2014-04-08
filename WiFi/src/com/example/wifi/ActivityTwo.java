@@ -63,7 +63,7 @@ public class ActivityTwo extends Activity {
 		    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
 		    			 		+ Integer.toString(height)); 
 		    	*/ 
-		    	 chart.getDisplaySize(ActivityTwo.this);
+		    	 chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
 		    	 chart.drawAxisXY(canvas);
 		    	 
 		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
