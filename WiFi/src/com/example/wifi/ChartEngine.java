@@ -34,14 +34,20 @@ public class ChartEngine extends View {
 	} 
 
 	public void drawAxisXY(Canvas canvas) {
+		final int START_X_AXISX = 30;//pixel
+		final int START_X_AXISY = 40;
 		canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
     	// brush preferences
         p.setColor(Color.WHITE);
             // толщина линии = 10
            // p.setStrokeWidth(10);
         
-        canvas.drawLine(30,(height - 40),(width-20),(height - 40),p);//Draw axis X
-        canvas.drawLine(40,(height - 30),40,30,p);//Draw axis Y
-        	
+        canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
+        canvas.drawLine(START_X_AXISY,(height - 60),START_X_AXISY,30,p);//Draw axis Y
+        /*Draw segments on axis X*/
+        int eval_px = ((width-20) - START_X_AXISX) / 12/*channels*/;
+        for(int k = 1; k < 13; k++)
+        	canvas.drawLine(START_X_AXISX + eval_px*k, (height - 70) + 5, 
+        			START_X_AXISX + eval_px*k, (height - 70), p);	
 	}
 }
