@@ -45,9 +45,21 @@ public class ChartEngine extends View {
         canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
         canvas.drawLine(START_X_AXISY,(height - 60),START_X_AXISY,30,p);//Draw axis Y
         /*Draw segments on axis X*/
-        int eval_px = ((width-20) - START_X_AXISX) / 12/*channels*/;
+        int evalX_px = ((width-20) - START_X_AXISX) / 12/*channels*/;
+    	Log.d("MY ChartEngine: drawAxisXY: ", "eval_px = " + evalX_px);
         for(int k = 1; k < 13; k++)
-        	canvas.drawLine(START_X_AXISX + eval_px*k, (height - 70) + 5, 
-        			START_X_AXISX + eval_px*k, (height - 70), p);	
+        {
+        	canvas.drawLine(START_X_AXISX + evalX_px*k, (height - 70) + 5, 
+        			START_X_AXISX + evalX_px*k, (height - 70), p);
+        	canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*k - 3, (height - 70) + 18, p);
+        }
+        /*Draw segments on axis Y*/
+        int evalY_px = ((height - 70) - START_X_AXISY) / 10/*channels*/;
+        for(int m = 1; m < 11; m++)
+        {
+        	canvas.drawLine(START_X_AXISY + 5, height - 70 - evalY_px*m , 
+        			START_X_AXISY - 5 , height - 70 - evalY_px*m, p);
+        	canvas.drawText(Integer.toString(m),START_X_AXISX - 12, height - 70 - evalY_px*m + 3, p);
+        }
 	}
 }
