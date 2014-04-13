@@ -2,6 +2,9 @@ package com.example.wifi;
 
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -40,19 +44,28 @@ public class ActivityTwo extends Activity {
 		    super.onCreate(savedInstanceState);
 		    setContentView(new DrawView(this));
 		  }
-
+	 Timer timerAnimation;
+	 TimerTask tasktimerAnimation;
 		  class DrawView extends View {	
 			  Paint p;
 			  ChartEngine chart;
+			  float touchX = 0;
+			  float touchY = 0;
 		    public DrawView(Context context) {		    	
 		      super(context);
-		    //  p = new Paint();
+		      p = new Paint();
 		      chart = new ChartEngine(context);
+		    	 ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());
+		    	 
 		    }
 		    
 		    @Override
 		    protected void onDraw(Canvas canvas) {
 		    	 Log.d("MY ActivityTwo ", "Draw !!!");
+		    	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
+		    			 			+ "canvas.getWidth()= " + canvas.getWidth());
+		    	 /** Run timer*/
+			     // timerMethod();
 		    /*
 		    	 Display display = getWindowManager().getDefaultDisplay();
 		    	 Point size = new Point();
@@ -63,9 +76,16 @@ public class ActivityTwo extends Activity {
 		    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
 		    			 		+ Integer.toString(height)); 
 		    	*/ 
-		    	 chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
-		    	 chart.drawAxisXY(canvas);
-		    	 
+
+
+		    	 chart.drawAxisXY(canvas);	 
+		    	 chart.testDraw(canvas,touchX,touchY);
+		    	 touchX+=5;
+		    	 touchY+=5;
+		    	 if (touchX < canvas.getWidth())
+		    		 invalidate();
+		    	
+    	
 		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
 		    	 // brush preferences
 		          //  p.setColor(Color.WHITE);
@@ -73,12 +93,40 @@ public class ActivityTwo extends Activity {
 		           // p.setStrokeWidth(10);
 		           // canvas.drawLine(2 ,788,2,2,p);
 		           
-		            ///invalidate();
+		            //invalidate();
 		    }
 		    protected void reDraw() {
 		    	 Log.d("MY ActivityTwo ", "reDraw !!!");
 		        this.invalidate();
 		       }
+		    
+		    
+		    public boolean onTouchEvent(MotionEvent event)
+		    {
+		    	Log.d("MY onTouchEvent", "onTouchEvent");
+			    if(event.getAction() == MotionEvent.ACTION_DOWN)
+			    {
+			    	touchX = event.getX();
+			    	touchY = event.getY();
+		
+		    		invalidate();
+		
+			    }
+			    return true;
+		    }
+		    
+		    void timerMethod()
+			  {
+				  timerAnimation = new Timer();
+				  tasktimerAnimation = new TimerTask() {
+					  public void run() {
+						  Log.d("MY timerAnimation", "run code in timerAnimation");
+						  //wifiManager.startScan();
+						  //chart.testDraw(canvas);
+					  }
+		  		  };
+		  		  timerAnimation.schedule(tasktimerAnimation, 5000, 5000);
+			  }	
 		    
 		  }
 }
