@@ -55,8 +55,7 @@ public class ActivityTwo extends Activity {
 		      super(context);
 		      p = new Paint();
 		      chart = new ChartEngine(context);
-		    	 ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());
-		    	 
+		      ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());		    	 
 		    }
 		    
 		    @Override
@@ -66,38 +65,35 @@ public class ActivityTwo extends Activity {
 		    			 			+ "canvas.getWidth()= " + canvas.getWidth());
 		    	 /** Run timer*/
 			     // timerMethod();
-		    /*
-		    	 Display display = getWindowManager().getDefaultDisplay();
-		    	 Point size = new Point();
-		    	 display.getSize(size);
-		    	 int width = size.x;
-		    	 int height = size.y;
-		    	 //width = 480 height = 800
-		    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
-		    			 		+ Integer.toString(height)); 
+		    	 /*
+			    	 Display display = getWindowManager().getDefaultDisplay();
+			    	 Point size = new Point();
+			    	 display.getSize(size);
+			    	 int width = size.x;
+			    	 int height = size.y;
+			    	 //width = 480 height = 800
+			    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
+			    			 		+ Integer.toString(height)); 
 		    	*/ 
-
 
 		    	 chart.drawAxisXY(canvas);	 
 		    	 chart.testDraw(canvas,touchX,touchY);
 		    	 touchX+=5;
 		    	 touchY+=5;
-		    	 if (touchX < canvas.getWidth())
-		    		 invalidate();
-		    	
-    	
+		    	// if (touchX < canvas.getWidth())
+		    		// invalidate();
+		
 		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
 		    	 // brush preferences
 		          //  p.setColor(Color.WHITE);
 		            // толщина линии = 10
 		           // p.setStrokeWidth(10);
-		           // canvas.drawLine(2 ,788,2,2,p);
-		           
+		            //canvas.drawLine(2 ,788,2,2,p);		           
 		            //invalidate();
 		    }
 		    protected void reDraw() {
 		    	 Log.d("MY ActivityTwo ", "reDraw !!!");
-		        this.invalidate();
+		         this.invalidate();
 		       }
 		    
 		    
@@ -107,10 +103,8 @@ public class ActivityTwo extends Activity {
 			    if(event.getAction() == MotionEvent.ACTION_DOWN)
 			    {
 			    	touchX = event.getX();
-			    	touchY = event.getY();
-		
-		    		invalidate();
-		
+			    	touchY = event.getY();		
+		    		invalidate();		
 			    }
 			    return true;
 		    }

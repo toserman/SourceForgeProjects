@@ -122,16 +122,55 @@ public class ChartEngine extends View {
        // setnameAxisX(canvas,"WIFI channels");
         setName(canvas,15,-90,START_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
         setName(canvas,15,0,100,330,"WIFI Channels");
-        setName(canvas,20,0,100,70,"Channel graph");
+        setName(canvas,20,0,100,70,"Channel graph");        
+        
        // setnameAxisY(canvas,15,0,40,100,"WIFI CHANNELS");
 	}
 	
 	public void testDraw (Canvas canvas,float x,float y)
 	{
 				
-			//Log.d("MY ChartEngine: testDraw: ", "incr = " + Integer.toString(incr));
-			//canvas.drawLine(x,y,x + 40,y,p);
-			canvas.drawRect(100,200,x+30,y+30,p);
+		//Log.d("MY ChartEngine: testDraw: ", "incr = " + Integer.toString(incr));			
+		//canvas.drawRect(100,200,x+30,y+30,p);
+		//Paint p = new Paint();
+		//p.setARGB(0xA9,0xF7,0xE8,0x36);
+
+		Rect rect = new Rect(START_X_AXISY, (height + 40), START_X_AXISY + 75,(height - 300));
+		
+	 	// fill
+    	p.setStyle(Paint.Style.FILL);        	
+    	p.setColor(Color.parseColor("#99F7E836"));
+        canvas.drawRect(rect, p);
+        // border
+	    p.setStyle(Paint.Style.STROKE);
+		//p.setColor(Color.MAGENTA); 
+		p.setColor(Color.parseColor("#F7E8FF"));
+		p.setStrokeWidth(2);
+		canvas.drawRect(rect, p);
+		
+		Rect rect1 = new Rect(START_X_AXISY + 30, (height + 40), START_X_AXISY + 90,(height - 200));
+		
+	 	// fill
+    	p.setStyle(Paint.Style.FILL);        	
+    	p.setColor(Color.parseColor("#99F7FFF6"));
+        canvas.drawRect(rect1, p);
+        // border
+	    p.setStyle(Paint.Style.STROKE);
+		//p.setColor(Color.MAGENTA); 
+		p.setColor(Color.parseColor("#F7E8FF"));
+		p.setStrokeWidth(2);
+		canvas.drawRect(rect1, p);
+		
+		p.reset();
+		
+			//p.setColor(Color.parseColor("#A9F7E836"));
+		//	p.setStrokeWidth(10);
+			//p.setAlpha(127);
+			//p.setStyle(Paint.Style.FILL);
 			
+
+	       // canvas.restore();
+	        
+	        
 	}
 }
