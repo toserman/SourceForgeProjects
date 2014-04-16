@@ -69,10 +69,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	      scanDetails = new ArrayList<ScanItem>();
       
 	      /** Intents for Broadcast receivers */
-	  	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+	  //	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
 	  	  wifiScanAvailIntent =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 	  	  /** Register Receivers */
-	      this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
+	  //    this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
 	      this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntent);
 	      waiting_icon = new MyProgressDialog(this);
 	      temp_waiting_icon = new MyProgressDialog(this);
@@ -267,7 +267,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  };
 		  
 		  protected void onStart() {
-			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
+			 // this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
 		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
 		      /** Run timer*/
 		      timerMethod();//Need investigate: no need to run timer when 
@@ -290,7 +290,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  protected void onStop()
 		  {
 		      unregisterReceiver(WifiScanResultReceiver);
-		      unregisterReceiver(WifiStateChangedReceiver);
+		     // unregisterReceiver(WifiStateChangedReceiver);
 		      Log.d("MY ON_STATE ", "onStop Timer Stop" );
 		      if(timerScanUpdate != null)timerScanUpdate.cancel();//Timer stop
 		      super.onStop();
@@ -331,12 +331,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			     if (adapterlist == null)
 			     {
 			    	 adapterlist = new CustomScanListAdapter(getApplicationContext(),results_new_intent);	   	 
-			    	 lvAP.setAdapter(adapterlist);			    	
+			    	 lvAP.setAdapter(adapterlist);
 			     }
 			     	//Refresh adapter list
 			     	adapterlist.setData(results_new_intent);
-			     	adapterlist.notifyDataSetChanged();				  
-			 }			 
+			     	adapterlist.notifyDataSetChanged();	
+			     	
+			  	 }			 
 		}	 	 		  
 	  };
 	  void timerMethod()

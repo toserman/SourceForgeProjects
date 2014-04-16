@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class ChartEngine extends View {
 	public static int width;//Display size values
-	public static int height; //width = 480 height = 800//690 end
+	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int START_X_AXISX = 50;//pixel
 	final int START_X_AXISY = 60;
 	Paint p;
