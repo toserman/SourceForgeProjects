@@ -131,11 +131,11 @@ public class ChartEngine extends View {
 	{
 				
 		//Log.d("MY ChartEngine: testDraw: ", "incr = " + Integer.toString(incr));			
-		//canvas.drawRect(100,200,x+30,y+30,p);
-		//Paint p = new Paint();
-		//p.setARGB(0xA9,0xF7,0xE8,0x36);
+		canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 + 40 + y),p);
+		Paint p = new Paint();
+		p.setARGB(0xA9,0xF7,0xE8,0x36);
 
-		Rect rect = new Rect(START_X_AXISY, (height + 40), START_X_AXISY + 75,(height - 300));
+		Rect rect = new Rect(START_X_AXISY, (height - 70), START_X_AXISY + 75,(height - 300));
 		
 	 	// fill
     	p.setStyle(Paint.Style.FILL);        	
@@ -148,7 +148,7 @@ public class ChartEngine extends View {
 		p.setStrokeWidth(2);
 		canvas.drawRect(rect, p);
 		
-		Rect rect1 = new Rect(START_X_AXISY + 30, (height + 40), START_X_AXISY + 90,(height - 200));
+		Rect rect1 = new Rect(START_X_AXISY + 30, (height - 70), START_X_AXISY + 90,(height - 200));
 		
 	 	// fill
     	p.setStyle(Paint.Style.FILL);        	
@@ -162,15 +162,5 @@ public class ChartEngine extends View {
 		canvas.drawRect(rect1, p);
 		
 		p.reset();
-		
-			//p.setColor(Color.parseColor("#A9F7E836"));
-		//	p.setStrokeWidth(10);
-			//p.setAlpha(127);
-			//p.setStyle(Paint.Style.FILL);
-			
-
-	       // canvas.restore();
-	        
-	        
 	}
 }

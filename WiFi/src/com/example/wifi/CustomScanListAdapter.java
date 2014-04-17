@@ -41,7 +41,7 @@ public class CustomScanListAdapter extends BaseAdapter {
     14 	2484
     */
     public static final int NUM_CHANNELS = 15;
-    public int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+    public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     
      public CustomScanListAdapter(Context context, List<ScanResult> listData) {
         this.listData = listData;
@@ -169,7 +169,7 @@ public class CustomScanListAdapter extends BaseAdapter {
         ImageView wifi_capab_icon;        
     }
     
-    public int convertFreqtoChannelNum(int inpfreq,int[] inp_array)
+    public static int convertFreqtoChannelNum(int inpfreq,int[] inp_array)
     {
     	int res=0;
     	

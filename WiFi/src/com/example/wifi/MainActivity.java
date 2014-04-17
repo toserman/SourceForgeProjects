@@ -25,7 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener {
+
+public class MainActivity extends Activity implements OnClickListener {	
 
 	TextView WifiState,WifiInfo;
 	Button WifiOn,WifiOff,WifiParam;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	final int DIALOG_EXIT = 1;	
 	
 	ArrayList<ScanItem> scanDetails;
-	final ArrayList<String> apnames = new ArrayList<String>() ;	//OLD CODE
+	//final ArrayList<String> apnames = new ArrayList<String>() ;	//OLD CODE
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 		
 	IntentFilter wifiStateIntent;
@@ -68,11 +69,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	      lvAP = (ListView)findViewById(R.id.listAP);
 	      scanDetails = new ArrayList<ScanItem>();
       
+	      /**Create timer*/
+	    //  timerScanUpdate = new Timer();
+	      
 	      /** Intents for Broadcast receivers */
-	  //	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+	  	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
 	  	  wifiScanAvailIntent =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 	  	  /** Register Receivers */
-	  //    this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
+	      this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);	     
 	      this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntent);
 	      waiting_icon = new MyProgressDialog(this);
 	      temp_waiting_icon = new MyProgressDialog(this);
@@ -267,17 +271,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		  };
 		  
 		  protected void onStart() {
-			 // this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
+			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
 		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
 		      /** Run timer*/
-		      timerMethod();//Need investigate: no need to run timer when 
+		      timerMethod();//Need investigate: no need to run timer when
 			  super.onStart();// WIFI state is DISABLED !!!!!!!!!!
-			  Log.d("MY ON_STATE ", "onStart" );
+	
+			//  Log.d("MY ON_STATE ", "onStart Timer Stop ActivityTwo.activity = " + ActivityTwo.activity );
+			  
+			  Log.d("MY 1 ON_STATE ", "onStart" );
 		  }
 		  protected void onPause() {
 			//  unregisterReceiver(WifiScanResultReceiver);
 			 // unregisterReceiver(WifiStateChangedReceiver);
-			  Log.d("MY ON_STATE ", "onPause" );			  
+			  Log.d("MY 1 ON_STATE ", "onPause" );			  
 			  //timerScanUpdate.cancel();//Timer stop
 		      super.onPause();
 		    }
@@ -285,25 +292,29 @@ public class MainActivity extends Activity implements OnClickListener {
 		  protected void onResume() {
 			  super.onResume();
 			  //timerMethod();
-			  Log.d("MY ON_STATE ", "onResume" );
+			  Log.d("MY 1 ON_STATE ", "onResume" );
 		  }
 		  protected void onStop()
 		  {
 		      unregisterReceiver(WifiScanResultReceiver);
-		     // unregisterReceiver(WifiStateChangedReceiver);
-		      Log.d("MY ON_STATE ", "onStop Timer Stop" );
-		      if(timerScanUpdate != null)timerScanUpdate.cancel();//Timer stop
+		      unregisterReceiver(WifiStateChangedReceiver);
+		      Log.d("MY 1 ON_STATE ", "onStop" );		    
+		      if(timerScanUpdate != null)
+		    	  timerScanUpdate.cancel();//Timer stop	
+		    //  if(ActivityTwo.activity == false)
+		    	//  timerScanUpdate.cancel();
 		      super.onStop();
 		  }
 
 		  protected void onDestroy()
 		  {
-		      Log.d("MY ON_STATE ", "onDestroy" );
+		      Log.d("MY 1 ON_STATE ", "onDestroy" );
 		      //timerScanUpdate.cancel();//Timer stop
 		      super.onDestroy();
 		  }
 		  
-	  private BroadcastReceiver WifiScanResultReceiver
+	  //private BroadcastReceiver WifiScanResultReceiver
+	  public BroadcastReceiver WifiScanResultReceiver
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
