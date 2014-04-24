@@ -52,12 +52,15 @@ public class ActivityTwo extends Activity {
 	TimerTask tasktimerChart;
 	List<ScanResult> results_scan_intent;
 	WifiManager wifiManager;
-	
+	 public BroadcastReceiver WifiScanResultReceiver;
 	 protected void onCreate(Bundle savedInstanceState) {
 		    super.onCreate(savedInstanceState);
 		    setContentView(new DrawView(this));
 		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
-		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);		    
+		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+		    
+		    
+		    
 		  }
 
 		  class DrawView extends View {	
@@ -69,12 +72,30 @@ public class ActivityTwo extends Activity {
 		      super(context);
 		      p = new Paint();
 		      chart = new ChartEngine(context);
-		      ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());		    	 
+		      ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());		
+		      WifiScanResultReceiver = new BroadcastReceiver(){
+				  public void onReceive(Context context, Intent intent) {
+					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver !!! INSIDE" );				  
+					  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
+					  results_scan_intent = wifiManager.getScanResults(); 
+					  
+					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver freq = "
+					  + Integer.toString(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq)));
+					  
+					  
+					  for (ScanResult result : results_scan_intent)    		
+						 	Log.d("MY results_scan_intent CHECK: SSID: ", result.SSID);
+					//if(results_scan_intent != null)
+					 // Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_scan_intent = " + results_scan_intent, Toast.LENGTH_LONG).show();
+				  		
+					  invalidate();
+				  }
+			  };
 		    }
 		    
 		    @Override
 		    protected void onDraw(Canvas canvas) {
-		    	 Log.d("MY ActivityTwo ", "Draw !!!");
+		    	 Log.d("MY ActivityTwo ", "onDraw !!!");
 		    	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
 		    			 			+ "canvas.getWidth()= " + canvas.getWidth());
 
@@ -95,6 +116,8 @@ public class ActivityTwo extends Activity {
 		    	 touchY+=5;
 		    	// if (touchX < canvas.getWidth())
 		    		// invalidate();
+		    	 if(touchY < 200)
+		    		 invalidate();
 		
 		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
 		    	 // brush preferences
@@ -115,32 +138,18 @@ public class ActivityTwo extends Activity {
 		    	Log.d("MY onTouchEvent", "onTouchEvent");
 			    if(event.getAction() == MotionEvent.ACTION_DOWN)
 			    {
-			    	touchX = event.getX();
-			    	touchY = event.getY();		
+			    	//touchX = event.getX();
+			    	//touchY = event.getY();
 		    		invalidate();		
 			    }
 			    return true;
 		    }
 		    
+		//	  public BroadcastReceiver
+		    
+		    
 		  }
-		  public BroadcastReceiver WifiScanResultReceiver
-		  = new BroadcastReceiver(){
-			  public void onReceive(Context context, Intent intent) {
-				  Log.d("MY ActivityTwo ", "WifiScanResultReceiver !!! INSIDE" );				  
-				  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
-				  results_scan_intent = wifiManager.getScanResults(); 
-				  
-				  Log.d("MY ActivityTwo ", "WifiScanResultReceiver freq = "
-				  + Integer.toString(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq)));
-				  
-				  for (ScanResult result : results_scan_intent)    		
-					 	Log.d("MY results_scan_intent CHECK: SSID: ", result.SSID);
-				//if(results_scan_intent != null)
-				 // Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_scan_intent = " + results_scan_intent, Toast.LENGTH_LONG).show();
-			  				  		
-				  
-			  }
-		  };
+
 		  
 		  void timerMethod()
 		  {

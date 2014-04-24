@@ -1,5 +1,7 @@
 package com.example.wifi;
 
+import java.sql.Struct;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,17 +17,33 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
+
+
 public class ChartEngine extends View {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int START_X_AXISX = 50;//pixel
 	final int START_X_AXISY = 60;
+	int evalX_px = 0; //Size of segment X axis in pixels
+	
+	public class ChannelCoord {
+		int x,y,num;	
+	}
+	
+	ChannelCoord [] ch_coord ;
+	
+	
 	Paint p;
 	
 	public ChartEngine(Context context)
 	{
 		super(context);
 		p = new Paint();
+		ch_coord = new ChannelCoord[15];
+
+	//	ch_coord[0].x = START_X_AXISX + 25;
+		//ch_coord[0].y = START_X_AXISY;
+		//ch_coord[0].num = 1;
 	}
 	
 	public static void getDisplaySize(Activity activity,Context context) {
@@ -40,31 +58,71 @@ public class ChartEngine extends View {
 	   			" height = " + Integer.toString(height),	Toast.LENGTH_LONG).show();
 	} 
 	
-	private void drawSegmentsAxisX(Canvas canvas,int startval,int endval)
+	private void drawSegmentsAxisX(Canvas canvas)
 	{
-		int count = 1;
-		int chnum = startval;
-		int evalX_px = 0;
 		
+		int count = 1;
+		int firstch = 1;
+		int lastch = 15;
+				
 	    /*Calculate number of segments for axis*/		
-        while (startval < endval )
+        while (firstch < lastch )
         {
-        	startval++;
+        	firstch++;
         	count++;
         }
     	Log.d("MY ChartEngine: drawSegmentsAxisX: ", "count = " + count);
 		      
-        evalX_px = ((width-20) - START_X_AXISX) / count;//Evaluate size of segment in pixels    
+        evalX_px = ((width-20) - START_X_AXISX) / lastch;//Evaluate size of segment in pixels    
     	//Log.d("MY ChartEngine: drawSegmentsAxisX: ", "eval_px = " + evalX_px);
+        //evalX_px = 25
         /*Draw segments on axis X*/
+       
+        int k = 1;
+        //canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*2 - ((k >9)?5:3),
+		//		(height - 70) + 18,p);		
+
+ 		//canvas.drawLine(START_X_AXISX + evalX_px*2 , (height - 70) + 5, 
+			//	START_X_AXISX + evalX_px*2, (height - 70),p);
+ 		k++;
+ 		ch_coord[0].x = START_X_AXISX + 25;
+		ch_coord[0].y = START_X_AXISY;
+		ch_coord[0].num = 1;
+   //   canvas.drawLine(ch_coord[0].x ,ch_coord[0].y + 5,ch_coord[0].x, ch_coord[0].y,p);
+ 	 	
+ 		count = 15;
+ 		while(k < (count+1))
+ 		{
+ 			canvas.drawLine(START_X_AXISX + evalX_px*(k + 1) , (height - 70) + 5, 
+					START_X_AXISX + evalX_px*(k + 1), (height - 70),p); 				
+ 	
+ 			canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*(k + 1) - ((k >9)?5:3),
+					(height - 70) + 18,p);
+ 			k++;
+ 		}
+        
+        /*
         for(int k = 1; k < (count+1); k++)
-        {
-        	canvas.drawLine(START_X_AXISX + evalX_px*k, (height - 70) + 5, 
-        					START_X_AXISX + evalX_px*k, (height - 70),p);
-        	canvas.drawText(Integer.toString(chnum),START_X_AXISX + evalX_px*k - ((chnum >9)?5:3),
+        {  	
+        	if (k == 1)
+        	{
+        		canvas.drawLine(START_X_AXISX + evalX_px*2 , (height - 70) + 5, 
+        					START_X_AXISX + evalX_px*2, (height - 70),p);
+        
+        		canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*2 - ((k >9)?5:3),
         						(height - 70) + 18,p);
-        	chnum++;
-        }
+        		k++;
+        	} else {
+         		canvas.drawLine(START_X_AXISX + evalX_px*k , (height - 70) + 5, 
+    					START_X_AXISX + evalX_px*k, (height - 70),p);
+    
+    		canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*k - ((k >9)?5:3),
+    						(height - 70) + 18,p); 		
+        	}
+        		
+        //	chnum++;     
+        }*/
+        
 	}
 	private void drawSegmentsAxisY(Canvas canvas,int startval,int endval,int step)
 	{	
@@ -95,7 +153,6 @@ public class ChartEngine extends View {
 	    	p.setColor(Color.WHITE);
 	    }   	
 	}
-	
 	private void setName(Canvas canvas,int textsize,int rotate_angle, int x,int y,String axis_name)
 	{	
 		Rect rect = new Rect();
@@ -117,7 +174,7 @@ public class ChartEngine extends View {
         canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
         canvas.drawLine(START_X_AXISY,(height - 60),START_X_AXISY,30,p);//Draw axis Y
         
-        drawSegmentsAxisX(canvas,1,14);
+        drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas,-90,-30,5);
        // setnameAxisX(canvas,"WIFI channels");
         setName(canvas,15,-90,START_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
@@ -131,10 +188,13 @@ public class ChartEngine extends View {
 	{
 				
 		//Log.d("MY ChartEngine: testDraw: ", "incr = " + Integer.toString(incr));			
-		canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 + 40 + y),p);
+		canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 + 40 - y),p);
 		Paint p = new Paint();
 		p.setARGB(0xA9,0xF7,0xE8,0x36);
-
+		
+		channel2rectDraw(canvas,1);
+		
+/*
 		Rect rect = new Rect(START_X_AXISY, (height - 70), START_X_AXISY + 75,(height - 300));
 		
 	 	// fill
@@ -147,7 +207,7 @@ public class ChartEngine extends View {
 		p.setColor(Color.parseColor("#F7E8FF"));
 		p.setStrokeWidth(2);
 		canvas.drawRect(rect, p);
-		
+	*/	
 		Rect rect1 = new Rect(START_X_AXISY + 30, (height - 70), START_X_AXISY + 90,(height - 200));
 		
 	 	// fill
@@ -162,5 +222,23 @@ public class ChartEngine extends View {
 		canvas.drawRect(rect1, p);
 		
 		p.reset();
+	}
+	protected void channel2rectDraw(Canvas canvas,int channel)
+	{
+		Paint p = new Paint();
+		p.setARGB(0xA9,0xF7,0xE8,0x36);
+		//Channel 1(2,3 channel)
+		Rect rect = new Rect(START_X_AXISY, (height - 70), START_X_AXISY + 3*evalX_px,(height - 300));
+		
+	 	// fill
+    	p.setStyle(Paint.Style.FILL);        	
+    	p.setColor(Color.parseColor("#99F7E836"));
+        canvas.drawRect(rect, p);
+        // border
+	    p.setStyle(Paint.Style.STROKE);
+		//p.setColor(Color.MAGENTA); 
+		p.setColor(Color.parseColor("#F7E8FF"));
+		p.setStrokeWidth(2);
+		canvas.drawRect(rect, p);
 	}
 }
