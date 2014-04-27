@@ -305,7 +305,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		    	//  timerScanUpdate.cancel();
 		      super.onStop();
 		  }
-
 		  protected void onDestroy()
 		  {
 		      Log.d("MY 1 ON_STATE ", "onDestroy" );

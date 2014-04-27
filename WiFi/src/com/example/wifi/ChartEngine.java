@@ -1,38 +1,38 @@
 package com.example.wifi;
 
-import java.sql.Struct;
+
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
-
-
 
 public class ChartEngine extends View {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int START_X_AXISX = 50;//pixel
 	final int START_X_AXISY = 60;
+	final int START_Y_AXISXY = 71;
+	final int RSSI_START_AXISXY = -90;
+	final int RSSI_END_AXISXY = -30;
 	int evalX_px = 0; //Size of segment X axis in pixels
-	
+	int evalY_px = 0; //Size of segment Y axis in pixels
+	int evalRSSI_px = 0; //Size of value RSSI in pixels
 	public class ChannelCoord {
-		int x,y,num;	
-	}
+		public int x;
+		public int y;
+		public int num ;
+	}		
 	
-	ChannelCoord [] ch_coord ;
-	
-	
+	ChannelCoord [] ch_coord ;		
 	Paint p;
 	
 	public ChartEngine(Context context)
@@ -40,10 +40,11 @@ public class ChartEngine extends View {
 		super(context);
 		p = new Paint();
 		ch_coord = new ChannelCoord[15];
-
-	//	ch_coord[0].x = START_X_AXISX + 25;
-		//ch_coord[0].y = START_X_AXISY;
-		//ch_coord[0].num = 1;
+	
+		for(int i = 0; i < ch_coord.length ;i++)
+		{
+			ch_coord[i] = new ChannelCoord();
+		}
 	}
 	
 	public static void getDisplaySize(Activity activity,Context context) {
@@ -54,81 +55,60 @@ public class ChartEngine extends View {
 	   	height = size.y - 110;	   	    
 	   	Log.d("MY ChartEngine: Display: ", "width = " + Integer.toString(width)
 	   			+ " height = " + Integer.toString(height));
-	   	Toast.makeText(context, "Display size width = " + Integer.toString(width) +
-	   			" height = " + Integer.toString(height),	Toast.LENGTH_LONG).show();
+	   //	Toast.makeText(context, "Display size width = " + Integer.toString(width) +
+	   	//		" height = " + Integer.toString(height),	Toast.LENGTH_LONG).show();
 	} 
 	
 	private void drawSegmentsAxisX(Canvas canvas)
 	{
+		int k = 1;
+		int lastch = 18;//for 14 WIFI channels
+		int chnum = 13;
+	
+		/*Evaluate size of segment in pixels*/
+		evalX_px = ((width-20) - START_X_AXISX) / lastch;    
 		
-		int count = 1;
-		int firstch = 1;
-		int lastch = 15;
-				
-	    /*Calculate number of segments for axis*/		
-        while (firstch < lastch )
-        {
-        	firstch++;
-        	count++;
-        }
-    	Log.d("MY ChartEngine: drawSegmentsAxisX: ", "count = " + count);
-		      
-        evalX_px = ((width-20) - START_X_AXISX) / lastch;//Evaluate size of segment in pixels    
-    	//Log.d("MY ChartEngine: drawSegmentsAxisX: ", "eval_px = " + evalX_px);
-        //evalX_px = 25
         /*Draw segments on axis X*/
-       
-        int k = 1;
-        //canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*2 - ((k >9)?5:3),
-		//		(height - 70) + 18,p);		
-
- 		//canvas.drawLine(START_X_AXISX + evalX_px*2 , (height - 70) + 5, 
-			//	START_X_AXISX + evalX_px*2, (height - 70),p);
- 		k++;
- 		ch_coord[0].x = START_X_AXISX + 25;
-		ch_coord[0].y = START_X_AXISY;
-		ch_coord[0].num = 1;
-   //   canvas.drawLine(ch_coord[0].x ,ch_coord[0].y + 5,ch_coord[0].x, ch_coord[0].y,p);
+        k++;//1st channel start from second position
+ 		ch_coord[1].x = START_X_AXISX + 2*evalX_px;
+		ch_coord[1].y = (height - START_Y_AXISXY);
+		ch_coord[1].num = 1;
+        canvas.drawLine(ch_coord[1].x ,ch_coord[1].y + 5,ch_coord[1].x, ch_coord[1].y,p);
+        canvas.drawText(Integer.toString(ch_coord[1].num),ch_coord[1].x - ((ch_coord[1].num >9)?5:3),
+						ch_coord[1].y + 18,p);
  	 	
- 		count = 15;
- 		while(k < (count+1))
+        chnum = 13;
+ 		while(k <= chnum)
  		{
- 			canvas.drawLine(START_X_AXISX + evalX_px*(k + 1) , (height - 70) + 5, 
-					START_X_AXISX + evalX_px*(k + 1), (height - 70),p); 				
- 	
- 			canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*(k + 1) - ((k >9)?5:3),
-					(height - 70) + 18,p);
+ 	 		ch_coord[k].x = START_X_AXISX + evalX_px*(k+1);
+ 			ch_coord[k].y = (height - START_Y_AXISXY);
+ 			ch_coord[k].num = k;
+ 			canvas.drawLine(ch_coord[k].x ,ch_coord[k].y + 5,ch_coord[k].x, ch_coord[k].y,p);
+ 			
+ 			canvas.drawText(Integer.toString(ch_coord[k].num),ch_coord[k].x - ((ch_coord[k].num >9)?5:3),
+					ch_coord[k].y + 18,p);
+ 			//canvas.drawLine(START_X_AXISX + evalX_px*(k + 1) , (height - 70) + 5, 
+				//	START_X_AXISX + evalX_px*(k + 1), (height - 70),p); 		 	
+ 			//canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*(k + 1) - ((k >9)?5:3),
+				//	(height - 70) + 18,p);
  			k++;
  		}
-        
-        /*
-        for(int k = 1; k < (count+1); k++)
-        {  	
-        	if (k == 1)
-        	{
-        		canvas.drawLine(START_X_AXISX + evalX_px*2 , (height - 70) + 5, 
-        					START_X_AXISX + evalX_px*2, (height - 70),p);
-        
-        		canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*2 - ((k >9)?5:3),
-        						(height - 70) + 18,p);
-        		k++;
-        	} else {
-         		canvas.drawLine(START_X_AXISX + evalX_px*k , (height - 70) + 5, 
-    					START_X_AXISX + evalX_px*k, (height - 70),p);
-    
-    		canvas.drawText(Integer.toString(k),START_X_AXISX + evalX_px*k - ((k >9)?5:3),
-    						(height - 70) + 18,p); 		
-        	}
-        		
-        //	chnum++;     
-        }*/
+ 		k++;//Just for skip 1 space
+ 		ch_coord[14].x = START_X_AXISX + evalX_px*(k + 1);
+		ch_coord[14].y = (height - START_Y_AXISXY);
+		ch_coord[14].num = 14;
+        canvas.drawLine(ch_coord[14].x ,ch_coord[14].y + 5,ch_coord[14].x, ch_coord[14].y,p);
+        canvas.drawText(Integer.toString(ch_coord[14].num),ch_coord[14].x - ((ch_coord[14].num >9)?5:3),
+						ch_coord[14].y + 18,p);               
         
 	}
-	private void drawSegmentsAxisY(Canvas canvas,int startval,int endval,int step)
+	private void drawSegmentsAxisY(Canvas canvas)
 	{	
+		int startval = RSSI_START_AXISXY ;
+		int endval = RSSI_END_AXISXY;
+		int step = 5;
 	    int rssilevel = startval;
-	    int count = 1;
-	    int evalY_px = 0;
+	    int count = 1;	    
 	    
 	    /*Calculate number of segments for axis*/
 	    while (startval < endval )
@@ -137,19 +117,21 @@ public class ChartEngine extends View {
 	    	count++;
 	    }
 	    
-		evalY_px = ((height - 70) - START_X_AXISY) / count;//Evaluate size of segment in pixels      
+		evalY_px = ((height - 70) - (START_X_AXISY - 30)) / count;//Evaluate size of segment in pixels
+		evalRSSI_px = evalY_px/step;//Just for RSSI values
+		Log.e("MY drawSegmentsAxisY", "evalY_px = " + Integer.toString(evalY_px));
 		for(int m = 1; m < (count+1); m++)
 	    {
 	    	canvas.drawLine(START_X_AXISY,(height - 70) - evalY_px*m , 
 	    					START_X_AXISY - 5 ,(height - 70) - evalY_px*m,p);        	
-	    	if(rssilevel%10 != 0) p.setTextSize(10);
+	    	if(rssilevel%10 != 0)
+	    		p.setTextSize(10);
 	    	canvas.drawText(Integer.toString(rssilevel),START_X_AXISX - 17, (height - 70) - evalY_px*m + 4,p);
 	    	p.setTextSize(12);
 	    	rssilevel+=step;
 	    	/*Draw Y GRID*/
 	    	p.setColor(Color.DKGRAY);
-	    	canvas.drawLine(START_X_AXISY,(height - 70) - evalY_px*m , 
-	    					(width-20),(height - 70)-evalY_px*m,p);
+	    	canvas.drawLine(START_X_AXISY,(height - 70) - evalY_px*m ,(width-20),(height - 70)-evalY_px*m,p);
 	    	p.setColor(Color.WHITE);
 	    }   	
 	}
@@ -175,7 +157,7 @@ public class ChartEngine extends View {
         canvas.drawLine(START_X_AXISY,(height - 60),START_X_AXISY,30,p);//Draw axis Y
         
         drawSegmentsAxisX(canvas);
-        drawSegmentsAxisY(canvas,-90,-30,5);
+        drawSegmentsAxisY(canvas);
        // setnameAxisX(canvas,"WIFI channels");
         setName(canvas,15,-90,START_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
         setName(canvas,15,0,100,330,"WIFI Channels");
@@ -192,7 +174,7 @@ public class ChartEngine extends View {
 		Paint p = new Paint();
 		p.setARGB(0xA9,0xF7,0xE8,0x36);
 		
-		channel2rectDraw(canvas,1);
+		channel2rectDraw(canvas,1,67);
 		
 /*
 		Rect rect = new Rect(START_X_AXISY, (height - 70), START_X_AXISY + 75,(height - 300));
@@ -208,9 +190,9 @@ public class ChartEngine extends View {
 		p.setStrokeWidth(2);
 		canvas.drawRect(rect, p);
 	*/	
+		/*
 		Rect rect1 = new Rect(START_X_AXISY + 30, (height - 70), START_X_AXISY + 90,(height - 200));
-		
-	 	// fill
+		// fill
     	p.setStyle(Paint.Style.FILL);        	
     	p.setColor(Color.parseColor("#99F7FFF6"));
         canvas.drawRect(rect1, p);
@@ -220,25 +202,51 @@ public class ChartEngine extends View {
 		p.setColor(Color.parseColor("#F7E8FF"));
 		p.setStrokeWidth(2);
 		canvas.drawRect(rect1, p);
-		
+		*/
 		p.reset();
 	}
-	protected void channel2rectDraw(Canvas canvas,int channel)
+	protected void channel2rectDraw(Canvas canvas,int channel,int rssi)
 	{
-		Paint p = new Paint();
-		p.setARGB(0xA9,0xF7,0xE8,0x36);
-		//Channel 1(2,3 channel)
-		Rect rect = new Rect(START_X_AXISY, (height - 70), START_X_AXISY + 3*evalX_px,(height - 300));
+						
+		//canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 + 40 - y),p);
+
+	//	Rect rect = new Rect(START_X_AXISY,(height - START_Y_AXISXY - 300),
+		//					START_X_AXISY + 3*evalX_px,(height - START_Y_AXISXY));
+	
+		// -90 = -10 // 91 = -9 // 92 = -8 // 93 = -7
+		// -94 = -1 // -93 = -2 // -92 = -3 //-91 = -4 // -90 = -5
+		//evalY_px = 45 / 5 = 9
+		//95 - 80 = 
+		Random r = new Random();
+	//Channel 1	
+			Rect rect = new Rect(START_X_AXISY+1,(height - START_Y_AXISXY + (rssi + RSSI_START_AXISXY -5)*(evalRSSI_px)),
+						ch_coord[3].x,(height - START_Y_AXISXY));		
+			rectPaint(canvas, rect);
+		Rect rect1 = new Rect(ch_coord[4].x,(height - START_Y_AXISXY + (r.nextInt(70) + RSSI_START_AXISXY -5)*(evalRSSI_px)),
+					ch_coord[8].x,(height - START_Y_AXISXY));		
+		 	rectPaint(canvas, rect1);
 		
-	 	// fill
-    	p.setStyle(Paint.Style.FILL);        	
-    	p.setColor(Color.parseColor("#99F7E836"));
-        canvas.drawRect(rect, p);
-        // border
-	    p.setStyle(Paint.Style.STROKE);
-		//p.setColor(Color.MAGENTA); 
-		p.setColor(Color.parseColor("#F7E8FF"));
-		p.setStrokeWidth(2);
-		canvas.drawRect(rect, p);
+	 	
 	}
+	protected void rectPaint(Canvas canvas,Rect rect)
+	{
+				// fill
+				Paint p = new Paint();
+				Random r = new Random();
+				//p.setARGB(0xA9,0xF7,0xE8,0x36);
+				p.setStyle(Paint.Style.FILL);        	
+		    	//p.setColor(Color.parseColor("#99F7E836"));
+		    	p.setColor(Color.argb(169/*0xA9*/,r.nextInt(255),r.nextInt(255),r.nextInt(255)));		    	    
+		        canvas.drawRect(rect, p);
+		        
+		        // border
+			    p.setStyle(Paint.Style.STROKE);				 
+				//p.setColor(Color.parseColor("#F7E8FF"));
+			    p.setColor(p.getColor());
+				p.setStrokeWidth(2);
+				canvas.drawRect(rect, p);
+				p.reset();
+				
+	}
+
 }

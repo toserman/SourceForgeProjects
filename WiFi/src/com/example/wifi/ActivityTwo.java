@@ -58,9 +58,6 @@ public class ActivityTwo extends Activity {
 		    setContentView(new DrawView(this));
 		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		    
-		    
-		    
 		  }
 
 		  class DrawView extends View {	
@@ -76,17 +73,15 @@ public class ActivityTwo extends Activity {
 		      WifiScanResultReceiver = new BroadcastReceiver(){
 				  public void onReceive(Context context, Intent intent) {
 					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver !!! INSIDE" );				  
-					  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
+					//  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
 					  results_scan_intent = wifiManager.getScanResults(); 
 					  
 					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver freq = "
 					  + Integer.toString(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq)));
 					  
 					  
-					  for (ScanResult result : results_scan_intent)    		
-						 	Log.d("MY results_scan_intent CHECK: SSID: ", result.SSID);
-					//if(results_scan_intent != null)
-					 // Toast.makeText(getApplicationContext(), "WifiScanResultReceiver results_scan_intent = " + results_scan_intent, Toast.LENGTH_LONG).show();
+				//	  for (ScanResult result : results_scan_intent)    		
+					//	 	Log.d("MY results_scan_intent CHECK: SSID: ", result.SSID);
 				  		
 					  invalidate();
 				  }
@@ -96,8 +91,8 @@ public class ActivityTwo extends Activity {
 		    @Override
 		    protected void onDraw(Canvas canvas) {
 		    	 Log.d("MY ActivityTwo ", "onDraw !!!");
-		    	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
-		    			 			+ "canvas.getWidth()= " + canvas.getWidth());
+		    //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
+		    	//		 			+ "canvas.getWidth()= " + canvas.getWidth());
 
 		    	 /*
 			    	 Display display = getWindowManager().getDefaultDisplay();
@@ -116,8 +111,16 @@ public class ActivityTwo extends Activity {
 		    	 touchY+=5;
 		    	// if (touchX < canvas.getWidth())
 		    		// invalidate();
+		    	 
+		    	// for(int i = 60;i > 30; i-- )
+		    	// {
+		    	//	 chart.channel2rectDraw(canvas,1,i);
+		    	//	 Log.d("MY ActivityTwo: ","i = " + Integer.toString(i)); 
+		    	//	 invalidate();
+		    	// }
 		    	 if(touchY < 200)
 		    		 invalidate();
+		    	 
 		
 		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
 		    	 // brush preferences
@@ -145,8 +148,7 @@ public class ActivityTwo extends Activity {
 			    return true;
 		    }
 		    
-		//	  public BroadcastReceiver
-		    
+		//	  public BroadcastReceiver    
 		    
 		  }
 
