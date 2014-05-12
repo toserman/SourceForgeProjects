@@ -355,7 +355,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  timerScanUpdate = new Timer();
 		  tasktimer = new TimerTask() {
 			  public void run() {
-				  Log.d("MY Timer", "run code in Timer");
+				 // Log.d("MY Timer", "run code in Timer");
 				  wifiManager.startScan();
 			  }
   		  };

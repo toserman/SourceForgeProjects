@@ -65,10 +65,11 @@ public class ActivityTwo extends Activity {
 	 };  
 	 protected void onCreate(Bundle savedInstanceState) {
 		    super.onCreate(savedInstanceState);
+		    Log.d("MY ActivityTwo ", "onCreate()" );	
 		    //setContentView(new DrawView(this));
-		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
-		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		    final DrawChart barChart = (DrawChart) findViewById(R.id.barchart);
+		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+		//    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+		     DrawChart barChart = (DrawChart)findViewById(R.id.barchart);
 		  }
 		  
 		  void timerMethod()
@@ -76,22 +77,23 @@ public class ActivityTwo extends Activity {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
-					  Log.d("MY timerChart", "run code in timerChart");
-					  wifiManager.startScan();
-					  //chart.testDraw(canvas);
+				//	  Log.d("MY timerChart", "run code in timerChart");
+	
+					 // wifiManager.startScan();
+					 
 				  }
 	  		  };
 	  		  timerChart.schedule(tasktimerChart, 5000, 5000);
 		  }	
 		  protected void onStart() {
-			  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
+		//	  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
 			  /** Run timer*/
 			  timerMethod();
 			  super.onStart();
 		  }
 		  protected void onStop() {
 			  super.onStop();	
-		      unregisterReceiver(WifiScanResultReceiver);
+		    //  unregisterReceiver(WifiScanResultReceiver);
 		      
 		      if(timerChart != null)
 		    	  timerChart.cancel();//Timer stop		      

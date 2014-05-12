@@ -11,21 +11,33 @@
     tools:context=".ActivityTwo" >
 
  <!-- android:layout_height="fill_parent" -->
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Button" />
-
 <LinearLayout
-   android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-   android:layout_width="wrap_content"
-   android:layout_height="wrap_content"
-   android:id="@+id/graph2" >
+        <Button
+            android:id="@+id/walkning_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Walking" />
 
+        <Button
+            android:id="@+id/running_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Running" />
+
+        <Button
+            android:id="@+id/cycling_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cycling" />
+    </LinearLayout>
+    
     <com.example.wifi.DrawChart
         android:id="@+id/barchart"
         android:layout_width="165dp"
@@ -33,8 +45,7 @@
         android:background="#444"
         android:padding="16dp" />
 
-</LinearLayout>
-
+     
 	<TextView
 	 android:id="@+id/textView1"
 	 android:layout_width="wrap_content"

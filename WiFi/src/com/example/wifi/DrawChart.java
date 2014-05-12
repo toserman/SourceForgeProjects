@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,20 +16,25 @@ public class DrawChart extends View {
 	  ChartEngine chart = new ChartEngine();
 	  float touchX = 0; // FOR DEBUG
 	  float touchY = 0; // FOR DEBUG
-  public DrawChart(Context context) {		    	
-    super(context);
-  //  p = new Paint();
-  //  chart = new ChartEngine(context);
-    //ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());
-  //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
-    	
-			  invalidate();	  
+  
+	  //public DrawChart(Context context) {		    	
+    //super(context);
+	  //  p = new Paint();
+	  //  chart = new ChartEngine(context);
+	    //ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());
+	  //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
+	    	
+	//invalidate();	  
 	  
+  	//}
+   public DrawChart(Context context, AttributeSet attrs) {	   
+      super(context, attrs);      
+      Log.e("MY DrawChart ", "Constructor !!!");
   }
   
   @Override
   protected void onDraw(Canvas canvas) {
-  	 Log.d("MY ActivityTwo ", "onDraw !!!");
+  	 Log.d("MY DrawChart ", "onDraw !!!");
   //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
   	//		 			+ "canvas.getWidth()= " + canvas.getWidth());
 
