@@ -10,12 +10,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
-public class ChartEngine extends View {
+public class ChartEngine {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int START_X_AXISX = 50;//pixel
@@ -32,14 +33,14 @@ public class ChartEngine extends View {
 		public int num ;
 	}		
 	
-	ChannelCoord [] ch_coord ;		
+	ChannelCoord [] ch_coord = new ChannelCoord[15];
 	Paint p;
-	
-	public ChartEngine(Context context)
+
+	public ChartEngine()
 	{
-		super(context);
+		//super(context);
 		p = new Paint();
-		ch_coord = new ChannelCoord[15];
+		//ch_coord = new ChannelCoord[15];
 	
 		for(int i = 0; i < ch_coord.length ;i++)
 		{

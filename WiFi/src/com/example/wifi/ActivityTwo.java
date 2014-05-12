@@ -52,106 +52,24 @@ public class ActivityTwo extends Activity {
 	TimerTask tasktimerChart;
 	List<ScanResult> results_scan_intent;
 	WifiManager wifiManager;
-	 public BroadcastReceiver WifiScanResultReceiver;
+	 public BroadcastReceiver WifiScanResultReceiver =
+			  new BroadcastReceiver(){
+		  public void onReceive(Context context, Intent intent) {
+			  Log.d("MY ActivityTwo ", "WifiScanResultReceiver !!! INSIDE" );				  
+			//  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
+			  results_scan_intent = wifiManager.getScanResults(); 
+			  
+			  Log.d("MY ActivityTwo ", "WifiScanResultReceiver freq = "
+			  + Integer.toString(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq)));
+		  }
+	 };  
 	 protected void onCreate(Bundle savedInstanceState) {
 		    super.onCreate(savedInstanceState);
-		    setContentView(new DrawView(this));
+		    //setContentView(new DrawView(this));
 		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+		    final DrawChart barChart = (DrawChart) findViewById(R.id.barchart);
 		  }
-
-		  class DrawView extends View {	
-			  Paint p;
-			  ChartEngine chart;
-			  float touchX = 0; // FOR DEBUG
-			  float touchY = 0; // FOR DEBUG
-		    public DrawView(Context context) {		    	
-		      super(context);
-		      p = new Paint();
-		      chart = new ChartEngine(context);
-		      ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());		
-		      WifiScanResultReceiver = new BroadcastReceiver(){
-				  public void onReceive(Context context, Intent intent) {
-					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver !!! INSIDE" );				  
-					//  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();
-					  results_scan_intent = wifiManager.getScanResults(); 
-					  
-					  Log.d("MY ActivityTwo ", "WifiScanResultReceiver freq = "
-					  + Integer.toString(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq)));
-					  
-					  
-				//	  for (ScanResult result : results_scan_intent)    		
-					//	 	Log.d("MY results_scan_intent CHECK: SSID: ", result.SSID);
-				  		
-					  invalidate();
-				  }
-			  };
-		    }
-		    
-		    @Override
-		    protected void onDraw(Canvas canvas) {
-		    	 Log.d("MY ActivityTwo ", "onDraw !!!");
-		    //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
-		    	//		 			+ "canvas.getWidth()= " + canvas.getWidth());
-
-		    	 /*
-			    	 Display display = getWindowManager().getDefaultDisplay();
-			    	 Point size = new Point();
-			    	 display.getSize(size);
-			    	 int width = size.x;
-			    	 int height = size.y;
-			    	 //width = 480 height = 800
-			    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
-			    			 		+ Integer.toString(height)); 
-		    	*/ 
-
-		    	 chart.drawAxisXY(canvas);	 
-		    	 chart.testDraw(canvas,touchX,touchY);
-		    	 touchX+=5;
-		    	 touchY+=5;
-		    	// if (touchX < canvas.getWidth())
-		    		// invalidate();
-		    	 
-		    	// for(int i = 60;i > 30; i-- )
-		    	// {
-		    	//	 chart.channel2rectDraw(canvas,1,i);
-		    	//	 Log.d("MY ActivityTwo: ","i = " + Integer.toString(i)); 
-		    	//	 invalidate();
-		    	// }
-		    	 if(touchY < 200)
-		    		 invalidate();
-		    	 
-		
-		    	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
-		    	 // brush preferences
-		          //  p.setColor(Color.WHITE);
-		            // толщина линии = 10
-		           // p.setStrokeWidth(10);
-		            //canvas.drawLine(2 ,788,2,2,p);		           
-		            //invalidate();
-		    }
-		    protected void reDraw() {
-		    	 Log.d("MY ActivityTwo ", "reDraw !!!");
-		         this.invalidate();
-		    }
-		    
-		    
-		    public boolean onTouchEvent(MotionEvent event)
-		    {
-		    	Log.d("MY onTouchEvent", "onTouchEvent");
-			    if(event.getAction() == MotionEvent.ACTION_DOWN)
-			    {
-			    	//touchX = event.getX();
-			    	//touchY = event.getY();
-		    		invalidate();		
-			    }
-			    return true;
-		    }
-		    
-		//	  public BroadcastReceiver    
-		    
-		  }
-
 		  
 		  void timerMethod()
 		  {
