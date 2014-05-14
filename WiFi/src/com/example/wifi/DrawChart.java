@@ -29,7 +29,7 @@ public class DrawChart extends View {
   	//}
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
-      Log.e("MY DrawChart ", "Constructor !!!");
+      Log.e("MY DrawChart ", "Constructor !!!");   
   }
   
   @Override
@@ -76,7 +76,7 @@ public class DrawChart extends View {
   }
   protected void reDraw() {
   	 Log.d("MY ActivityTwo ", "reDraw !!!");
-       this.invalidate();
+      // this.invalidate();
   }
   
   

@@ -22,6 +22,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -69,7 +70,11 @@ public class ActivityTwo extends Activity {
 		    //setContentView(new DrawView(this));
 		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		//    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		     DrawChart barChart = (DrawChart)findViewById(R.id.barchart);
+		    
+		    setContentView(R.layout.activity_two);
+		    DrawChart barChart = (DrawChart) findViewById(R.id.barchart);
+		     barChart.reDraw();
+		     
 		  }
 		  
 		  void timerMethod()
