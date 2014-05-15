@@ -21,7 +21,7 @@ public class DrawChart extends View {
     //super(context);
 	  //  p = new Paint();
 	  //  chart = new ChartEngine(context);
-	    //ChartEngine.getDisplaySize(ActivityTwo.this,getApplicationContext());
+	    //ChartEngine.getDisplaySize(ActivityTwo.this);
 	  //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
 	    	
 	//invalidate();	  

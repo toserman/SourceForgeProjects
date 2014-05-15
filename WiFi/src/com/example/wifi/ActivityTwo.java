@@ -72,8 +72,7 @@ public class ActivityTwo extends Activity {
 		//    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 		    
 		    setContentView(R.layout.activity_two);
-		    DrawChart barChart = (DrawChart) findViewById(R.id.barchart);
-		     barChart.reDraw();
+		    DrawChart barChart = (DrawChart) findViewById(R.id.barchart);		    
 		     
 		  }
 		  

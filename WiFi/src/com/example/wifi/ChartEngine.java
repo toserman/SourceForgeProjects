@@ -48,7 +48,7 @@ public class ChartEngine {
 		}
 	}
 	
-	public static void getDisplaySize(Activity activity,Context context) {
+	public static void getDisplaySize(Activity activity) {
 		Display display = activity.getWindowManager().getDefaultDisplay();
 	   	Point size = new Point();
 	   	display.getSize(size);
@@ -56,7 +56,7 @@ public class ChartEngine {
 	   	height = size.y - 110;	   	    
 	   	Log.d("MY ChartEngine: Display: ", "width = " + Integer.toString(width)
 	   			+ " height = " + Integer.toString(height));
-	   //	Toast.makeText(context, "Display size width = " + Integer.toString(width) +
+	  // 	Toast.makeText(context, "Display size width = " + Integer.toString(width) +
 	   	//		" height = " + Integer.toString(height),	Toast.LENGTH_LONG).show();
 	} 
 	
@@ -120,7 +120,7 @@ public class ChartEngine {
 	    
 		evalY_px = ((height - 70) - (START_X_AXISY - 30)) / count;//Evaluate size of segment in pixels
 		evalRSSI_px = evalY_px/step;//Just for RSSI values
-		Log.e("MY drawSegmentsAxisY", "evalY_px = " + Integer.toString(evalY_px));
+		//Log.e("MY drawSegmentsAxisY", "evalY_px = " + Integer.toString(evalY_px));
 		for(int m = 1; m < (count+1); m++)
 	    {
 	    	canvas.drawLine(START_X_AXISY,(height - 70) - evalY_px*m , 
