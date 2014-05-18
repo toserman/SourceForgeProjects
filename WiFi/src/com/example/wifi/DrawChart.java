@@ -21,7 +21,8 @@ public class DrawChart extends View {
     //super(context);
 	  //  p = new Paint();
 	  //  chart = new ChartEngine(context);
-	    //ChartEngine.getDisplaySize(ActivityTwo.this);
+	
+	  
 	  //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
 	    	
 	//invalidate();	  
@@ -29,7 +30,8 @@ public class DrawChart extends View {
   	//}
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
-      Log.e("MY DrawChart ", "Constructor !!!");   
+      Log.e("MY DrawChart ", "Constructor !!!");
+      ChartEngine.getDisplaySize(context);
   }
   
   @Override

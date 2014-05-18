@@ -11,9 +11,11 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class ChartEngine {
@@ -48,14 +50,22 @@ public class ChartEngine {
 		}
 	}
 	
-	public static void getDisplaySize(Activity activity) {
-		Display display = activity.getWindowManager().getDefaultDisplay();
-	   	Point size = new Point();
-	   	display.getSize(size);
-	   	width = size.x;
-	   	height = size.y - 110;	   	    
-	   	Log.d("MY ChartEngine: Display: ", "width = " + Integer.toString(width)
-	   			+ " height = " + Integer.toString(height));
+	public static void getDisplaySize(Context context) {
+		DisplayMetrics metrics = new DisplayMetrics();
+		((WindowManager)context.getSystemService("window")).getDefaultDisplay().getMetrics(metrics);
+		Log.d("MY ChartEngine: metrics: ", " metrics.heightPixels = " + Integer.toString( metrics.heightPixels)
+	   			+ " metrics.widthPixels = " + Integer.toString(metrics.widthPixels));
+		width = metrics.widthPixels;
+		height = metrics.heightPixels - 110;
+		//Display display = activity.getWindowManager().getDefaultDisplay();
+		//Display display = ActivityTwo.getWindowManager().getDefaultDisplay();
+	   	//Point size = new Point();
+	   	//display.getSize(size);
+	   //	width = size.x;
+	   	//height = size.y - 110;	   	    
+	   	//Log.d("MY ChartEngine: Display: ", "width = " + Integer.toString(width)
+	   		//	+ " height = " + Integer.toString(height));
+	   	
 	  // 	Toast.makeText(context, "Display size width = " + Integer.toString(width) +
 	   	//		" height = " + Integer.toString(height),	Toast.LENGTH_LONG).show();
 	} 
