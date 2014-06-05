@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 public class DrawChart extends View {
 	
@@ -21,10 +22,7 @@ public class DrawChart extends View {
     //super(context);
 	  //  p = new Paint();
 	  //  chart = new ChartEngine(context);
-	
-	  
-	  //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
-	    	
+	 //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
 	//invalidate();	  
 	  
   	//}
@@ -34,7 +32,7 @@ public class DrawChart extends View {
       ChartEngine.getDisplaySize(context);
   }
   
-  @Override
+   @Override
   protected void onDraw(Canvas canvas) {
   	 Log.d("MY DrawChart ", "onDraw !!!");
   //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 

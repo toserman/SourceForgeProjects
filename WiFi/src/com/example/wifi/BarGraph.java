@@ -49,9 +49,7 @@ public class BarGraph {
         Canvas canvas = new Canvas(bg); 
         canvas.drawRect(50, 50, 200, 200, paint); 
 
-
 	    return ChartFactory.getBubbleChartIntent(context, series, renderer, "RSSI Level");
-	    
 	  }
 
 	

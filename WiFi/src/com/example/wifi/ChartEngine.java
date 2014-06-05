@@ -35,6 +35,8 @@ public class ChartEngine {
 		public int num ;
 	}		
 	
+	
+	
 	ChannelCoord [] ch_coord = new ChannelCoord[15];
 	Paint p;
 
@@ -180,7 +182,7 @@ public class ChartEngine {
 	public void testDraw (Canvas canvas,float x,float y)
 	{
 				
-		//Log.d("MY ChartEngine: testDraw: ", "incr = " + Integer.toString(incr));			
+		//Log.d("MY ChartEngine: ","testDraw");			
 		canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 + 40 - y),p);
 		Paint p = new Paint();
 		p.setARGB(0xA9,0xF7,0xE8,0x36);
@@ -236,8 +238,7 @@ public class ChartEngine {
 		Rect rect1 = new Rect(ch_coord[4].x,(height - START_Y_AXISXY + (r.nextInt(70) + RSSI_START_AXISXY -5)*(evalRSSI_px)),
 					ch_coord[8].x,(height - START_Y_AXISXY));		
 		 	rectPaint(canvas, rect1);
-		
-	 	
+
 	}
 	protected void rectPaint(Canvas canvas,Rect rect)
 	{

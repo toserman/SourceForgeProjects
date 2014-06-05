@@ -11,40 +11,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.jjoe64.graphview.BarGraphView;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.GraphViewSeries;
-
-import org.achartengine.ChartFactory;
-import org.achartengine.chart.BarChart.Type;
-import org.achartengine.chart.PieChart;
-import org.achartengine.model.CategorySeries;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.renderer.DefaultRenderer;
-import org.achartengine.renderer.SimpleSeriesRenderer;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class ActivityTwo extends Activity {
 	
@@ -53,6 +26,9 @@ public class ActivityTwo extends Activity {
 	TimerTask tasktimerChart;
 	List<ScanResult> results_scan_intent;
 	WifiManager wifiManager;
+	
+	 Button btnGenerate;
+	 DrawChart barChart;
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
@@ -72,10 +48,20 @@ public class ActivityTwo extends Activity {
 		//    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 		    
 		    setContentView(R.layout.activity_two);
-		    DrawChart barChart = (DrawChart) findViewById(R.id.barchart);		    
-		     
+		    barChart = (DrawChart) findViewById(R.id.barchart);		    
+		    btnGenerate = (Button)findViewById(R.id.test_button_generate);
+		    
+		    OnClickListener btnGen = new OnClickListener() {
+		        @Override
+		        public void onClick(View v) {
+		          // TODO Auto-generated method stub
+		        	 Log.d("MY ActivityTwo ", "Click button" );		        	
+		        }
+		      };
+		      btnGenerate.setOnClickListener(btnGen);
 		  }
 		  
+	 
 		  void timerMethod()
 		  {
 			  timerChart = new Timer();

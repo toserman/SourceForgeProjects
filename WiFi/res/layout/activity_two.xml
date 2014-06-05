@@ -13,7 +13,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <com.example.wifi.DrawChart
         android:id="@+id/barchart"
         android:layout_width="fill_parent"
-        android:layout_height="460dp"
+        android:layout_height="442dp"
         android:background="#444" />
 
     <!-- 
@@ -44,5 +44,11 @@ xmlns:tools="http://schemas.android.com/tools"
             android:text="Cycling" />
     </LinearLayout>
  -->
+
+    <Button
+        android:id="@+id/test_button_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
  
 </LinearLayout>
