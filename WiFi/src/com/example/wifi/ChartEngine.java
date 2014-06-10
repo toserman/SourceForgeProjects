@@ -39,6 +39,8 @@ public class ChartEngine {
 	
 	ChannelCoord [] ch_coord = new ChannelCoord[15];
 	Paint p;
+	
+	public int y;
 
 	public ChartEngine()
 	{
@@ -178,7 +180,7 @@ public class ChartEngine {
         
        // setnameAxisY(canvas,15,0,40,100,"WIFI CHANNELS");
 	}
-	
+		
 	public void testDraw (Canvas canvas,float x,float y)
 	{
 				

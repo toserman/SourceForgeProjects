@@ -29,6 +29,7 @@ public class ActivityTwo extends Activity {
 	
 	 Button btnGenerate;
 	 DrawChart barChart;
+	 static int test  = 1;
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
@@ -55,8 +56,10 @@ public class ActivityTwo extends Activity {
 		        @Override
 		        public void onClick(View v) {
 		          // TODO Auto-generated method stub
-		        	 Log.d("MY ActivityTwo ", "Click button" );		        	
-		        }
+		        	 Log.d("MY ActivityTwo ", "Click button" );
+		        	 barChart.forbuttonDraw(test++);
+		        	 barChart.first = 1;
+		        			        }
 		      };
 		      btnGenerate.setOnClickListener(btnGen);
 		  }
