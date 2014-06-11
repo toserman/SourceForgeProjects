@@ -35,6 +35,7 @@ public class ChartEngine {
 		public int num ;
 	}		
 	
+	static int frame_ready = 1;
 	
 	
 	ChannelCoord [] ch_coord = new ChannelCoord[15];
@@ -181,6 +182,19 @@ public class ChartEngine {
        // setnameAxisY(canvas,15,0,40,100,"WIFI CHANNELS");
 	}
 		
+	public void startDraw (Canvas canvas,int test)
+	{
+		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
+		final int START_X_AXISX = 50;//pixel
+		final int START_X_AXISY = 60;
+		final int START_Y_AXISXY = 71;
+		int height = 800;
+		Paint p = new Paint();		
+		p.setARGB(0xA9,0xF7,0xE8,0x36);					
+			canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 - test),p);
+			if (test > 40)
+				frame_ready = 0;//Stop to draw
+	}
 	public void testDraw (Canvas canvas,float x,float y)
 	{
 				

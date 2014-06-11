@@ -18,19 +18,10 @@ public class DrawChart extends View {
 	  float touchX = 0; // FOR DEBUG
 	  float touchY = 0; // FOR DEBUG
   
-		public int temp;
-		 int flag = 0; 
-		 static int first = 0;
+	  public static int temp;
+	  int flag = 0; 
+	  static int first = 0;
 
-	  
-	  //public DrawChart(Context context) {		    	
-    //super(context);
-	  //  p = new Paint();
-	  //  chart = new ChartEngine(context);
-	 //  chart.getDisplaySize(ActivityTwo.this,getApplicationContext());
-	//invalidate();	  
-	  
-  	//}
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
       Log.e("MY DrawChart ", "Constructor !!!");
@@ -54,42 +45,27 @@ public class DrawChart extends View {
 	    			 		+ Integer.toString(height)); 
   	*/ 
 
-  	 chart.drawAxisXY(canvas);	
-  	 if(first !=0)
-  	 {
-  		 buttonDraw(canvas);
-  	 }
-  	 
-  	 
-  	 //chart.testDraw(canvas,touchX,touchY);
-  	 //touchX+=5;
-  	 //touchY+=5;
-  	 
-  	 
-  	// for(int i = 60;i > 30; i-- )
-  	// {
-  	//	 chart.channel2rectDraw(canvas,1,i);
-  	//	 Log.d("MY ActivityTwo: ","i = " + Integer.toString(i)); 
-  	//	 invalidate();
-  	// }
+  	 	
+//  	 if(first !=0)
+//  	 {
+//  		 buttonDraw(canvas);
+//  	 }
+  			 
+  	chart.drawAxisXY(canvas);
+  	 if (ChartEngine.frame_ready == 1)
+  	 {  
+  		chart.startDraw(canvas, temp);  
+		if (ChartEngine.frame_ready == 1)
+	  		 invalidate();
+		temp++;
+  	 }  	 
   	
-  	 //if(touchY < 200)
-  		// invalidate();
-  	 
-
-  	//  canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));
-  	 // brush preferences
-        //  p.setColor(Color.WHITE);
-          // ������� ����� = 10
-         // p.setStrokeWidth(10);
-          //canvas.drawLine(2 ,788,2,2,p);		           
-          //invalidate();
   }
 
    public void forbuttonDraw (int a)
    {
 	   Log.d("MY DrawChart ","forbuttonDraw befor invalidate");
-	   temp = a;
+	   temp = a;	  
 	   invalidate();
 	   first = 0;
    }
@@ -109,11 +85,9 @@ public class DrawChart extends View {
 			temp+=5;
 			if ((flag++) < 100 )
 				invalidate();
-			
 		//}
-		
 	}
-   
+	
   protected void reDraw() {
   	 Log.d("MY ActivityTwo ", "reDraw !!!");
       // this.invalidate();

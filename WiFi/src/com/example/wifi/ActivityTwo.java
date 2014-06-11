@@ -46,7 +46,7 @@ public class ActivityTwo extends Activity {
 		    Log.d("MY ActivityTwo ", "onCreate()" );	
 		    //setContentView(new DrawView(this));
 		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
-		//    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+		   //wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 		    
 		    setContentView(R.layout.activity_two);
 		    barChart = (DrawChart) findViewById(R.id.barchart);		    
@@ -57,10 +57,12 @@ public class ActivityTwo extends Activity {
 		        public void onClick(View v) {
 		          // TODO Auto-generated method stub
 		        	 Log.d("MY ActivityTwo ", "Click button" );
-		        	 barChart.forbuttonDraw(test++);
-		        	 barChart.first = 1;
-		        			        }
-		      };
+		        	 barChart.forbuttonDraw(5);
+		        	 ChartEngine.frame_ready = 1;
+		        	 //barChart.first = 1;
+		        	 
+		       }
+		   };
 		      btnGenerate.setOnClickListener(btnGen);
 		  }
 		  
