@@ -261,15 +261,17 @@ public class ChartEngine {
 //		rectPaint(canvas, rect);
 //		
 		//Paint p = new Paint();		
-		//p.setARGB(0xA9,0xF7,0xE8,0x36);
+		p.setARGB(0xA9,0xF7,0xE8,0x36);
 			
-		
+
 	   	Log.e("MY ChartEngine: channel2rectDraw: ", "width = " + Integer.toString(width)	+ " height = " + Integer.toString(height));
+		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
+				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
 		
-	   	canvas.drawRect(START_X_AXISY + 100,(height - 70),START_X_AXISY + 150,(height - 70 - test),p);
+	   	canvas.drawRect(START_X_AXISY + 100,(canvas.getHeight() - 70 - 3),START_X_AXISY + 150,(canvas.getHeight() - 70 - 3 - test),p);
 	    //canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
 	    
-	   	canvas.drawLine(START_X_AXISX,(height - 70),(START_X_AXISX + test ),(height - 70),p);//Draw axis X
+	   	canvas.drawLine(START_X_AXISX,(canvas.getHeight() - 70 -3),(START_X_AXISX + test ),(canvas.getHeight() - 70 -3),p);//Draw axis X
 	   // canvas.drawLine(START_X_AXISX,(ChartEngine.height),(START_X_AXISX + test ),(ChartEngine.height),p);//Draw axis X
 	    
 		//canvas.drawRect(START_X_AXISY ,height ,START_X_AXISY + 150,height -10 ,p);

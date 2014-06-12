@@ -57,6 +57,7 @@ public class ActivityTwo extends Activity {
 		          // TODO Auto-generated method stub
 		        	 Log.d("MY ActivityTwo ", "Click button" );
 		        	 barChart.forbuttonDraw(5);
+		        	 
 		        	 ChartEngine.frame_ready = 1;
 		        	 //barChart.first = 1;
 		        	 

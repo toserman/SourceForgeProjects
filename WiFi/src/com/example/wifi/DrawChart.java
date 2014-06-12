@@ -66,6 +66,9 @@ public class DrawChart extends View {
    public void forbuttonDraw (int a)
    {
 	   Log.d("MY DrawChart ","forbuttonDraw befor invalidate");
+	Log.e("MY ChartEngine: forbuttonDraw: ", "getWidth() = " + Integer.toString(getWidth()) +
+			" getHeight() = " + Integer.toString(getHeight()));
+	
 	   temp = a;	  
 	   invalidate();
 	   first = 0;
