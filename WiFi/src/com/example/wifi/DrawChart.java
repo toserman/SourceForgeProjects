@@ -58,6 +58,7 @@ public class DrawChart extends View {
 		if (ChartEngine.frame_ready == 1)
 	  		 invalidate();
 		temp++;
+		
   	 }  	 
   	
   }
@@ -93,7 +94,8 @@ public class DrawChart extends View {
       // this.invalidate();
   }
   
-  
+ 
+  /*
   public boolean onTouchEvent(MotionEvent event)
   {
   	Log.d("MY onTouchEvent", "onTouchEvent");
@@ -105,7 +107,7 @@ public class DrawChart extends View {
 	    }
 	    return true;
   }
-  
+  */
 //	  public BroadcastReceiver    
   
 

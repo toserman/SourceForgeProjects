@@ -1,7 +1,5 @@
 package com.example.wifi;
 
-
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,6 +13,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,7 +49,7 @@ public class ActivityTwo extends Activity {
 		    
 		    setContentView(R.layout.activity_two);
 		    barChart = (DrawChart) findViewById(R.id.barchart);		    
-		    btnGenerate = (Button)findViewById(R.id.test_button_generate);
+		   // btnGenerate = (Button)findViewById(R.id.test_button_generate);
 		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
@@ -63,7 +62,7 @@ public class ActivityTwo extends Activity {
 		        	 
 		       }
 		   };
-		      btnGenerate.setOnClickListener(btnGen);
+		      //btnGenerate.setOnClickListener(btnGen);
 		  }
 		  
 	 
@@ -93,6 +92,17 @@ public class ActivityTwo extends Activity {
 		      if(timerChart != null)
 		    	  timerChart.cancel();//Timer stop		      
 		  }
+		  public boolean onTouchEvent(MotionEvent event)
+		  {
+		  	Log.d("MY onTouchEvent", "onTouchEvent");
+			    if(event.getAction() == MotionEvent.ACTION_DOWN)
+			    {
+			    	 barChart.forbuttonDraw(1);
+		        	 ChartEngine.frame_ready = 1;		
+			    }
+			    return true;
+		  }
+		  
 
 }
 
