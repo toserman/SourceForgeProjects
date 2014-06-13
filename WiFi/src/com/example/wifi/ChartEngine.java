@@ -168,8 +168,10 @@ public class ChartEngine {
 	public void drawAxisXY(Canvas canvas) {
 		canvas.drawColor(Color.rgb(0x1c,0x1c,0x1c));//Set canvas color
 		p.setColor(Color.WHITE);//Set brush color
-		
-        canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
+//		int height = canvas.getHeight() - 110;
+//		int width = canvas.getWidth();
+		canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
+     
         canvas.drawLine(START_X_AXISY,(height - 60),START_X_AXISY,30,p);//Draw axis Y
        	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width)	+ " height = " + Integer.toString(height));
         
@@ -268,17 +270,16 @@ public class ChartEngine {
 		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
 				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
 		
-	   	canvas.drawRect(START_X_AXISY + 100,(canvas.getHeight() - 70 - 3),START_X_AXISY + 150,(canvas.getHeight() - 70 - 3 - test),p);
+	   	canvas.drawRect(START_X_AXISY + 100,(canvas.getHeight() - 70 ),START_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
 	    //canvas.drawLine(START_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
 	    
-	   	canvas.drawLine(START_X_AXISX,(canvas.getHeight() - 70 -3),(START_X_AXISX + test ),(canvas.getHeight() - 70 -3),p);//Draw axis X
+	   	canvas.drawLine(START_X_AXISX,(canvas.getHeight() - 70),(START_X_AXISX + test ),(canvas.getHeight() - 70),p);//Draw axis X
 	   // canvas.drawLine(START_X_AXISX,(ChartEngine.height),(START_X_AXISX + test ),(ChartEngine.height),p);//Draw axis X
 	    
 		//canvas.drawRect(START_X_AXISY ,height ,START_X_AXISY + 150,height -10 ,p);
 		
 	//	ch_coord[1].x = 150;
 //		canvas.drawRect(START_X_AXISY + 1,(height  + (rssi + RSSI_START_AXISXY -5)*(evalRSSI_px) ),ch_coord[1].x,(height - START_Y_AXISXY - test),p);
-			
 //			Rect rect1 = new Rect(ch_coord[4].x,(height - START_Y_AXISXY + (r.nextInt(70) + RSSI_START_AXISXY -5)*(evalRSSI_px)),
 //					ch_coord[8].x,(height - START_Y_AXISXY));		
 //		 	rectPaint(canvas, rect1);

@@ -21,6 +21,10 @@ public class DrawChart extends View {
 	  public static int temp;
 	  int flag = 0; 
 	  static int first = 0;
+	  
+		final int START_X_AXISX = 50;//pixel
+		final int START_X_AXISY = 60;
+		final int START_Y_AXISXY = 71;
 
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
@@ -30,7 +34,8 @@ public class DrawChart extends View {
   
    @Override
   protected void onDraw(Canvas canvas) {
-  	 Log.d("MY DrawChart ", "onDraw !!!");
+//  	 Log.d("MY DrawChart ", "onDraw !!!");
+	   
   //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
   	//		 			+ "canvas.getWidth()= " + canvas.getWidth());
 
@@ -54,8 +59,8 @@ public class DrawChart extends View {
   	chart.drawAxisXY(canvas);
   	 if (ChartEngine.frame_ready == 1)
   	 {  
-  		chart.startDraw(canvas, temp);  
-		if (ChartEngine.frame_ready == 1)
+  		chart.startDraw(canvas, temp);
+  		if (ChartEngine.frame_ready == 1)
 	  		 invalidate();
 		temp++;
 		
@@ -69,6 +74,8 @@ public class DrawChart extends View {
 	Log.e("MY ChartEngine: forbuttonDraw: ", "getWidth() = " + Integer.toString(getWidth()) +
 			" getHeight() = " + Integer.toString(getHeight()));
 	
+	Log.e("MY ChartEngine: forbuttonDraw: ", "getPaddingBottom() = " + Integer.toString(getPaddingBottom())
+			+ " getPaddingTop() = " + Integer.toString(getPaddingTop()));
 	   temp = a;	  
 	   invalidate();
 	   first = 0;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".ActivityTwo"
      >
@@ -10,7 +10,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <com.example.wifi.DrawChart
         android:id="@+id/barchart"
         android:layout_width="fill_parent"
-        android:layout_height="462dp"
+        android:layout_height="fill_parent"
         android:background="#444" />
         
     <!-- android:layout_height="fill_parent" -->
