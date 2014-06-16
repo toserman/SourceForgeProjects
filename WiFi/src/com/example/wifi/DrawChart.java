@@ -21,10 +21,6 @@ public class DrawChart extends View {
 	  public static int temp;
 	  int flag = 0; 
 	  static int first = 0;
-	  
-		final int START_X_AXISX = 50;//pixel
-		final int START_X_AXISY = 60;
-		final int START_Y_AXISXY = 71;
 
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
