@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 public class DrawChart extends View {
 	
 	  Paint p = new Paint();
-	  ChartEngine chart = new ChartEngine();
+	  ChartEngine chart;
 	  float touchX = 0; // FOR DEBUG
 	  float touchY = 0; // FOR DEBUG
   
@@ -25,7 +25,8 @@ public class DrawChart extends View {
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
       Log.e("MY DrawChart ", "Constructor !!!");
-      ChartEngine.getDisplaySize(context);
+      chart = new ChartEngine(context);
+//      ChartEngine.getDisplaySize(context);
   }
   
    @Override
