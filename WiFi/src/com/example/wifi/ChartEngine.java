@@ -190,7 +190,7 @@ public class ChartEngine {
 		//Paint p = new Paint();		
 		//p.setARGB(0xA9,0xF7,0xE8,0x36);					
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
-		channel2rectDraw(canvas,1,67,test);
+		channel2rectDraw(canvas,2412,67,test);
 			if (test > 40)
 				frame_ready = 0;//Stop to draw			
 	}
@@ -235,9 +235,17 @@ public class ChartEngine {
 	}
 	protected void channel2rectDraw(Canvas canvas,int channel,int rssi , int test)
 	{
-		Log.d("MY ChartEngine ","channel2rectDraw");			
-		//canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 + 40 - y),p);
-
+		Log.d("MY ChartEngine ","channel2rectDraw");	
+		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+		
+		int coord1 = 0,coord2 = 0;
+		if (channel == CustomScanListAdapter.arr_freq[1])
+		{	
+			coord1 = OFFSET_X_AXISY;
+			coord2 = OFFSET_X_AXISY + 79;
+		}		
+		
+		
 	//	Rect rect = new Rect(OFFSET_X_AXISY,(height - OFFSET_Y_AXISX - 300),
 		//					OFFSET_X_AXISY + 3*evalX_px,(height - OFFSET_Y_AXISX));
 	
@@ -259,18 +267,20 @@ public class ChartEngine {
 		p.setARGB(0xA9,0xF7,0xE8,0x36);
 			
 
-	   	Log.e("MY ChartEngine: channel2rectDraw: ", "width = " + Integer.toString(width)	+ " height = " + Integer.toString(height));
-		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
-				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
+	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
+//		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
+//				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
 		
-	   	canvas.drawRect(OFFSET_X_AXISY + 100,(canvas.getHeight() - 70 ),OFFSET_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
-	    //canvas.drawLine(OFFSET_X_AXISX,(height - 70),(width-20),(height - 70),p);//Draw axis X
+//	   	canvas.drawRect(OFFSET_X_AXISY + 100,(canvas.getHeight() - 70 ),
+//	   					OFFSET_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
+		//evalY_px evalRSSI_px
+	   	canvas.drawRect(coord1,(canvas.getHeight() - 70 - evalY_px*2 ),
+	   			coord2,(canvas.getHeight() - 70 - evalY_px*2 - test),p);
+	   	    
 	    
-	   	canvas.drawLine(OFFSET_X_AXISX,(canvas.getHeight() - 70),(OFFSET_X_AXISX + test ),(canvas.getHeight() - 70),p);//Draw axis X
+//	   	canvas.drawLine(OFFSET_X_AXISX,(canvas.getHeight() - 70),(OFFSET_X_AXISX + test ),(canvas.getHeight() - 70),p);//Draw axis X
 	   // canvas.drawLine(OFFSET_X_AXISX,(ChartEngine.height),(OFFSET_X_AXISX + test ),(ChartEngine.height),p);//Draw axis X
-	    
-		//canvas.drawRect(OFFSET_X_AXISY ,height ,OFFSET_X_AXISY + 150,height -10 ,p);
-		
+	    				
 	//	ch_coord[1].x = 150;
 //		canvas.drawRect(OFFSET_X_AXISY + 1,(height  + (rssi + RSSI_START_AXISXY -5)*(evalRSSI_px) ),ch_coord[1].x,(height - OFFSET_Y_AXISX - test),p);
 //			Rect rect1 = new Rect(ch_coord[4].x,(height - OFFSET_Y_AXISX + (r.nextInt(70) + RSSI_START_AXISXY -5)*(evalRSSI_px)),

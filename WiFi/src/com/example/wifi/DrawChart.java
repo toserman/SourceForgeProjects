@@ -59,7 +59,7 @@ public class DrawChart extends View {
   		chart.startDraw(canvas, temp);
   		if (ChartEngine.frame_ready == 1)
 	  		 invalidate();
-		temp++;
+		temp+=1;
 		
   	 }  	 
   	
