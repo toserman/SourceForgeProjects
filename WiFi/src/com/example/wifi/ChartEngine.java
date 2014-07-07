@@ -274,9 +274,25 @@ public class ChartEngine {
 //	   	canvas.drawRect(OFFSET_X_AXISY + 100,(canvas.getHeight() - 70 ),
 //	   					OFFSET_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
 		//evalY_px evalRSSI_px
-	   	canvas.drawRect(coord1,(canvas.getHeight() - 70 - evalY_px*2 ),
-	   			coord2,(canvas.getHeight() - 70 - evalY_px*2 - test),p);
-	   	    
+	   	canvas.drawRect(coord1,(canvas.getHeight() - 70 - evalY_px*3 ),
+	   			coord2,(canvas.getHeight() - 70 - evalY_px*3 - test),p);
+	   	
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 ),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 ),p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 9),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 9,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 18),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 18,p);
+        
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 27),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 27,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 36),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 36,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 45),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 45,p);
+        
+
+	   	
 	    
 //	   	canvas.drawLine(OFFSET_X_AXISX,(canvas.getHeight() - 70),(OFFSET_X_AXISX + test ),(canvas.getHeight() - 70),p);//Draw axis X
 	   // canvas.drawLine(OFFSET_X_AXISX,(ChartEngine.height),(OFFSET_X_AXISX + test ),(ChartEngine.height),p);//Draw axis X
