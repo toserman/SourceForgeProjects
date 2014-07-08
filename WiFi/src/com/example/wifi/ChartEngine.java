@@ -29,6 +29,7 @@ public class ChartEngine {
 	
 	final int RSSI_START_AXISXY = -90;
 	final int RSSI_END_AXISXY = -30;
+	final int RSSI_STEP = 5;
 	int evalX_px = 0; //Size of segment X axis in pixels
 	int evalY_px = 0; //Size of segment Y axis in pixels
 	int evalRSSI_px = 0; //Size of value RSSI in pixels
@@ -120,7 +121,7 @@ public class ChartEngine {
 	{	
 		int startval = RSSI_START_AXISXY ;
 		int endval = RSSI_END_AXISXY;
-		int step = 5;
+		int step = RSSI_STEP;
 	    int rssilevel = startval;
 	    int count = 1;	    
 	    
@@ -277,23 +278,27 @@ public class ChartEngine {
 	   	canvas.drawRect(coord1,(canvas.getHeight() - 70 - evalY_px*3 ),
 	   			coord2,(canvas.getHeight() - 70 - evalY_px*3 - test),p);
 	   	
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 ),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 ),p);
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 9),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 9,p);
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 18),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 18,p);
-        
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 27),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 27,p);
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 36),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 36,p);
-        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*2 + 45),
-        		coord2,(canvas.getHeight() - 70 - evalY_px*2 )+ 45,p);
-        
-
+	   	for (int i = 1; i <= 3;i++)
+	   	{
 	   	
-	    
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i ),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i ),p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i + 9),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i )+ 9,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i + 18),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i )+ 18,p);
+        
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i + 27),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i )+ 27,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i + 36),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i )+ 36,p);
+        canvas.drawLine(coord1,(canvas.getHeight() - 70 - evalY_px*i + 45),
+        		coord2,(canvas.getHeight() - 70 - evalY_px*i )+ 45,p);
+	   	}
+     //   getRangeRSSI(-70);
+       // canvas.drawLine(coord1,(canvas.getHeight() - 70 - (evalY_px/RSSI_STEP)*getRangeRSSI(-40)),
+    	//	coord2,(canvas.getHeight() - 70 - (evalY_px/RSSI_STEP)*getRangeRSSI(-40)),p);
+        
 //	   	canvas.drawLine(OFFSET_X_AXISX,(canvas.getHeight() - 70),(OFFSET_X_AXISX + test ),(canvas.getHeight() - 70),p);//Draw axis X
 	   // canvas.drawLine(OFFSET_X_AXISX,(ChartEngine.height),(OFFSET_X_AXISX + test ),(ChartEngine.height),p);//Draw axis X
 	    				
@@ -303,6 +308,23 @@ public class ChartEngine {
 //					ch_coord[8].x,(height - OFFSET_Y_AXISX));		
 //		 	rectPaint(canvas, rect1);
 
+	}
+	protected int getRangeRSSI(int rssi_level) {
+		int range = 0 ;
+		int temp_count =0;
+		
+		while( rssi_level != (RSSI_START_AXISXY + RSSI_STEP))
+		{
+			rssi_level--;
+			temp_count++;
+		}
+		
+		
+	   	Log.e("MY ChartEngine: getRangeRSSI: ","temp_count = " + Integer.toString(temp_count));
+	    //canvas.drawLine(coord1,(canvas.getHeight() - 70 - (evalY_px/RSSI_STEP)*temp_count),
+        	//	coord2,(canvas.getHeight() - 70 - (evalY_px/RSSI_STEP)*temp_count),p);
+	   	
+		return temp_count;
 	}
 	protected void rectPaint(Canvas canvas,Rect rect)
 	{
