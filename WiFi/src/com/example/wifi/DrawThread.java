@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {
@@ -20,14 +21,17 @@ public class DrawThread extends Thread {
     private Bitmap myBitmap;
     ChartEngine chart;
     
+    int temp;
+	
+    
     Paint p;
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context){
     
         this.surfaceHolder = surfaceHolder;
-    	Log.d("MY DrawThread:", "Con;structor create !!!" );
+    	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
     	chart = new ChartEngine(context);
-    	myBitmap =  Bitmap.createBitmap(200,200,Bitmap.Config.ARGB_8888);
+    	myBitmap =  Bitmap.createBitmap(chart.width,chart.height,Bitmap.Config.ARGB_8888);
     	
         // Load image for display on the screen
         picture = BitmapFactory.decodeResource(resources, R.drawable.decrypted);
@@ -48,10 +52,13 @@ public class DrawThread extends Thread {
     @Override
     public void run() {
         Canvas canvas;
-    	Log.d("MY DrawThread:", "run() draw picture !!!" );
+    	Log.d("MY DrawThread:", "run() draw picture !!!" );    	
 		canvas = new Canvas(myBitmap);
-		canvas.drawBitmap(myBitmap, 0, 0, p);
+		
+		//canvas.drawBitmap(myBitmap, 0, 0, p);
 		chart.drawAxisXY(canvas);
+		 canvas.drawBitmap(myBitmap,0,0,p);
+		
         while (runFlag) {
             // получаем текущее время и вычисляем разницу с предыдущим 
             // сохраненным моментом времени
@@ -63,17 +70,23 @@ public class DrawThread extends Thread {
                 // точка вращения - центр картинки
                 prevTime = now;
                 matrix.preRotate(2.0f, picture.getWidth() / 2, picture.getHeight() / 2);
+              
             }
             canvas = null;
             try {
                 // получаем объект Canvas и выполняем отрисовку
                 canvas = surfaceHolder.lockCanvas(null);
-                synchronized (surfaceHolder) {
-                    canvas.drawColor(Color.BLACK);
-                    //canvas.drawBitmap(picture, matrix, null);
-            		//chart.drawAxisXY(canvas);
-                    canvas.drawBitmap(myBitmap, 0, 0, p);
-
+                synchronized(surfaceHolder) {
+                	if (temp == 300)
+                		setRunning(false);
+                	
+//                    canvas.drawColor(Color.BLACK);
+//                    canvas.drawBitmap(picture, matrix, null);
+            		
+                    canvas.drawBitmap(myBitmap, 0, 0,null );
+                   
+                	chart.startDraw(canvas,temp);
+              		temp+=1;
                 }
             } 
             finally {
@@ -84,7 +97,7 @@ public class DrawThread extends Thread {
                 }
             }
         } //end while
-    } //end run() 
+    } //end run()
 }
 
 

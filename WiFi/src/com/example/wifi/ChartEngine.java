@@ -176,9 +176,9 @@ public class ChartEngine  {
 
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
-//       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + 
-//       									" height = " + Integer.toString(height));
-//        
+       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + 
+       									" height = " + Integer.toString(height));
+        
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
        	
@@ -204,7 +204,8 @@ public class ChartEngine  {
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
 		channel2rectDraw(canvas,2412,-30,test);
-		channel2rectDraw(canvas,2417,-30,test);
+		channel2rectDraw(canvas,2417,-30,test);		
+		
 			if (test >= getCoordRSSILevel(-30))
 				frame_ready = 0;//Stop to draw	
 
@@ -275,7 +276,7 @@ public class ChartEngine  {
 //		
 		//Paint p = new Paint();		
 		
-	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
+//	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
 //		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
 //				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
 		

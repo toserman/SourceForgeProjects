@@ -28,6 +28,7 @@ public class ActivityTwo extends Activity {
 	
 	 Button btnGenerate;
 	 DrawChart barChart;
+	 ChartSurfaceView draw_barChart; 
 	 static int test  = 1;
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
@@ -46,12 +47,14 @@ public class ActivityTwo extends Activity {
 		    //setContentView(new DrawView(this));
 		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		   //wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		    
-		    setContentView(new ChartSurfaceView(this));
-		    
-		   // setContentView(R.layout.activity_two);
-		    //barChart = (DrawChart) findViewById(R.id.barchart);		    
-		
+
+		    //NEW VERSION
+		    draw_barChart = new ChartSurfaceView(this);
+		    setContentView(draw_barChart);
+		    //OLD VERSION
+//		   setContentView(R.layout.activity_two);
+//		    barChart = (DrawChart) findViewById(R.id.barchart);		    
+//		
 		    // btnGenerate = (Button)findllViewById(R.id.test_button_generate);		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
@@ -95,18 +98,20 @@ public class ActivityTwo extends Activity {
 		      if(timerChart != null)
 		    	  timerChart.cancel();//Timer stop		      
 		  }
-		  public boolean onTouchEvent(MotionEvent event)
-		  {
-		  	Log.d("MY onTouchEvent", "onTouchEvent");
-			    if(event.getAction() == MotionEvent.ACTION_DOWN)
-			    {
-			    	 barChart.forbuttonDraw(1);
-		        	 ChartEngine.frame_ready = 1;		
-			    }
-			    return true;
-		  }
 		  
-
+//		  public boolean onTouchEvent(MotionEvent event)
+//		  {
+//		  	Log.d("MY onTouchEvent", "onTouchEvent");
+//		  	
+//			    if(event.getAction() == MotionEvent.ACTION_DOWN)
+//			    {
+//			    	 barChart.forbuttonDraw(1);
+//		        	 ChartEngine.frame_ready = 1;		
+//			    }
+//			    return true;
+//		  }
+		  
+		  
 }
 
 
