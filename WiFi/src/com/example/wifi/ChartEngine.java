@@ -5,6 +5,8 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,7 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-public class ChartEngine {
+public class ChartEngine  {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int OFFSET_X_AXISX = 50;//pixel
@@ -44,7 +46,7 @@ public class ChartEngine {
 	
 	ChannelCoord [] ch_coord = new ChannelCoord[15];
 	Paint p;
-	
+
 	public int y;
 
 	public ChartEngine(Context context)
@@ -53,10 +55,16 @@ public class ChartEngine {
 		p = new Paint();
 		//ch_coord = new ChannelCoord[15];
 		getDisplaySize(context);
+		
 		for(int i = 0; i < ch_coord.length ;i++)
 		{
 			ch_coord[i] = new ChannelCoord();
 		}
+		
+//		myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
+//		canvas = new Canvas(myBitmap);
+//		canvas.drawBitmap(myBitmap, 0, 0, p);
+		
 	}
 	
 	public static void getDisplaySize(Context context) {
@@ -79,7 +87,12 @@ public class ChartEngine {
 		int k = 1;
 		int lastch = 18;//for 14 WIFI channels
 		int chnum = 13;
-	
+			
+		// myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
+		 //canvas = new Canvas(myBitmap);
+		 //canvas.drawBitmap(myBitmap, 0, 0, p);
+
+		
 		/*Evaluate size of segment in pixels*/
 		evalX_px = ((width-20) - OFFSET_X_AXISX) / lastch;    
 		
@@ -102,10 +115,6 @@ public class ChartEngine {
  			
  			canvas.drawText(Integer.toString(ch_coord[k].num),ch_coord[k].x - ((ch_coord[k].num >9)?5:3),
 					ch_coord[k].y + 18,p);
- 			//canvas.drawLine(OFFSET_X_AXISX + evalX_px*(k + 1) , (height - 70) + 5, 
-				//	OFFSET_X_AXISX + evalX_px*(k + 1), (height - 70),p); 		 	
- 			//canvas.drawText(Integer.toString(k),OFFSET_X_AXISX + evalX_px*(k + 1) - ((k >9)?5:3),
-				//	(height - 70) + 18,p);
  			k++;
  		}
  		k++;//Just for skip 1 space
@@ -167,9 +176,9 @@ public class ChartEngine {
 
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
-       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + 
-       									" height = " + Integer.toString(height));
-        
+//       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + 
+//       									" height = " + Integer.toString(height));
+//        
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
        	
@@ -192,10 +201,11 @@ public class ChartEngine {
 		//p.setARGB(0xA9,0xF7,0xE8,0x36);					
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
-		channel2rectDraw(canvas,2412,-67,test);
-		channel2rectDraw(canvas,2417,-67,test);
-			if (test >= getCoordRSSILevel(-67))
-				frame_ready = 0;//Stop to draw			
+		channel2rectDraw(canvas,2412,-30,test);
+		channel2rectDraw(canvas,2417,-30,test);
+			if (test >= getCoordRSSILevel(-30))
+				frame_ready = 0;//Stop to draw	
+
 	}
 	public void testDraw (Canvas canvas,float x,float y)
 	{

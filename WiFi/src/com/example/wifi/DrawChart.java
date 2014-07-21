@@ -3,8 +3,10 @@ package com.example.wifi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -25,42 +27,32 @@ public class DrawChart extends View {
    public DrawChart(Context context, AttributeSet attrs) {	   
       super(context, attrs);      
       Log.e("MY DrawChart ", "Constructor !!!");
+//      bitmap =  Bitmap.createBitmap(50,50,Bitmap.Config.ARGB_8888);
+   
+      
+
       chart = new ChartEngine(context);
-//      ChartEngine.getDisplaySize(context);
+
   }
   
    @Override
   protected void onDraw(Canvas canvas) {
-//  	 Log.d("MY DrawChart ", "onDraw !!!");
+ 	 Log.d("MY DrawChart ", "onDraw !!!");
 	   
   //	 Log.d("MY OnDraw ", "canvas.getHeight() = " + canvas.getHeight() 
   	//		 			+ "canvas.getWidth()= " + canvas.getWidth());
+ 	// canvas.drawBitmap(bitmap, 0, 0, paint);
 
-  	 /*
-	    	 Display display = getWindowManager().getDefaultDisplay();
-	    	 Point size = new Point();
-	    	 display.getSize(size);
-	    	 int width = size.x;
-	    	 int height = size.y;
-	    	 //width = 480 height = 800
-	    	 Log.d("MY ActivityTwo: Display: ", "width = " + Integer.toString(width) + " height = "
-	    			 		+ Integer.toString(height)); 
-  	*/ 
-
-  	 	
-//  	 if(first !=0)
-//  	 {
-//  		 buttonDraw(canvas);
-//  	 }
-  			 
   	chart.drawAxisXY(canvas);
   	 if (ChartEngine.frame_ready == 1)
   	 {  
   		chart.startDraw(canvas, temp);
   		if (ChartEngine.frame_ready == 1)
-	  		 invalidate();
-		temp+=1;
-		
+//	  		 invalidate(60/*OFFSET_Y_AXISX LEFT POS*/,(canvas.getHeight() - 600 )/*TOP POS*/,
+//	  				 	60 + 285/*RIGHT POS*/,canvas.getHeight() - 15/*BOTTOM POS*/);
+  			invalidate();
+  			//postInvalidate();
+		temp+=1;		
   	 }  	 
   	
   }
