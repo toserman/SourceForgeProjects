@@ -52,7 +52,7 @@ public class ActivityTwo extends Activity {
 		   // setContentView(R.layout.activity_two);
 		    //barChart = (DrawChart) findViewById(R.id.barchart);		    
 		
-		    // btnGenerate = (Button)findViewById(R.id.test_button_generate);		    
+		    // btnGenerate = (Button)findllViewById(R.id.test_button_generate);		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
 		        public void onClick(View v) {

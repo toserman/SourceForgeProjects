@@ -28,8 +28,7 @@ public class DrawChart extends View {
       super(context, attrs);      
       Log.e("MY DrawChart ", "Constructor !!!");
 //      bitmap =  Bitmap.createBitmap(50,50,Bitmap.Config.ARGB_8888);
-   
-      
+        
 
       chart = new ChartEngine(context);
 

@@ -1,11 +1,14 @@
 package com.example.wifi;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {
@@ -14,29 +17,41 @@ public class DrawThread extends Thread {
     private Bitmap picture;
     private Matrix matrix;
     private long prevTime;
-
-    public DrawThread(SurfaceHolder surfaceHolder, Resources resources){
+    private Bitmap myBitmap;
+    ChartEngine chart;
+    
+    Paint p;
+    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context){
+    
         this.surfaceHolder = surfaceHolder;
-
-        // загружаем картинку, которую будем отрисовывать
+    	Log.d("MY DrawThread:", "Con;structor create !!!" );
+    	p = new Paint();
+    	chart = new ChartEngine(context);
+    	myBitmap =  Bitmap.createBitmap(200,200,Bitmap.Config.ARGB_8888);
+    	
+        // Load image for display on the screen
         picture = BitmapFactory.decodeResource(resources, R.drawable.decrypted);
-
         // формируем матрицу преобразований для картинки
         matrix = new Matrix();
         matrix.postScale(3.0f, 3.0f);
         matrix.postTranslate(100.0f, 100.0f);
 
-        // сохраняем текущее время
+        // Save current time
         prevTime = System.currentTimeMillis();
     }
 
     public void setRunning(boolean run) {
+    	Log.d("MY DrawThread:", "setRunning() set runFlag : " + Boolean.toString(run) );
         runFlag = run;
     }
 
     @Override
     public void run() {
         Canvas canvas;
+    	Log.d("MY DrawThread:", "run() draw picture !!!" );
+		canvas = new Canvas(myBitmap);
+		canvas.drawBitmap(myBitmap, 0, 0, p);
+		chart.drawAxisXY(canvas);
         while (runFlag) {
             // получаем текущее время и вычисляем разницу с предыдущим 
             // сохраненным моментом времени
@@ -55,16 +70,20 @@ public class DrawThread extends Thread {
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized (surfaceHolder) {
                     canvas.drawColor(Color.BLACK);
-                    canvas.drawBitmap(picture, matrix, null);
+                    //canvas.drawBitmap(picture, matrix, null);
+            		//chart.drawAxisXY(canvas);
+                    canvas.drawBitmap(myBitmap, 0, 0, p);
+
                 }
             } 
             finally {
                 if (canvas != null) {
-                    // отрисовка выполнена. выводим результат на экран
+             
+                	// Drawing finish and display on the screen
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }
-        }
+        } //end while
     } //end run() 
 }
 

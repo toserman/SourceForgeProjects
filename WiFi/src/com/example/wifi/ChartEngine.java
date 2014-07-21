@@ -183,9 +183,11 @@ public class ChartEngine  {
         drawSegmentsAxisY(canvas);
        	
        // setnameAxisX(canvas,"WIFI channels");
-        setName(canvas,15,-90,OFFSET_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
-        setName(canvas,15,0,100,330,"WIFI Channels");
-        setName(canvas,20,0,100,70,"Channel graph");
+        
+        //setName(canvas,15,-90,OFFSET_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
+        //setName(canvas,15,0,100,330,"WIFI Channels");
+        //setName(canvas,20,0,100,70,"Channel graph");
+        
        // setnameAxisY(canvas,15,0,40,100,"WIFI CHANNELS");
 	}
 		
