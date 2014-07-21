@@ -47,10 +47,12 @@ public class ActivityTwo extends Activity {
 		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		   //wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 		    
-		    setContentView(R.layout.activity_two);
-		    barChart = (DrawChart) findViewById(R.id.barchart);		    
-		   // btnGenerate = (Button)findViewById(R.id.test_button_generate);
+		    setContentView(new ChartSurfaceView(this));
 		    
+		   // setContentView(R.layout.activity_two);
+		    //barChart = (DrawChart) findViewById(R.id.barchart);		    
+		
+		    // btnGenerate = (Button)findViewById(R.id.test_button_generate);		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
 		        public void onClick(View v) {
