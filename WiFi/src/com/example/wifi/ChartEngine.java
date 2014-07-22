@@ -164,9 +164,12 @@ public class ChartEngine  {
 		Rect rect = new Rect();
 
 		p.setTextSize(textsize);
-		canvas.translate(x, y);
-    	    canvas.rotate(rotate_angle, x + rect.exactCenterX(),y + rect.exactCenterY());
-	    canvas.drawText(axis_name, x, y,p);	   
+		//canvas.translate(x, y);		
+    	 //   canvas.rotate(rotate_angle, x + rect.exactCenterX(),y + rect.exactCenterY());
+    	    //canvas.rotate(rotate_angle, x + canvas.getWidth(),canvas.getHeight() -y);
+		   	       	    
+	    canvas.drawText(axis_name,x,y,p);
+	    canvas.save();
 	    canvas.restore();
 		p.setTextSize(12);
 	}
@@ -181,14 +184,11 @@ public class ChartEngine  {
         
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
-       	
-       // setnameAxisX(canvas,"WIFI channels");
-        
-        //setName(canvas,15,-90,OFFSET_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
-        //setName(canvas,15,0,100,330,"WIFI Channels");
-        //setName(canvas,20,0,100,70,"Channel graph");
-        
-       // setnameAxisY(canvas,15,0,40,100,"WIFI CHANNELS");
+
+        setName(canvas,20,0,canvas.getWidth()/2 - 40,canvas.getHeight() - (canvas.getHeight()-25),"Channel graph");   
+        setName(canvas,15,0,canvas.getWidth()/2 - 40,canvas.getHeight() - 30,"WIFI Channels");
+//        setName(canvas,15,-90,OFFSET_X_AXISY - 50,(height - 90)/4,"RSSI Levels");
+     
 	}
 		
 	public void startDraw (Canvas canvas,int test)
@@ -203,9 +203,14 @@ public class ChartEngine  {
 		//p.setARGB(0xA9,0xF7,0xE8,0x36);					
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
-		channel2rectDraw(canvas,2412,-30,test);
-		channel2rectDraw(canvas,2417,-30,test);		
+//		channel2rectDraw(canvas,2412,-30,test); //1st ch
+//		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
+//		channel2rectDraw(canvas,2422,-30,test); //3rd ch
+//		channel2rectDraw(canvas,2427,-30,test); //4rd ch
+		channel2rectDraw(canvas,2432,-30,test); //5th ch
 		
+		
+//		if (test >= 65)
 			if (test >= getCoordRSSILevel(-30))
 				frame_ready = 0;//Stop to draw	
 
@@ -254,27 +259,12 @@ public class ChartEngine  {
 		Log.d("MY ChartEngine ","channel2rectDraw");	
 		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		
-		int coord1 = 0,coord2 = 0;
-		int coord3 = 0,coord4 = 0;
+		int coord1 = 0,coord2 = 0;// 1st channel
+		int coord3 = 0,coord4 = 0;// 2nd channel
+		int coord5 = 0,coord6 = 0;// 3nd channel
+		int coord7 = 0,coord8 = 0;// 4th channel
+		int coord9 = 0,coord10 = 0;// 5th channel
 		
-	//	Rect rect = new Rect(OFFSET_X_AXISY,(height - OFFSET_Y_AXISX - 300),
-		//					OFFSET_X_AXISY + 3*evalX_px,(height - OFFSET_Y_AXISX));
-	
-		// -90 = -10 // 91 = -9 // 92 = -8 // 93 = -7
-		// -94 = -1 // -93 = -2 // -92 = -3 //-91 = -4 // -90 = -5
-		//evalY_px = 45 / 5 = 9
-		//95 - 80 = 
-	
-		//Channel 1
-	//	Random r = new Random();
-		//Rect rect = new Rect(OFFSET_X_AXISY,height -100 ,OFFSET_X_AXISY + 150,(height));		
-		//rectPaint(canvas, rect);
-//
-//		Rect rect = new Rect(OFFSET_X_AXISY+1,(height - OFFSET_Y_AXISX + (rssi + RSSI_START_AXISXY -5)*(evalRSSI_px)),
-//								ch_coord[1].x,(height - OFFSET_Y_AXISX));		
-//		rectPaint(canvas, rect);
-//		
-		//Paint p = new Paint();		
 		
 //	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
 //		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
@@ -284,31 +274,67 @@ public class ChartEngine  {
 //	   					OFFSET_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
 		if (channel == CustomScanListAdapter.arr_freq[1])
 		{	
-			p.setARGB(0xA9,0xF7,0xE8,0x36);//Yellow			
+			p.setARGB(0x64,0xF7,0xE8,0x36);//Yellow			
 
 			coord1 = OFFSET_X_AXISY;
 			coord2 = OFFSET_X_AXISY + 85;		
 			canvas.drawRect(coord1,(canvas.getHeight() - 70 ),
 					coord2,(canvas.getHeight() - 70 - test),p);
+			setName(canvas,15,0,(coord2 - 10 - (coord2 - coord1)/2),canvas.getHeight() - 70 - test,"Ch 1");   
 		}
 	   	   	
 	   	if (channel == CustomScanListAdapter.arr_freq[2])
 		{	
-	   		p.setARGB(0xA9,0xCC,0x00,0x00);			
+	   		p.setARGB(0x64,0xCC,0x00,0x00);			
 
-			coord3 = OFFSET_X_AXISY + 10;
+			coord3 = OFFSET_X_AXISY + 13;
 			coord4 = OFFSET_X_AXISY + 20 + 85;		
 			canvas.drawRect(coord3,(canvas.getHeight() - 70 ),
 					coord4,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0,(coord4 - 10 - (coord4 - coord3)/2),canvas.getHeight() - 70 - test,"Ch 2");   
+		}
+	   	
+	   	if (channel == CustomScanListAdapter.arr_freq[3])
+		{	
+	   		p.setARGB(0x64,0xCC,0xBB,0xDD);			
+
+			coord5 = OFFSET_X_AXISY + 10 + 20;
+			coord6 = OFFSET_X_AXISY + 20 + 85 + 20;		
+			canvas.drawRect(coord5,(canvas.getHeight() - 70 ),
+					coord6,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0, (coord6 - 10 - (coord6 - coord5)/2) ,canvas.getHeight() - 70 - test,"Ch 3");   
+		}
+		if (channel == CustomScanListAdapter.arr_freq[4])
+		{	
+	   		p.setARGB(0x64,0x64,0xE8,0x0C);	//0ce822	64e80c	
+
+			coord7 = OFFSET_X_AXISY + 10 + 20 + 22;
+			coord8 = OFFSET_X_AXISY + 20 + 85 + 20 + 22;		
+			canvas.drawRect(coord7,(canvas.getHeight() - 70 ),
+					coord8,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");   
+		}
+		if (channel == CustomScanListAdapter.arr_freq[5])
+		{	
+	   		p.setARGB(0x64,0xE8,0x0C,0x64);	//e80c64
+
+			coord9 = OFFSET_X_AXISY + 10 + 20 + 20 + 24;
+			coord10 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 ;		
+			canvas.drawRect(coord9,(canvas.getHeight() - 70 ),
+					coord10,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0, (coord10 - 10 - (coord10 - coord9)/2) ,canvas.getHeight() - 70 - test,"Ch 5");   
 		}
 	   	canvas.drawLine(coord1,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),
 			coord2,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),p);
+//		canvas.drawLine(coord1,(canvas.getHeight() - OFFSET_Y_AXISX - 65),
+//				coord2,(canvas.getHeight() - OFFSET_Y_AXISX - 65),p);
 	}
 	protected int getCoordRSSILevel(int rssi_level) {
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
-//		Log.e("MY ChartEngine: getRangeRSSI: ","coord_rssi = " + Integer.toString(coord_rssi));
+		Log.e("MY ChartEngine: getRangeRSSI: ","coord_rssi = " + Integer.toString(coord_rssi));
 		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
 	}
+	/*NOT USED*/
 	protected void rectPaint(Canvas canvas,Rect rect)
 	{
 				// fill

@@ -31,7 +31,7 @@ public class DrawThread extends Thread {
     	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
     	chart = new ChartEngine(context);
-    	myBitmap =  Bitmap.createBitmap(chart.width,chart.height,Bitmap.Config.ARGB_8888);
+    	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);
     	
         // Load image for display on the screen
         picture = BitmapFactory.decodeResource(resources, R.drawable.decrypted);
@@ -69,8 +69,7 @@ public class DrawThread extends Thread {
                 // и повернем картинку на 2 градуса.
                 // точка вращения - центр картинки
                 prevTime = now;
-                matrix.preRotate(2.0f, picture.getWidth() / 2, picture.getHeight() / 2);
-              
+                matrix.preRotate(2.0f, picture.getWidth() / 2, picture.getHeight() / 2);              
             }
             canvas = null;
             try {
@@ -81,10 +80,8 @@ public class DrawThread extends Thread {
                 		setRunning(false);
                 	
 //                    canvas.drawColor(Color.BLACK);
-//                    canvas.drawBitmap(picture, matrix, null);
-            		
-                    canvas.drawBitmap(myBitmap, 0, 0,null );
-                   
+//                    canvas.drawBitmap(picture, matrix, null);            		
+                    canvas.drawBitmap(myBitmap, 0, 0,null );                   
                 	chart.startDraw(canvas,temp);
               		temp+=1;
                 }
