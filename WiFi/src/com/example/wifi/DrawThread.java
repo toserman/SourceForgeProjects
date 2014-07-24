@@ -76,7 +76,7 @@ public class DrawThread extends Thread {
                 // получаем объект Canvas и выполняем отрисовку
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
-                	if (temp == 300)
+                	if (temp == 30)
                 		setRunning(false);
                 	
 //                    canvas.drawColor(Color.BLACK);

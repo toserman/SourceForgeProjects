@@ -204,9 +204,9 @@ public class ChartEngine  {
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
 //		channel2rectDraw(canvas,2412,-30,test); //1st ch
-//		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
+		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
 //		channel2rectDraw(canvas,2422,-30,test); //3rd ch
-		channel2rectDraw(canvas,2427,-30,test); //4rd ch
+//		channel2rectDraw(canvas,2427,-30,test); //4rd ch
 //		channel2rectDraw(canvas,2432,-30,test); //5th ch
 //		channel2rectDraw(canvas,2437,-30,test); //6th ch
 //		channel2rectDraw(canvas,2442,-30,test); //7th ch
@@ -289,8 +289,15 @@ public class ChartEngine  {
 		{	
 	   		p.setARGB(0x64,0xCC,0x00,0x00);			
 
-			coord3 = OFFSET_X_AXISY + 13;
-			coord4 = OFFSET_X_AXISY + 20 + 84;		
+//			coord3 = OFFSET_X_AXISY + 13;
+//			coord4 = OFFSET_X_AXISY + 20 + 84;
+
+	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+			coord3 = OFFSET_X_AXISY + evalX_px*(temp_ch - 1)/2;
+			coord4 = coord3 + evalX_px*4 +3  ;
+			Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
+	   				" temp_ch = " + Integer.toString(temp_ch) + " coord 3 = " + Integer.toString(coord3) +
+	   				" coord 4 = " + Integer.toString(coord4));
 			canvas.drawRect(coord3,(canvas.getHeight() - 70 ),
 					coord4,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0,(coord4 - 10 - (coord4 - coord3)/2),canvas.getHeight() - 70 - test,"Ch 2");   
@@ -299,9 +306,15 @@ public class ChartEngine  {
 	   	if (channel == CustomScanListAdapter.arr_freq[3])
 		{	
 	   		p.setARGB(0x64,0xCC,0xBB,0xDD);			
+//			coord5 = OFFSET_X_AXISY + 10 + 20;
+//			coord6 = OFFSET_X_AXISY + 20*2 + 84 ;
+	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+	   		Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
+	   				" temp_ch = " + Integer.toString(temp_ch));
 
-			coord5 = OFFSET_X_AXISY + 10 + 20;
-			coord6 = OFFSET_X_AXISY + 20*2 + 84 ;		
+			coord5 = OFFSET_X_AXISY + evalX_px*(temp_ch)/2;
+			coord6 = coord5 + evalX_px*4 +3  ;	
+	   		
 			canvas.drawRect(coord5,(canvas.getHeight() - 70 ),
 					coord6,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord6 - 10 - (coord6 - coord5)/2) ,canvas.getHeight() - 70 - test,"Ch 3");   
@@ -310,9 +323,19 @@ public class ChartEngine  {
 		{	
 	   		p.setARGB(0x64,0x64,0xE8,0x0C);	//0ce822	64e80c	
 
-			coord7 = OFFSET_X_AXISY + 10 + 20 + 22;
-			//coord8 = OFFSET_X_AXISY + 20 + 84 + 20 + 22;
-			coord8 = OFFSET_X_AXISY + 20*3 + 84 ;
+//			coord7 = OFFSET_X_AXISY + 10 + 20 + 22;
+//			//coord8 = OFFSET_X_AXISY + 20 + 84 + 20 + 22;
+//			coord8 = OFFSET_X_AXISY + 20*3 + 84 ;
+//			
+			int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+	   		
+			coord7 = OFFSET_X_AXISY + evalX_px*(temp_ch +1 )/2;
+			coord8 = coord7 + evalX_px*4 +3  ;	
+			Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
+	   				" temp_ch = " + Integer.toString(temp_ch) + " coord 7 = " + Integer.toString(coord7) +
+	   				" coord 8 = " + Integer.toString(coord8));
+
+			
 			canvas.drawRect(coord7,(canvas.getHeight() - 70 ),
 					coord8,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");   
@@ -321,8 +344,15 @@ public class ChartEngine  {
 		{	
 	   		p.setARGB(0x64,0xE8,0x0C,0x64);	//e80c64
 
-			coord9 = OFFSET_X_AXISY + 10 + 20 + 20 + 24;
-			coord10 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 ;		
+//			coord9 = OFFSET_X_AXISY + 10 + 20 + 20 + 24;
+//			coord10 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 ;	
+			int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+
+	   		coord9 = OFFSET_X_AXISY + evalX_px*(temp_ch + 2)/2;
+			coord10 = coord9 + evalX_px*4 + 3  ;	
+			Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
+	   				" temp_ch = " + Integer.toString(temp_ch) + " coord 9 = " + Integer.toString(coord9) +
+	   				" coord 10 = " + Integer.toString(coord10));
 			canvas.drawRect(coord9,(canvas.getHeight() - 70 ),
 					coord10,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord10 - 10 - (coord10 - coord9)/2) ,canvas.getHeight() - 70 - test,"Ch 5");   
