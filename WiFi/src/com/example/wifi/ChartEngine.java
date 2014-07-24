@@ -206,8 +206,10 @@ public class ChartEngine  {
 //		channel2rectDraw(canvas,2412,-30,test); //1st ch
 //		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
 //		channel2rectDraw(canvas,2422,-30,test); //3rd ch
-//		channel2rectDraw(canvas,2427,-30,test); //4rd ch
-		channel2rectDraw(canvas,2432,-30,test); //5th ch
+		channel2rectDraw(canvas,2427,-30,test); //4rd ch
+//		channel2rectDraw(canvas,2432,-30,test); //5th ch
+//		channel2rectDraw(canvas,2437,-30,test); //6th ch
+//		channel2rectDraw(canvas,2442,-30,test); //7th ch
 		
 		
 //		if (test >= 65)
@@ -256,7 +258,8 @@ public class ChartEngine  {
 	}
 	protected void channel2rectDraw(Canvas canvas,int channel,int rssi , int test)
 	{
-		Log.d("MY ChartEngine ","channel2rectDraw");	
+		Log.d("MY ChartEngine ","channel2rectDraw");
+		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		
 		int coord1 = 0,coord2 = 0;// 1st channel
@@ -264,20 +267,19 @@ public class ChartEngine  {
 		int coord5 = 0,coord6 = 0;// 3nd channel
 		int coord7 = 0,coord8 = 0;// 4th channel
 		int coord9 = 0,coord10 = 0;// 5th channel
-		
+		int coord11 = 0,coord12 = 0;// 6th channel
+		int coord13 = 0,coord14 = 0;// 7th channel
 		
 //	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
 //		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
 //				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
 		
-//	   	canvas.drawRect(OFFSET_X_AXISY + 100,(canvas.getHeight() - 70 ),
-//	   					OFFSET_X_AXISY + 150,(canvas.getHeight() - 70 - test),p);
 		if (channel == CustomScanListAdapter.arr_freq[1])
 		{	
 			p.setARGB(0x64,0xF7,0xE8,0x36);//Yellow			
 
 			coord1 = OFFSET_X_AXISY;
-			coord2 = OFFSET_X_AXISY + 85;		
+			coord2 = OFFSET_X_AXISY + 84;		
 			canvas.drawRect(coord1,(canvas.getHeight() - 70 ),
 					coord2,(canvas.getHeight() - 70 - test),p);
 			setName(canvas,15,0,(coord2 - 10 - (coord2 - coord1)/2),canvas.getHeight() - 70 - test,"Ch 1");   
@@ -288,7 +290,7 @@ public class ChartEngine  {
 	   		p.setARGB(0x64,0xCC,0x00,0x00);			
 
 			coord3 = OFFSET_X_AXISY + 13;
-			coord4 = OFFSET_X_AXISY + 20 + 85;		
+			coord4 = OFFSET_X_AXISY + 20 + 84;		
 			canvas.drawRect(coord3,(canvas.getHeight() - 70 ),
 					coord4,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0,(coord4 - 10 - (coord4 - coord3)/2),canvas.getHeight() - 70 - test,"Ch 2");   
@@ -299,7 +301,7 @@ public class ChartEngine  {
 	   		p.setARGB(0x64,0xCC,0xBB,0xDD);			
 
 			coord5 = OFFSET_X_AXISY + 10 + 20;
-			coord6 = OFFSET_X_AXISY + 20 + 85 + 20;		
+			coord6 = OFFSET_X_AXISY + 20*2 + 84 ;		
 			canvas.drawRect(coord5,(canvas.getHeight() - 70 ),
 					coord6,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord6 - 10 - (coord6 - coord5)/2) ,canvas.getHeight() - 70 - test,"Ch 3");   
@@ -309,7 +311,8 @@ public class ChartEngine  {
 	   		p.setARGB(0x64,0x64,0xE8,0x0C);	//0ce822	64e80c	
 
 			coord7 = OFFSET_X_AXISY + 10 + 20 + 22;
-			coord8 = OFFSET_X_AXISY + 20 + 85 + 20 + 22;		
+			//coord8 = OFFSET_X_AXISY + 20 + 84 + 20 + 22;
+			coord8 = OFFSET_X_AXISY + 20*3 + 84 ;
 			canvas.drawRect(coord7,(canvas.getHeight() - 70 ),
 					coord8,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");   
@@ -323,6 +326,26 @@ public class ChartEngine  {
 			canvas.drawRect(coord9,(canvas.getHeight() - 70 ),
 					coord10,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord10 - 10 - (coord10 - coord9)/2) ,canvas.getHeight() - 70 - test,"Ch 5");   
+		}
+		if (channel == CustomScanListAdapter.arr_freq[6])
+		{	
+	   		p.setARGB(0x64,0xE8,0x01,0x00);	//e80c64
+
+			coord11 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24;
+			coord12 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 ;		
+			canvas.drawRect(coord11,(canvas.getHeight() - 70 ),
+					coord12,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0, (coord12 - 10 - (coord12 - coord11)/2) ,canvas.getHeight() - 70 - test,"Ch 6");   
+		}
+		if (channel == CustomScanListAdapter.arr_freq[7])
+		{	
+	   		p.setARGB(0x64,0x90,0x0C,0xe8);	//#900ce8
+
+			coord13 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24 + 22;
+			coord14 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 +22 ;		
+			canvas.drawRect(coord13,(canvas.getHeight() - 70 ),
+					coord14,(canvas.getHeight() - 70 - test),p);
+		       setName(canvas,15,0, (coord14 - 10 - (coord14 - coord13)/2) ,canvas.getHeight() - 70 - test,"Ch 7");   
 		}
 	   	canvas.drawLine(coord1,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),
 			coord2,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),p);
