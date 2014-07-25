@@ -32,19 +32,26 @@ public class ChartEngine  {
 	final int RSSI_START_AXISXY = -90;
 	final int RSSI_END_AXISXY = -30;
 	final int RSSI_STEP = 5;
+	final int NUMBERS_OF_CHANNEL = 15;
 	int evalX_px = 0; //Size of segment X axis in pixels
 	int evalY_px = 0; //Size of segment Y axis in pixels
 	int evalRSSI_px = 0; //Size of value RSSI in pixels
+	int staRectWidth = 0; //Width for STA rectangle on axis X
 	public class ChannelCoord {
 		public int x;
 		public int y;
 		public int num ;
 	}		
+	public class RectSTACoord {
+		public int x1;
+		public int x2;
+	}		
 	
 	static int frame_ready = 1;
 	
+	ChannelCoord [] ch_coord = new ChannelCoord[NUMBERS_OF_CHANNEL];
+	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBERS_OF_CHANNEL];
 	
-	ChannelCoord [] ch_coord = new ChannelCoord[15];
 	Paint p;
 
 	public int y;
@@ -59,6 +66,7 @@ public class ChartEngine  {
 		for(int i = 0; i < ch_coord.length ;i++)
 		{
 			ch_coord[i] = new ChannelCoord();
+			rect_ch_coord[i] = new RectSTACoord();
 		}
 		
 //		myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
@@ -91,11 +99,12 @@ public class ChartEngine  {
 		// myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
 		 //canvas = new Canvas(myBitmap);
 		 //canvas.drawBitmap(myBitmap, 0, 0, p);
-
+		
 		
 		/*Evaluate size of segment in pixels*/
-		evalX_px = ((width-20) - OFFSET_X_AXISX) / lastch;    
-		
+		evalX_px = ((width-20) - OFFSET_X_AXISX) / lastch;  
+		/*Calculate width size value for indicate STA rectangle*/
+		staRectWidth = calcSTArectWidth(evalX_px);
         /*Draw segments on axis X*/
         k++;//1st channel start from second position
  		ch_coord[1].x = OFFSET_X_AXISX + 2*evalX_px;
@@ -111,8 +120,11 @@ public class ChartEngine  {
  	 		ch_coord[k].x = OFFSET_X_AXISX + evalX_px*(k+1);
  			ch_coord[k].y = (height - OFFSET_Y_AXISX);
  			ch_coord[k].num = k;
- 			canvas.drawLine(ch_coord[k].x ,ch_coord[k].y + 5,ch_coord[k].x, ch_coord[k].y,p);
- 			
+ 			//Save coord values on X axis for display STA rectangle
+ 			rect_ch_coord[k].x1 = ch_coord[k].x -staRectWidth/2;
+ 			rect_ch_coord[k].x2 = rect_ch_coord[k].x1 + staRectWidth;
+ 				
+ 			canvas.drawLine(ch_coord[k].x ,ch_coord[k].y + 5,ch_coord[k].x, ch_coord[k].y,p); 			
  			canvas.drawText(Integer.toString(ch_coord[k].num),ch_coord[k].x - ((ch_coord[k].num >9)?5:3),
 					ch_coord[k].y + 18,p);
  			k++;
@@ -204,9 +216,9 @@ public class ChartEngine  {
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
 //		channel2rectDraw(canvas,2412,-30,test); //1st ch
-		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
+//		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
 //		channel2rectDraw(canvas,2422,-30,test); //3rd ch
-//		channel2rectDraw(canvas,2427,-30,test); //4rd ch
+		channel2rectDraw(canvas,2427,-30,test); //4rd ch
 //		channel2rectDraw(canvas,2432,-30,test); //5th ch
 //		channel2rectDraw(canvas,2437,-30,test); //6th ch
 //		channel2rectDraw(canvas,2442,-30,test); //7th ch
@@ -270,16 +282,13 @@ public class ChartEngine  {
 		int coord11 = 0,coord12 = 0;// 6th channel
 		int coord13 = 0,coord14 = 0;// 7th channel
 		
-//	   	Log.e("MY ChartEngine: channel2rectDraw: ", "evalY_px = " + evalY_px + " evalRSSI_px = " + evalRSSI_px);
-//		Log.e("MY ChartEngine: channel2rectDraw: ", "canvas.getWidth() = " + Integer.toString(canvas.getWidth())
-//				+ " canvas.getHeight() = " + Integer.toString(canvas.getHeight()));
-		
 		if (channel == CustomScanListAdapter.arr_freq[1])
 		{	
 			p.setARGB(0x64,0xF7,0xE8,0x36);//Yellow			
 
 			coord1 = OFFSET_X_AXISY;
-			coord2 = OFFSET_X_AXISY + 84;		
+//			coord2 = OFFSET_X_AXISY + 84;
+			coord2 = coord1 + evalX_px*4;
 			canvas.drawRect(coord1,(canvas.getHeight() - 70 ),
 					coord2,(canvas.getHeight() - 70 - test),p);
 			setName(canvas,15,0,(coord2 - 10 - (coord2 - coord1)/2),canvas.getHeight() - 70 - test,"Ch 1");   
@@ -293,11 +302,15 @@ public class ChartEngine  {
 //			coord4 = OFFSET_X_AXISY + 20 + 84;
 
 	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
-			coord3 = OFFSET_X_AXISY + evalX_px*(temp_ch - 1)/2;
+		//	coord3 = OFFSET_X_AXISY + evalX_px/2;
+	   		coord3 = ch_coord[2].x - (evalX_px*4 +3)/2 ;
 			coord4 = coord3 + evalX_px*4 +3  ;
 			Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
 	   				" temp_ch = " + Integer.toString(temp_ch) + " coord 3 = " + Integer.toString(coord3) +
 	   				" coord 4 = " + Integer.toString(coord4));
+			Log.e("MY ChartEngine: channel2rectDraw: ", "ch_coord[2].x = " + Integer.toString(ch_coord[2].x)
+					+ "ch_coord[2].y = " + Integer.toString(ch_coord[2].y) + "ch_coord[1].num = " + Integer.toString(ch_coord[2].num));
+			
 			canvas.drawRect(coord3,(canvas.getHeight() - 70 ),
 					coord4,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0,(coord4 - 10 - (coord4 - coord3)/2),canvas.getHeight() - 70 - test,"Ch 2");   
@@ -311,9 +324,10 @@ public class ChartEngine  {
 	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
 	   		Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
 	   				" temp_ch = " + Integer.toString(temp_ch));
-
-			coord5 = OFFSET_X_AXISY + evalX_px*(temp_ch)/2;
+//	   		coord5 = OFFSET_X_AXISY + evalX_px*(temp_ch)/2;
+	   		coord5 = ch_coord[3].x - (evalX_px*4 +3)/2 ;
 			coord6 = coord5 + evalX_px*4 +3  ;	
+			
 	   		
 			canvas.drawRect(coord5,(canvas.getHeight() - 70 ),
 					coord6,(canvas.getHeight() - 70 - test),p);
@@ -329,16 +343,19 @@ public class ChartEngine  {
 //			
 			int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
 	   		
-			coord7 = OFFSET_X_AXISY + evalX_px*(temp_ch +1 )/2;
-			coord8 = coord7 + evalX_px*4 +3  ;	
+			//coord7 = OFFSET_X_AXISY + evalX_px*(temp_ch +1 )/2;
+			//coord7 = ch_coord[4].x - staRectWidth/2 ;
+//			coord8 = coord7 + staRectWidth  ;
+			coord7 = rect_ch_coord[4].x1;
+			coord8 = rect_ch_coord[4].x2;	
 			Log.e("MY ChartEngine: channel2rectDraw: ","evalX_px = " + Integer.toString(evalX_px) +
 	   				" temp_ch = " + Integer.toString(temp_ch) + " coord 7 = " + Integer.toString(coord7) +
 	   				" coord 8 = " + Integer.toString(coord8));
-
 			
-			canvas.drawRect(coord7,(canvas.getHeight() - 70 ),
-					coord8,(canvas.getHeight() - 70 - test),p);
-		       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");   
+//			canvas.drawRect(coord7,(canvas.getHeight() - 70 ),coord8,(canvas.getHeight() - 70 - test),p);
+			canvas.drawRect(rect_ch_coord[4].x1,(canvas.getHeight() - 70 ),rect_ch_coord[4].x2,(canvas.getHeight() - 70 - test),p);
+//		       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
+		       setName(canvas,15,0, ch_coord[4].x ,canvas.getHeight() - 70 - test,"Ch 4");
 		}
 		if (channel == CustomScanListAdapter.arr_freq[5])
 		{	
@@ -360,9 +377,12 @@ public class ChartEngine  {
 		if (channel == CustomScanListAdapter.arr_freq[6])
 		{	
 	   		p.setARGB(0x64,0xE8,0x01,0x00);	//e80c64
-
-			coord11 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24;
-			coord12 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 ;		
+//			coord11 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24;
+//			coord12 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 ;
+	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+	   		coord11 = OFFSET_X_AXISY + evalX_px*(temp_ch + 3)/2;
+			coord12 = coord11 + evalX_px*4 + 3  ;
+			
 			canvas.drawRect(coord11,(canvas.getHeight() - 70 ),
 					coord12,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord12 - 10 - (coord12 - coord11)/2) ,canvas.getHeight() - 70 - test,"Ch 6");   
@@ -370,9 +390,12 @@ public class ChartEngine  {
 		if (channel == CustomScanListAdapter.arr_freq[7])
 		{	
 	   		p.setARGB(0x64,0x90,0x0C,0xe8);	//#900ce8
-
-			coord13 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24 + 22;
-			coord14 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 +22 ;		
+//
+//			coord13 = OFFSET_X_AXISY + 10 + 20 + 20 + 24 + 24 + 22;
+//			coord14 = OFFSET_X_AXISY + 20 + 85 + 20 + 22 + 22 + 22 +22 ;		
+	   		int temp_ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+	   		coord13 = OFFSET_X_AXISY + evalX_px*(temp_ch + 4)/2;
+			coord14 = coord13 + evalX_px*4 + 3  ;
 			canvas.drawRect(coord13,(canvas.getHeight() - 70 ),
 					coord14,(canvas.getHeight() - 70 - test),p);
 		       setName(canvas,15,0, (coord14 - 10 - (coord14 - coord13)/2) ,canvas.getHeight() - 70 - test,"Ch 7");   
@@ -382,10 +405,13 @@ public class ChartEngine  {
 //		canvas.drawLine(coord1,(canvas.getHeight() - OFFSET_Y_AXISX - 65),
 //				coord2,(canvas.getHeight() - OFFSET_Y_AXISX - 65),p);
 	}
-	protected int getCoordRSSILevel(int rssi_level) {
+	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
 		Log.e("MY ChartEngine: getRangeRSSI: ","coord_rssi = " + Integer.toString(coord_rssi));
 		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
+	}
+	protected int calcSTArectWidth(int x_pixels) {
+		return (x_pixels*4 +3);
 	}
 	/*NOT USED*/
 	protected void rectPaint(Canvas canvas,Rect rect)

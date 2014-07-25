@@ -114,7 +114,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {    	     
     	     cdd.setCancelable(false);
-    	    // cdd.show();  
+//    	     cdd.show();  
     	  }
 	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
