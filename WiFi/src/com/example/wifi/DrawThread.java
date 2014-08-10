@@ -1,15 +1,17 @@
 package com.example.wifi;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {
@@ -51,11 +53,17 @@ public class DrawThread extends Thread {
 
     @Override
     public void run() {
-        Canvas canvas;
+//    	List<ScanResult> debug_scan_result;
+    	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+    	//debug_scan_result = wifiManager.getScanResults();
+    	//ch_coord[i] = new ChannelCoord();
+    	ScanItem first = new ScanItem();
+    	first.setSSID("ANTON");
+    	
+    	Canvas canvas;
     	Log.d("MY DrawThread:", "run() draw picture !!!" );    	
 		canvas = new Canvas(myBitmap);
-		
-		//canvas.drawBitmap(myBitmap, 0, 0, p);
+
 		chart.drawAxisXY(canvas);
 		 canvas.drawBitmap(myBitmap,0,0,p);
 		

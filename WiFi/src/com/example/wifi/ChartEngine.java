@@ -19,7 +19,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 public class ChartEngine  {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
@@ -232,7 +231,7 @@ public class ChartEngine  {
 		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
 //		CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
-		channel2rectDraw(canvas,2412,-30,test); //1st ch
+		channel2rectDraw(canvas,2412,-20,test); //1st ch
 //		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
 //		channel2rectDraw(canvas,2422,-30,test); //3rd ch
 //		channel2rectDraw(canvas,2427,-30,test); //4rd ch
@@ -243,21 +242,11 @@ public class ChartEngine  {
 		channel2rectDraw(canvas,2484,-30,test); //14th ch
 			
 //		if (test >= 65)
-			if (test >= getCoordRSSILevel(-30))
-				frame_ready = 0;//Stop to draw	
+//			if (test >= getCoordRSSILevel(-30))
+//				frame_ready = 0;//Stop to draw	
 
 	}
-	public void testDraw (Canvas canvas,float x,float y)
-	{
-				
-		//Log.d("MY ChartEngine: ","testDraw");			
-		//canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 + 40 - y),p);
-		//Paint p = new Paint();
-		//p.setARGB(0xA9,0xF7,0xE8,0x36);
-		
-		//channel2rectDraw(canvas,1,67);		
 
-	}
 	protected void channel2rectDraw(Canvas canvas,int channel,int rssi , int test)
 	{
 		Log.d("MY ChartEngine ","channel2rectDraw");
@@ -269,7 +258,12 @@ public class ChartEngine  {
 		switch(ch)
 		{
 			case 1://need fill
-				drawSTArect(canvas,ch,test,"Antonio ",0x30F7E836);
+				if(Math.abs(rssi) >= test)
+				{
+					drawSTArect(canvas,ch,test,"Antonio ",0x30F7E836);
+				} else {
+					drawSTArect(canvas,ch,Math.abs(rssi),"Antonio ",0x30F7E836);
+				}
 				break;
 			case 2:
 				drawSTArect(canvas,ch,test,"Cambium ",0x64CC0000);
@@ -297,9 +291,6 @@ public class ChartEngine  {
 				drawSTArect(canvas,ch,test,"Dublin ",0x64FF0C3E);
 				break;	
 		}
-
-	   	canvas.drawLine(coord1,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),
-			coord2,(canvas.getHeight() - OFFSET_Y_AXISX - getCoordRSSILevel(rssi)),p);
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;

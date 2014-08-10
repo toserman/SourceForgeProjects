@@ -67,7 +67,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }       	
        
-        holder.ssidname.setText(listData.get(position).getSsid());
+        holder.ssidname.setText(listData.get(position).getSSID());
        // holder.bssid.setText("("+listData.get(position).getBSSID()+")");
         holder.channelfreq.setText(String.valueOf("Freq: " + listData.get(position).getChannelFreq()) + " MHz");
         holder.rssilevel.setText(String.valueOf("RSSI: " + listData.get(position).getRSSIlevel()) + " dBm");
@@ -86,7 +86,7 @@ public class CustomListAdapter extends BaseAdapter {
         holder.rssilevel.setTypeface(font_roboto);
 
         if(listData.get(position).getConnectFlag() == true){
-        	Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSsid());
+        	Log.d("MY TAG ", "Adapter TRUE SSID:" + listData.get(position).getSSID());
         	Log.d("MY TAG ", "Adapter TRUE BSSID:" + listData.get(position).getBSSID());
         	//holder.wifi_state_icon.setImageResource(R.drawable.wifi_connected);  
         	holder.wifi_state_icon.setImageResource(R.drawable.internet_radio_new);  
@@ -103,7 +103,7 @@ public class CustomListAdapter extends BaseAdapter {
         	holder.crypted_mode.setText(listData.get(position).getCipherType());
         	holder.wifi_capab_icon.setImageResource(R.drawable.encrypted);
         	Log.d("MY TAG ", "ENCRYPTED: " + listData.get(position).getCipherType() + " :"
-        		  + listData.get(position).getSsid());            
+        		  + listData.get(position).getSSID());            
     	} else {   		
     		holder.wifi_capab_icon.setImageResource(0);    		
     	}

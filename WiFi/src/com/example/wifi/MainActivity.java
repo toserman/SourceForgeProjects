@@ -185,7 +185,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	           //         Toast.LENGTH_SHORT).show();
 	        	 Log.d("MY TAG ", "***********************");
 	            Log.d("MY TAG ", result.SSID + " " + result.level + " " + result.frequency + " MHz");	
-	            scan_element.setSsid(result.SSID);
+	            scan_element.setSSID(result.SSID);
 	            scan_element.setChannelFreq(result.frequency);
 	            scan_element.setRSSIlevel(result.level);
 	            scan_element.setBSSID(result.BSSID);

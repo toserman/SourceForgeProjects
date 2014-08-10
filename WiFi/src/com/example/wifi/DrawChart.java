@@ -43,16 +43,16 @@ public class DrawChart extends View {
  	// canvas.drawBitmap(bitmap, 0, 0, paint);
 
   	chart.drawAxisXY(canvas);
-  	 if (ChartEngine.frame_ready == 1)
-  	 {  
-  		chart.startDraw(canvas, temp);
-  		if (ChartEngine.frame_ready == 1)
-//	  		 invalidate(60/*OFFSET_Y_AXISX LEFT POS*/,(canvas.getHeight() - 600 )/*TOP POS*/,
-//	  				 	60 + 285/*RIGHT POS*/,canvas.getHeight() - 15/*BOTTOM POS*/);
-  			invalidate();
-  			//postInvalidate();
-		temp+=1;		
-  	 }  	 
+//  	 if (ChartEngine.frame_ready == 1)
+//  	 {  
+//  		chart.startDraw(canvas, temp);
+//  		if (ChartEngine.frame_ready == 1)
+////	  		 invalidate(60/*OFFSET_Y_AXISX LEFT POS*/,(canvas.getHeight() - 600 )/*TOP POS*/,
+////	  				 	60 + 285/*RIGHT POS*/,canvas.getHeight() - 15/*BOTTOM POS*/);
+//  			invalidate();
+//  			//postInvalidate();
+//		temp+=1;		
+//  	 }  	 
   	
   }
 

@@ -12,10 +12,10 @@ public class ScanItem {
     private String cipher;
     
     //SSID name
-    public String getSsid(){
+    public String getSSID(){
         return ssid;
     } 
-    public void setSsid(String ssid){
+    public void setSSID(String ssid){
         this.ssid = ssid;
     }
     
@@ -31,7 +31,7 @@ public class ScanItem {
     public int getChannelFreq(){
         return chanfreq;
     }
-     public void setChannelFreq(int ch_freq){
+    public void setChannelFreq(int ch_freq){
         this.chanfreq = ch_freq;
     }    
      
