@@ -8,6 +8,7 @@ public class ScanItem {
 	private String bssid;
     private int chanfreq;
     private int rssi;
+    private int old_rssi;
     private boolean connect_flag;
     private String cipher;
     
@@ -41,6 +42,12 @@ public class ScanItem {
     } 
     public void setRSSIlevel(int rssi){
         this.rssi = rssi;
+    }
+    public int get_oldRSSIlevel(){
+        return old_rssi;
+    } 
+    public void set_oldRSSIlevel(int rssi){
+        this.old_rssi = rssi;
     }
     
     //Flag for connect status

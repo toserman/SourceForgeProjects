@@ -1,5 +1,6 @@
 package com.example.wifi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -57,9 +58,38 @@ public class DrawThread extends Thread {
     	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
     	//debug_scan_result = wifiManager.getScanResults();
     	//ch_coord[i] = new ChannelCoord();
+    	ArrayList<ScanItem> list_sta = new ArrayList<ScanItem>();
+    	
+    	//List <ScanItem> list_sta = new List<ScanItem>();
+    	
     	ScanItem first = new ScanItem();
     	first.setSSID("ANTON");
+    	first.setBSSID("01:02:03:04:05:06");
+    	first.setRSSIlevel(-40);
+    	first.set_oldRSSIlevel(0);
+    	first.setChannelFreq(2412);
     	
+    	ScanItem second = new ScanItem();
+    	second.setSSID("ANTON");
+    	second.setBSSID("01:11:22:33:44:55");
+    	second.setRSSIlevel(-60);
+    	second.set_oldRSSIlevel(0);
+    	second.setChannelFreq(2417);
+    	
+    	list_sta.add(first);
+    	list_sta.add(second);
+
+    	//Display list
+    	for (int i=0; i < list_sta.size();i++)
+    	{
+  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_sta.get(i).getBSSID());
+    	}
+    	
+    	  for (ScanItem list_test : list_sta) {
+    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+    	  }
+    	  
+    	  
     	Canvas canvas;
     	Log.d("MY DrawThread:", "run() draw picture !!!" );    	
 		canvas = new Canvas(myBitmap);
