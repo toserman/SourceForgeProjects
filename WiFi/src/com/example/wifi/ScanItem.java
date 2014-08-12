@@ -43,10 +43,10 @@ public class ScanItem {
     public void setRSSIlevel(int rssi){
         this.rssi = rssi;
     }
-    public int get_oldRSSIlevel(){
+    public int getOldRSSIlevel(){
         return old_rssi;
     } 
-    public void set_oldRSSIlevel(int rssi){
+    public void setOldRSSIlevel(int rssi){
         this.old_rssi = rssi;
     }
     

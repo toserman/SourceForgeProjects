@@ -66,14 +66,14 @@ public class DrawThread extends Thread {
     	first.setSSID("ANTON");
     	first.setBSSID("01:02:03:04:05:06");
     	first.setRSSIlevel(-40);
-    	first.set_oldRSSIlevel(0);
+    	first.setOldRSSIlevel(0);
     	first.setChannelFreq(2412);
     	
     	ScanItem second = new ScanItem();
     	second.setSSID("ANTON");
     	second.setBSSID("01:11:22:33:44:55");
     	second.setRSSIlevel(-60);
-    	second.set_oldRSSIlevel(0);
+    	second.setOldRSSIlevel(0);
     	second.setChannelFreq(2417);
     	
     	list_sta.add(first);
