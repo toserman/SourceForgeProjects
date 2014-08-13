@@ -1,6 +1,7 @@
 package com.example.wifi;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.Activity;
@@ -103,7 +104,7 @@ public class ChartEngine  {
 		/*Evaluate size of segment in pixels*/
 		evalX_px = ((width-20) - OFFSET_X_AXISX) / lastch;  
 		/*Calculate width size value for indicate STA rectangle*/
-		 setcalcSTArectWidth(evalX_px);
+		 setcalcAPrectWidth(evalX_px);
 		 /*Save for Channel 1 coord values on X axis for display STA rectangle*/
 		if ( k == 1)
 		{
@@ -218,28 +219,34 @@ public class ChartEngine  {
      
 	}
 		
-	public void startDraw (Canvas canvas,int test)
+	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap)
 	{
 		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
-	//	final int OFFSET_X_AXISX = 50;//pixel
-		//final int OFFSET_X_AXISY = 60;
-		//final int OFFSET_Y_AXISX = 71;
+		//Display list
+//    	for (int i=0; i < list_ap.size();i++)
+//    	{
+//  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_ap.get(i).getBSSID());
+  		//drawAP(canvas,list_ap[list_ap.get(i)], test);  		
+//    	}
+    	
+    	  for (ScanItem list_test : list_ap) {
+    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+    		  drawAP(canvas,list_test, test);
+    	  }
+    	
 		
-		//int height = 800;
-		//Paint p = new Paint();		
-		//p.setARGB(0xA9,0xF7,0xE8,0x36);					
-		//	canvas.drawRect(OFFSET_X_AXISY + 100,(height - 70),OFFSET_X_AXISY + 150,(height - 70 - test),p);
 		
-//		CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
-		channel2rectDraw(canvas,2412,-20,test); //1st ch
-//		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
-//		channel2rectDraw(canvas,2422,-30,test); //3rd ch
-//		channel2rectDraw(canvas,2427,-30,test); //4rd ch
-//		channel2rectDraw(canvas,2432,-30,test); //5th ch
-		channel2rectDraw(canvas,2437,-30,test); //6th ch
-		channel2rectDraw(canvas,2442,-30,test); //7th ch
-		channel2rectDraw(canvas,2462,-30,test); //11th ch
-		channel2rectDraw(canvas,2484,-30,test); //14th ch
+		
+////		CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
+//		channel2rectDraw(canvas,2412,-20,test); //1st ch
+////		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
+////		channel2rectDraw(canvas,2422,-30,test); //3rd ch
+////		channel2rectDraw(canvas,2427,-30,test); //4rd ch
+////		channel2rectDraw(canvas,2432,-30,test); //5th ch
+//		channel2rectDraw(canvas,2437,-30,test); //6th ch
+//		channel2rectDraw(canvas,2442,-30,test); //7th ch
+//		channel2rectDraw(canvas,2462,-30,test); //11th ch
+//		channel2rectDraw(canvas,2484,-30,test); //14th ch
 			
 //		if (test >= 65)
 //			if (test >= getCoordRSSILevel(-30))
@@ -253,61 +260,81 @@ public class ChartEngine  {
 		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		
-		int coord1 = 0,coord2 = 0;// 1st channel
 		int ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
 		switch(ch)
 		{
 			case 1://need fill
 				if(Math.abs(rssi) >= test)
 				{
-					drawSTArect(canvas,ch,test,"Antonio ",0x30F7E836);
+					drawAPrect(canvas,ch,test,"Antonio ",0x30F7E836);
 				} else {
-					drawSTArect(canvas,ch,Math.abs(rssi),"Antonio ",0x30F7E836);
+					drawAPrect(canvas,ch,Math.abs(rssi),"Antonio ",0x30F7E836);
 				}
 				break;
 			case 2:
-				drawSTArect(canvas,ch,test,"Cambium ",0x64CC0000);
+				drawAPrect(canvas,ch,test,"Cambium ",0x64CC0000);
 				break;
 			case 3:
-				drawSTArect(canvas,ch,test,"Mario ",0x64CCBBDD);
+				drawAPrect(canvas,ch,test,"Mario ",0x64CCBBDD);
 				break;
 			case 4:
-				drawSTArect(canvas,ch,test,"Barcelona ",0x6464E80C);
+				drawAPrect(canvas,ch,test,"Barcelona ",0x6464E80C);
 				break;
 			case 5:
-				drawSTArect(canvas,ch,test,"Fabregas ",0x64E80C64);
+				drawAPrect(canvas,ch,test,"Fabregas ",0x64E80C64);
 				break;
 			case 6:
-				drawSTArect(canvas,ch,test,"Watch out!!! ",0x64E80100);
+				drawAPrect(canvas,ch,test,"Watch out!!! ",0x64E80100);
 //				drawSTArect(canvas,ch,test,"Attention!!! ",0x10FFC703);
 				break;
 			case 7:
-				drawSTArect(canvas,ch,test,"Hello ",0x6490CE80);
+				drawAPrect(canvas,ch,test,"Hello ",0x6490CE80);
 				break;
 			case 11:
-				drawSTArect(canvas,ch,test,"Wireless ",0x643EB489);
+				drawAPrect(canvas,ch,test,"Wireless ",0x643EB489);
 				break;			
 			case 14:
-				drawSTArect(canvas,ch,test,"Dublin ",0x64FF0C3E);
+				drawAPrect(canvas,ch,test,"Dublin ",0x64FF0C3E);
 				break;	
 		}
+	}
+	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
+	{		
+		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
+		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+	
+		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
+	
+//		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
+//			Log.e("MY ChartEngine TRUE","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
+//		else
+//			Log.e("MY ChartEngine FALSE ","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
+		
+		//Draw AP rectangle
+		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
+		{
+			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
+		} else {
+			//No need to increase current bar. Just draw last state
+			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
+		}
+	
+
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
 //		Log.e("MY ChartEngine: getCoordRSSILevel: ","coord_rssi = " + Integer.toString(coord_rssi));
 		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
 	}
-	protected void setcalcSTArectWidth(int x_pixels) {
+	protected void setcalcAPrectWidth(int x_pixels) {
 		staRectWidth = (x_pixels*4 +3);
 	}
-	private void drawSTArect(Canvas canvas, int channel,int draw_step,String ssid_name,int color)
-	{
-	
+	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color)
+	{	
 		p.setColor(color);
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
 //	       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
-	       setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - draw_step,ssid_name + channel);
-		
+	       setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - draw_step,ssid_name + channel);		
 	}
 	/*NOT USED*/
 	protected void rectPaint(Canvas canvas,Rect rect)

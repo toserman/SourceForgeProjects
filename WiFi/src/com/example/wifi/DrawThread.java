@@ -25,6 +25,7 @@ public class DrawThread extends Thread {
     ChartEngine chart;
     
     int temp;
+    int draw_marker;
 	
     
     Paint p;
@@ -58,45 +59,54 @@ public class DrawThread extends Thread {
     	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
     	//debug_scan_result = wifiManager.getScanResults();
     	//ch_coord[i] = new ChannelCoord();
-    	ArrayList<ScanItem> list_sta = new ArrayList<ScanItem>();
+    	ArrayList<ScanItem> list_ap = new ArrayList<ScanItem>();
     	
     	//List <ScanItem> list_sta = new List<ScanItem>();
     	
     	ScanItem first = new ScanItem();
-    	first.setSSID("ANTON");
+    	first.setSSID("TEST");
     	first.setBSSID("01:02:03:04:05:06");
-    	first.setRSSIlevel(-40);
+    	first.setRSSIlevel(-70);
     	first.setOldRSSIlevel(0);
     	first.setChannelFreq(2412);
+    	first.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq));
+    	first.setAPcolor(0x30F7E836);
     	
     	ScanItem second = new ScanItem();
-    	second.setSSID("ANTON");
+    	second.setSSID("ACTION");
     	second.setBSSID("01:11:22:33:44:55");
-    	second.setRSSIlevel(-60);
+    	second.setRSSIlevel(-85);
     	second.setOldRSSIlevel(0);
     	second.setChannelFreq(2417);
+    	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2417,CustomScanListAdapter.arr_freq));
+    	second.setAPcolor(0x64CC0000);
     	
-    	list_sta.add(first);
-    	list_sta.add(second);
-
+    	list_ap.add(first);
+    	list_ap.add(second);
+    	
+    	
+    	
     	//Display list
-    	for (int i=0; i < list_sta.size();i++)
-    	{
-  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_sta.get(i).getBSSID());
-    	}
-    	
-    	  for (ScanItem list_test : list_sta) {
-    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
-    	  }
+//    	for (int i=0; i < list_ap.size();i++)
+//    	{
+//  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_ap.get(i).getBSSID());
+//    	}
+//    	
+//    	  for (ScanItem list_test : list_ap) {
+//    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+//    	  }
     	  
     	  
     	Canvas canvas;
-    	Log.d("MY DrawThread:", "run() draw picture !!!" );    	
+    	Log.d("MY DrawThread:", "run() draw picture !!!");    	
 		canvas = new Canvas(myBitmap);
 
 		chart.drawAxisXY(canvas);
-		 canvas.drawBitmap(myBitmap,0,0,p);
+		canvas.drawBitmap(myBitmap,0,0,p);
 		
+		//find the biggest RSSI and set limitation for draw
+	    draw_marker = chart.getCoordRSSILevel(-70);
+	    
         while (runFlag) {
             // получаем текущее время и вычисляем разницу с предыдущим 
             // сохраненным моментом времени
@@ -114,13 +124,13 @@ public class DrawThread extends Thread {
                 // получаем объект Canvas и выполняем отрисовку
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
-                	if (temp == 30)
+                	if (temp == draw_marker)
                 		setRunning(false);
                 	
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
                     canvas.drawBitmap(myBitmap, 0, 0,null );                   
-                	chart.startDraw(canvas,temp);
+                	chart.startDraw(canvas,temp,list_ap);
               		temp+=1;
                 }
             } 

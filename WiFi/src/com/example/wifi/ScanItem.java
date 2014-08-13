@@ -4,13 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 public class ScanItem {
-	private String ssid;
+	public String ssid;
 	private String bssid;
     private int chanfreq;
-    private int rssi;
-    private int old_rssi;
+    public int channel;
+    public int rssi;
+    public int old_rssi;
     private boolean connect_flag;
     private String cipher;
+    public int apcolor;
     
     //SSID name
     public String getSSID(){
@@ -34,7 +36,21 @@ public class ScanItem {
     }
     public void setChannelFreq(int ch_freq){
         this.chanfreq = ch_freq;
-    }    
+    }
+    //Channel number 
+    public int getChannelNum(){
+        return channel;
+    }
+    public void setChannelNum(int ch_num){
+        this.channel = ch_num;
+    }
+    //Handle AP color for draw in graph
+    public int getAPcolor(){
+        return apcolor;
+    } 
+    public void setAPcolor(int apcolor){
+        this.apcolor = apcolor;
+    }
      
     //RSSI level for AP
     public int getRSSIlevel(){
