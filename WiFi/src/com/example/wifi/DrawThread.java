@@ -26,6 +26,7 @@ public class DrawThread extends Thread {
     
     int temp;
     int draw_marker;
+    int high_rssi;
 	
     
     Paint p;
@@ -58,7 +59,9 @@ public class DrawThread extends Thread {
 //    	List<ScanResult> debug_scan_result;
     	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
     	//debug_scan_result = wifiManager.getScanResults();
-    	//ch_coord[i] = new ChannelCoord();
+    	Canvas canvas;
+    	Log.d("MY DrawThread:", "run() draw picture !!!");    	
+		canvas = new Canvas(myBitmap);
     	ArrayList<ScanItem> list_ap = new ArrayList<ScanItem>();
     	
     	//List <ScanItem> list_sta = new List<ScanItem>();
@@ -77,14 +80,22 @@ public class DrawThread extends Thread {
     	second.setBSSID("01:11:22:33:44:55");
     	second.setRSSIlevel(-85);
     	second.setOldRSSIlevel(0);
-    	second.setChannelFreq(2417);
-    	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2417,CustomScanListAdapter.arr_freq));
+    	second.setChannelFreq(2437);
+    	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2437,CustomScanListAdapter.arr_freq));
     	second.setAPcolor(0x64CC0000);
+    	
+    	ScanItem third = new ScanItem();
+    	third.setSSID("MAPROAD");
+    	third.setBSSID("77:11:22:33:44:55");
+    	third.setRSSIlevel(-95);
+    	third.setOldRSSIlevel(0);
+    	third.setChannelFreq(2457);
+    	third.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2457,CustomScanListAdapter.arr_freq));
+    	third.setAPcolor(0x643EB489);
     	
     	list_ap.add(first);
     	list_ap.add(second);
-    	
-    	
+    	list_ap.add(third);
     	
     	//Display list
 //    	for (int i=0; i < list_ap.size();i++)
@@ -96,16 +107,12 @@ public class DrawThread extends Thread {
 //    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
 //    	  }
     	  
-    	  
-    	Canvas canvas;
-    	Log.d("MY DrawThread:", "run() draw picture !!!");    	
-		canvas = new Canvas(myBitmap);
-
 		chart.drawAxisXY(canvas);
 		canvas.drawBitmap(myBitmap,0,0,p);
 		
 		//find the biggest RSSI and set limitation for draw
-	    draw_marker = chart.getCoordRSSILevel(-70);
+		high_rssi = chart.findHighestRSSI(list_ap);
+	    draw_marker = chart.getCoordRSSILevel(high_rssi);
 	    
         while (runFlag) {
             // получаем текущее время и вычисляем разницу с предыдущим 

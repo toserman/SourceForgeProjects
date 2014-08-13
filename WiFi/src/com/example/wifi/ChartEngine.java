@@ -29,8 +29,8 @@ public class ChartEngine  {
 	final int OFFSET_X_AXISY = 60;	
 	final int OFFSET_Y_AXISY = 60;
 	
-	final int RSSI_START_AXISXY = -90;
-	final int RSSI_END_AXISXY = -30;
+	final int RSSI_START_AXISXY = -100;
+	final int RSSI_END_AXISXY = -40;
 	final int RSSI_STEP = 5;
 	final int NUMBERS_OF_CHANNEL = 15;
 	int evalX_px = 0; //Size of segment X axis in pixels
@@ -176,7 +176,7 @@ public class ChartEngine  {
 	    					OFFSET_X_AXISY - 5 ,(height - 70) - evalY_px*m,p);        	
 	    	if(rssilevel%10 != 0)
 	    		p.setTextSize(10);
-	    	canvas.drawText(Integer.toString(rssilevel),OFFSET_X_AXISX - 17, (height - 70) - evalY_px*m + 4,p);
+	    	canvas.drawText(Integer.toString(rssilevel),OFFSET_X_AXISX - 23, (height - 70) - evalY_px*m + 4,p);
 	    	p.setTextSize(12);
 	    	rssilevel+=step;
 	    	/*Draw Y GRID*/
@@ -221,7 +221,7 @@ public class ChartEngine  {
 		
 	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap)
 	{
-		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
+//		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
 		//Display list
 //    	for (int i=0; i < list_ap.size();i++)
 //    	{
@@ -230,13 +230,11 @@ public class ChartEngine  {
 //    	}
     	
     	  for (ScanItem list_test : list_ap) {
-    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+    		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
     		  drawAP(canvas,list_test, test);
     	  }
     	
-		
-		
-		
+	
 ////		CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
 //		channel2rectDraw(canvas,2412,-20,test); //1st ch
 ////		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
@@ -303,19 +301,19 @@ public class ChartEngine  {
 		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 	
-		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
+//		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
 	
 //		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
 //			Log.e("MY ChartEngine TRUE","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
 //		else
 //			Log.e("MY ChartEngine FALSE ","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
 		
-		//Draw AP rectangle
+		/*Draw AP rectangle*/
 		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
 		{
 			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
 		} else {
-			//No need to increase current bar. Just draw last state
+			/*No need to increase current bar. Just draw last state*/
 			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
 		}
 	
@@ -323,7 +321,6 @@ public class ChartEngine  {
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
-//		Log.e("MY ChartEngine: getCoordRSSILevel: ","coord_rssi = " + Integer.toString(coord_rssi));
 		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
 	}
 	protected void setcalcAPrectWidth(int x_pixels) {
@@ -334,7 +331,7 @@ public class ChartEngine  {
 		p.setColor(color);
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
 //	       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
-	       setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - draw_step,ssid_name + channel);		
+	       setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 4 - 70 - draw_step,ssid_name + " " + channel);		
 	}
 	/*NOT USED*/
 	protected void rectPaint(Canvas canvas,Rect rect)
@@ -357,5 +354,23 @@ public class ChartEngine  {
 				p.reset();
 				
 	}
-
+	public int findHighestRSSI (ArrayList<ScanItem> list_ap)
+	{
+		int high_rssi = 0;
+		int tmp_rssi = -999;//fake value
+    	for (int i=0; i < list_ap.size();i++)
+    	{
+    		if (tmp_rssi < list_ap.get(i).rssi)
+    		{
+    			Log.d("MY findHighestRSSI ", "i = " + Integer.toString(i) + " " + list_ap.get(i).rssi);    			
+    			tmp_rssi = list_ap.get(i).rssi;
+    			high_rssi = tmp_rssi;
+    		}
+    	}
+		
+    	Log.d("MY findHighestRSSI ", "high_rssi =  " + high_rssi);
+    	    	
+		return high_rssi;
+	}
+	
 }
