@@ -29,8 +29,8 @@ public class ChartEngine  {
 	final int OFFSET_X_AXISY = 60;	
 	final int OFFSET_Y_AXISY = 60;
 	
-	final int RSSI_START_AXISXY = -100;
-	final int RSSI_END_AXISXY = -40;
+	final int RSSI_START_AXISXY = -95;
+	final int RSSI_END_AXISXY = -35;
 	final int RSSI_STEP = 5;
 	final int NUMBERS_OF_CHANNEL = 15;
 	int evalX_px = 0; //Size of segment X axis in pixels

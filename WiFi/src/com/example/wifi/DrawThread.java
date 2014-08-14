@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {
@@ -150,6 +151,7 @@ public class DrawThread extends Thread {
             }
         } //end while
     } //end run()
+    
 }
 
 
