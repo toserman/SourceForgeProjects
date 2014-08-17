@@ -1,19 +1,17 @@
 package com.example.wifi;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {
@@ -67,14 +65,39 @@ public class DrawThread extends Thread {
     	
     	//List <ScanItem> list_sta = new List<ScanItem>();
     	
+    	Random rnd = new Random();
+    	int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));   
+    	   	   
+    	
+//		drawAPrect(canvas,ch,test,"Cambium ",0x64CC0000);
+//		drawAPrect(canvas,ch,test,"Mario ",0x64CCBBDD);
+//		drawAPrect(canvas,ch,test,"Barcelona ",0x6464E80C);
+//    	drawAPrect(canvas,ch,test,"Fabregas ",0x64E80C64);
+//		break;
+//	case 6:
+//		drawAPrect(canvas,ch,test,"Watch out!!! ",0x64E80100);
+////		drawSTArect(canvas,ch,test,"Attention!!! ",0x10FFC703);
+//		break;
+//	case 7:
+//		drawAPrect(canvas,ch,test,"Hello ",0x6490CE80);
+//		break;
+//	case 11:
+//		drawAPrect(canvas,ch,test,"Wireless ",0x643EB489);
+//		break;			
+//	case 14:
+//		drawAPrect(canvas,ch,test,"Dublin ",0x64FF0C3E);
+//		break;	
+    	
     	ScanItem first = new ScanItem();
     	first.setSSID("TEST");
     	first.setBSSID("01:02:03:04:05:06");
-    	first.setRSSIlevel(-70);
+    	first.setRSSIlevel(-90);
     	first.setOldRSSIlevel(0);
     	first.setChannelFreq(2412);
     	first.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq));
-    	first.setAPcolor(0x30F7E836);
+    	first.setAPcolor(0x6400FFFF);
+//    	first.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+    	Log.d("MY TAG ", "TEST = " + Integer.toHexString(first.getAPcolor()));
     	
     	ScanItem second = new ScanItem();
     	second.setSSID("ACTION");
@@ -83,7 +106,9 @@ public class DrawThread extends Thread {
     	second.setOldRSSIlevel(0);
     	second.setChannelFreq(2437);
     	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2437,CustomScanListAdapter.arr_freq));
-    	second.setAPcolor(0x64CC0000);
+    	second.setAPcolor(0x64FF00CC);
+//    	second.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+    	Log.d("MY TAG ", "ACTION = " + Integer.toHexString(second.getAPcolor()));
     	
     	ScanItem third = new ScanItem();
     	third.setSSID("MAPROAD");
@@ -92,7 +117,10 @@ public class DrawThread extends Thread {
     	third.setOldRSSIlevel(0);
     	third.setChannelFreq(2457);
     	third.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2457,CustomScanListAdapter.arr_freq));
-    	third.setAPcolor(0x643EB489);
+    	third.setAPcolor(0x64FFFF00);
+//    	third.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+    	
+  	  	Log.d("MY TAG ", "MAPROAD = " + Integer.toHexString(third.getAPcolor()));
     	
     	list_ap.add(first);
     	list_ap.add(second);

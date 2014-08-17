@@ -32,7 +32,10 @@ public class ChartEngine  {
 	final int RSSI_START_AXISXY = -95;
 	final int RSSI_END_AXISXY = -35;
 	final int RSSI_STEP = 5;
-	final int NUMBERS_OF_CHANNEL = 15;
+	final int NUMBER_OF_CHANNELS = 15;
+	final int NUMBER_OF_COLORS = 30;
+	final int USE = 1;
+	final int NOT_USE = 0;
 	int evalX_px = 0; //Size of segment X axis in pixels
 	int evalY_px = 0; //Size of segment Y axis in pixels
 	int evalRSSI_px = 0; //Size of value RSSI in pixels
@@ -46,15 +49,50 @@ public class ChartEngine  {
 		public int x1;
 		public int x2;
 	}		
+	public class APcolors
+	{
+		public int state;
+		public int color;
 	
-	static int frame_ready = 1;
+//		0x645638d7
+//		0x6486c683
+//		0x64d71b06
+//		0x6423e6e0
+//		0x64FF00CC //malin
+//		0x641ad233 //green
+//		0x6409e9a3 //green
+//		0x647879fd //фиалетовый
+//		0x64b741cc ////фиалетовый
+//		0x64ed1b79 //малиновый
+//		0x643e8c2a //green
+//		0x64CC0000 //red
+//		0x64CCBBDD // grey
+//		0x6464E80C //green
+//		0x6490CE80 //green
+//		0x64FFFF00 //yellow
+//		0x6400FFFF //cyan
+		
+		public APcolors(int color)
+		{
+			this.color = color;			
+		}
+	}
 	
-	ChannelCoord [] ch_coord = new ChannelCoord[NUMBERS_OF_CHANNEL];
-	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBERS_OF_CHANNEL];
+	static int frame_ready = 1; //??????
+	
+	ChannelCoord [] ch_coord = new ChannelCoord[NUMBER_OF_CHANNELS];
+	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBER_OF_CHANNELS];
+	APcolors	 [] ap_colors = new APcolors[NUMBER_OF_COLORS];
 	
 	Paint p;
 
 	public int y;
+	
+	private void fillColors(APcolors [] ap_colors)
+	{
+		//ap_colors[0] = new APcolors();
+		
+	}
 
 	public ChartEngine(Context context)
 	{
