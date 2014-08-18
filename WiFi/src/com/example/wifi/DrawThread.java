@@ -62,69 +62,52 @@ public class DrawThread extends Thread {
     	Log.d("MY DrawThread:", "run() draw picture !!!");    	
 		canvas = new Canvas(myBitmap);
     	ArrayList<ScanItem> list_ap = new ArrayList<ScanItem>();
+    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>();
     	
     	//List <ScanItem> list_sta = new List<ScanItem>();
     	
     	Random rnd = new Random();
     	int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));   
-    	   	   
+
+    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
     	
-//		drawAPrect(canvas,ch,test,"Cambium ",0x64CC0000);
-//		drawAPrect(canvas,ch,test,"Mario ",0x64CCBBDD);
-//		drawAPrect(canvas,ch,test,"Barcelona ",0x6464E80C);
-//    	drawAPrect(canvas,ch,test,"Fabregas ",0x64E80C64);
-//		break;
-//	case 6:
-//		drawAPrect(canvas,ch,test,"Watch out!!! ",0x64E80100);
-////		drawSTArect(canvas,ch,test,"Attention!!! ",0x10FFC703);
-//		break;
-//	case 7:
-//		drawAPrect(canvas,ch,test,"Hello ",0x6490CE80);
-//		break;
-//	case 11:
-//		drawAPrect(canvas,ch,test,"Wireless ",0x643EB489);
-//		break;			
-//	case 14:
-//		drawAPrect(canvas,ch,test,"Dublin ",0x64FF0C3E);
-//		break;	
+//    	ScanItem first = new ScanItem();
+//    	first.setSSID("TEST");
+//    	first.setBSSID("01:02:03:04:05:06");
+//    	first.setRSSIlevel(-90);
+//    	first.setOldRSSIlevel(0);
+//    	first.setChannelFreq(2412);
+//    	first.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq));
+//    	first.setAPcolor(chart.arr_ap_colors[rnd.nextInt(chart.NUMBER_OF_COLORS)].ap_color);    	
+//    	Log.d("MY TAG ", "TEST = " + Integer.toHexString(first.getAPcolor()));
     	
-    	ScanItem first = new ScanItem();
-    	first.setSSID("TEST");
-    	first.setBSSID("01:02:03:04:05:06");
-    	first.setRSSIlevel(-90);
-    	first.setOldRSSIlevel(0);
-    	first.setChannelFreq(2412);
-    	first.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2412,CustomScanListAdapter.arr_freq));
-    	first.setAPcolor(0x6400FFFF);
-//    	first.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-    	Log.d("MY TAG ", "TEST = " + Integer.toHexString(first.getAPcolor()));
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
     	
-    	ScanItem second = new ScanItem();
-    	second.setSSID("ACTION");
-    	second.setBSSID("01:11:22:33:44:55");
-    	second.setRSSIlevel(-85);
-    	second.setOldRSSIlevel(0);
-    	second.setChannelFreq(2437);
-    	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2437,CustomScanListAdapter.arr_freq));
-    	second.setAPcolor(0x64FF00CC);
-//    	second.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-    	Log.d("MY TAG ", "ACTION = " + Integer.toHexString(second.getAPcolor()));
+//    	ScanItem second = new ScanItem();
+//    	second.setSSID("ACTION");
+//    	second.setBSSID("01:11:22:33:44:55");
+//    	second.setRSSIlevel(-85);
+//    	second.setOldRSSIlevel(0);
+//    	second.setChannelFreq(2437);
+//    	second.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2437,CustomScanListAdapter.arr_freq));
+//    	second.setAPcolor(chart.arr_ap_colors[rnd.nextInt(chart.NUMBER_OF_COLORS)].ap_color);
+//    	Log.d("MY TAG ", "ACTION = " + Integer.toHexString(second.getAPcolor()));
+//    	
+    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
+
+//    	ScanItem third = new ScanItem();
+//    	third.setSSID("MAPROAD");
+//    	third.setBSSID("77:11:22:33:44:55");
+//    	third.setRSSIlevel(-95);
+//    	third.setOldRSSIlevel(0);
+//    	third.setChannelFreq(2457);
+//    	third.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2457,CustomScanListAdapter.arr_freq));
+//    	third.setAPcolor(chart.arr_ap_colors[rnd.nextInt(chart.NUMBER_OF_COLORS)].ap_color);
+//  	  	Log.d("MY TAG ", "MAPROAD = " + Integer.toHexString(third.getAPcolor()));
     	
-    	ScanItem third = new ScanItem();
-    	third.setSSID("MAPROAD");
-    	third.setBSSID("77:11:22:33:44:55");
-    	third.setRSSIlevel(-95);
-    	third.setOldRSSIlevel(0);
-    	third.setChannelFreq(2457);
-    	third.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(2457,CustomScanListAdapter.arr_freq));
-    	third.setAPcolor(0x64FFFF00);
-//    	third.setAPcolor(Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-    	
-  	  	Log.d("MY TAG ", "MAPROAD = " + Integer.toHexString(third.getAPcolor()));
-    	
-    	list_ap.add(first);
-    	list_ap.add(second);
-    	list_ap.add(third);
+    	//list_ap.add(first);
+    	//list_ap.add(second);
+//    	list_ap.add(third);
     	
     	//Display list
 //    	for (int i=0; i < list_ap.size();i++)
@@ -142,6 +125,9 @@ public class DrawThread extends Thread {
 		//find the biggest RSSI and set limitation for draw
 		high_rssi = chart.findHighestRSSI(list_ap);
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
+	    
+	    //Copy new to old
+	    
 	    
         while (runFlag) {
             // получаем текущее время и вычисляем разницу с предыдущим 
@@ -179,7 +165,22 @@ public class DrawThread extends Thread {
             }
         } //end while
     } //end run()
-    
+	public void testAddScanItem(String SSID,String BSSID,int inpRSSI,int inpFreq,int index_color,
+			ArrayList<ScanItem> inp_list_ap)
+	{
+		ScanItem x = new ScanItem();
+    	x.setSSID(SSID);
+    	x.setBSSID(BSSID);
+    	x.setRSSIlevel(inpRSSI);
+//    	first.setOldRSSIlevel(0);
+    	x.setChannelFreq(inpFreq);
+    	x.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(inpFreq,CustomScanListAdapter.arr_freq));
+    	x.setAPcolor(chart.arr_ap_colors[index_color].ap_color);
+    	//Add in list
+    	inp_list_ap.add(x);
+    	Log.d("MY TAG ", SSID + Integer.toHexString(x.getAPcolor())); 
+    	
+	}
 }
 
 

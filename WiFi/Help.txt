@@ -13,6 +13,12 @@ Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() ));
  List<ScanResult> listData;
  for (ScanResult result : listData)    		
  	Log.d("MY CSListAdapter CHECK: SSID: ", result.SSID);
+ ----------------------------------------------------
+ 2nd variant
+ //    	for (int i=0; i < list_ap.size();i++)
+//    	{
+//  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_ap.get(i).getBSSID());
+//    	}
 -------------------------------------------------------------------------------------------
 // POP-UP WINDOW
 Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();

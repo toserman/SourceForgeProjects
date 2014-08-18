@@ -33,13 +33,37 @@ public class ChartEngine  {
 	final int RSSI_END_AXISXY = -35;
 	final int RSSI_STEP = 5;
 	final int NUMBER_OF_CHANNELS = 15;
-	final int NUMBER_OF_COLORS = 30;
+	final int NUMBER_OF_COLORS = 20;
 	final int USE = 1;
 	final int NOT_USE = 0;
+	final int [] arr_const_color = new int[]{
+			0x6409e9a3 /*green*/,
+			0x64FF00CC /*raspberry*/,
+			0x64CC0000 /*red*/,
+			0x64FFFF00 /*yellow*/,
+			0x645638d7 /**/,	
+			0x647879fd /*purple*/,
+			0x6486c683 /**/,
+			0x6400FFFF /*cyan*/,
+			0x64da6e17 /*orange*/,
+			0x64d71b06 /**/,
+			0x6464E80C /*green*/,
+			0x6423e6e0 /**/,
+			0x64CCBBDD /*grey*/,
+			0x641ad233 /*green*/,
+			0x64e5cb47 /*yellow*/,		
+			0x64b741cc /*purple*/,
+			0x643e8c2a /*green*/,
+			0x64ed1b79 /*raspberry*/,
+			0x6490CE80 /*green*/,			
+			0x648af0c7 /*light green*/,			
+	};
+	
 	int evalX_px = 0; //Size of segment X axis in pixels
 	int evalY_px = 0; //Size of segment Y axis in pixels
 	int evalRSSI_px = 0; //Size of value RSSI in pixels
 	int staRectWidth = 0; //Width for STA rectangle on axis X
+	
 	public class ChannelCoord {
 		public int x;
 		public int y;
@@ -52,29 +76,11 @@ public class ChartEngine  {
 	public class APcolors
 	{
 		public int state;
-		public int color;
-	
-//		0x645638d7
-//		0x6486c683
-//		0x64d71b06
-//		0x6423e6e0
-//		0x64FF00CC //malin
-//		0x641ad233 //green
-//		0x6409e9a3 //green
-//		0x647879fd //фиалетовый
-//		0x64b741cc ////фиалетовый
-//		0x64ed1b79 //малиновый
-//		0x643e8c2a //green
-//		0x64CC0000 //red
-//		0x64CCBBDD // grey
-//		0x6464E80C //green
-//		0x6490CE80 //green
-//		0x64FFFF00 //yellow
-//		0x6400FFFF //cyan
+		public int ap_color;
 		
 		public APcolors(int color)
 		{
-			this.color = color;			
+			this.ap_color = color;			
 		}
 	}
 	
@@ -82,17 +88,11 @@ public class ChartEngine  {
 	
 	ChannelCoord [] ch_coord = new ChannelCoord[NUMBER_OF_CHANNELS];
 	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBER_OF_CHANNELS];
-	APcolors	 [] ap_colors = new APcolors[NUMBER_OF_COLORS];
+	APcolors	 [] arr_ap_colors = new APcolors[NUMBER_OF_COLORS];
 	
 	Paint p;
 
 	public int y;
-	
-	private void fillColors(APcolors [] ap_colors)
-	{
-		//ap_colors[0] = new APcolors();
-		
-	}
 
 	public ChartEngine(Context context)
 	{
@@ -106,6 +106,8 @@ public class ChartEngine  {
 			ch_coord[i] = new ChannelCoord();
 			rect_ch_coord[i] = new RectSTACoord();
 		}
+		//Set AP colors
+		fillColors(arr_ap_colors, arr_const_color);
 		
 //		myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
 //		canvas = new Canvas(myBitmap);
@@ -410,5 +412,11 @@ public class ChartEngine  {
     	    	
 		return high_rssi;
 	}
-	
+	private void fillColors(APcolors [] ap_colors, int [] arr_colors)
+	{
+		for (int i = 0; i < NUMBER_OF_COLORS;i++)
+		{
+			ap_colors[i] = new APcolors(arr_colors[i]);
+		}
+	}
 }
