@@ -150,7 +150,7 @@ public class DrawThread extends Thread {
     	x.setAPcolor(chart.arr_ap_colors[index_color].ap_color);
     	//Add in list
     	inp_list_ap.add(x);
-    	Log.d("MY TAG ", SSID + Integer.toHexString(x.getAPcolor())); 
+    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor())); 
     	
 	}
 	  

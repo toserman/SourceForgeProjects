@@ -106,6 +106,9 @@ public class ActivityTwo extends Activity {
 			    if(event.getAction() == MotionEvent.ACTION_DOWN)
 			    {
 			    	DrawThread.test_flag = true;
+			    	draw_barChart = new ChartSurfaceView(this);
+				    setContentView(draw_barChart);
+			    	
 			    	
 		
 			    }
