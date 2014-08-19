@@ -17,10 +17,11 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
-public class ChartEngine  {
+public class ChartEngine {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
 	final int OFFSET_X_AXISX = 50;//pixel
@@ -419,4 +420,5 @@ public class ChartEngine  {
 			ap_colors[i] = new APcolors(arr_colors[i]);
 		}
 	}
+
 }

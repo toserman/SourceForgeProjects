@@ -7,6 +7,8 @@ import android.view.SurfaceView;
 
 public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	private DrawThread drawThread;
+	public int just_test = 100;
+	
 	 public ChartSurfaceView(Context context) {
 	        super(context);
 	        getHolder().addCallback(this);
@@ -23,7 +25,7 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	    	drawThread = new DrawThread(getHolder(), getResources(),getContext());
 	    	Log.d("MY ChartSurfaceView:", "surfaceCreated() create and run Draw stream" );
 	        drawThread.setRunning(true);
-	        drawThread.start();
+	        drawThread.start();	        
 	    }
 
 	    @Override

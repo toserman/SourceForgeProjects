@@ -99,17 +99,18 @@ public class ActivityTwo extends Activity {
 		    	  timerChart.cancel();//Timer stop		      
 		  }
 		  
-//		  public boolean onTouchEvent(MotionEvent event)
-//		  {
-//		  	Log.d("MY onTouchEvent", "onTouchEvent");
-//		  	
-//			    if(event.getAction() == MotionEvent.ACTION_DOWN)
-//			    {
-//			    	 barChart.forbuttonDraw(1);
-//		        	 ChartEngine.frame_ready = 1;		
-//			    }
-//			    return true;
-//		  }
+		  public boolean onTouchEvent(MotionEvent event)
+		  {
+		  	Log.d("MY onTouchEvent", "onTouchEvent");
+		  	
+			    if(event.getAction() == MotionEvent.ACTION_DOWN)
+			    {
+			    	DrawThread.test_flag = true;
+			    	
+		
+			    }
+			    return true;
+		  }
 		  
 		  
 }
