@@ -250,7 +250,7 @@ public class ChartEngine {
 
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
-       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
+//       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
         
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);

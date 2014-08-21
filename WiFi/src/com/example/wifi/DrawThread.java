@@ -31,6 +31,7 @@ public class DrawThread extends Thread {
     int high_rssi;
 	
     static boolean test_flag = true;
+    static boolean new_data_flag = false;
     
     Paint p;
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context){
@@ -55,8 +56,7 @@ public class DrawThread extends Thread {
     public void setRunning(boolean run) {
     	Log.d("MY DrawThread:", "setRunning() set runFlag : " + Boolean.toString(run) );
 //        runFlag = run;
-    	 DrawThread.test_flag = run;
-    	
+    	 DrawThread.test_flag = run;    	
     }
 
     @Override
@@ -65,20 +65,26 @@ public class DrawThread extends Thread {
     	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
     	//debug_scan_result = wifiManager.getScanResults();
     	Canvas canvas;
+    	Random rnd = new Random(); //Just for debug
     	Log.d("MY DrawThread:", "run() draw picture !!!");    	
 		canvas = new Canvas(myBitmap);
     	ArrayList<ScanItem> list_ap = new ArrayList<ScanItem>();
-    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>();
-    	
+    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>();    	
     	//List <ScanItem> list_sta = new List<ScanItem>();
-    	    	
-    	
-    	Random rnd = new Random();
     	    
-    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
-    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,rnd.nextInt(chart.NUMBER_OF_COLORS),list_ap);
-
+    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
+    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
+    	
+    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_old);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap_old);
+    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);
+    	
+    	
+    	if (DrawThread.new_data_flag == true)
+    	{
+    		//Compare here old and new data
+    	}
     	
     	//Display list
 //    	for (int i=0; i < list_ap.size();i++)
@@ -123,7 +129,7 @@ public class DrawThread extends Thread {
                 	
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
-                    canvas.drawBitmap(myBitmap, 0, 0,null );                   
+                    canvas.drawBitmap(myBitmap, 0, 0,null );                    
                 	chart.startDraw(canvas,temp,list_ap);
               		temp+=1;
                 }
