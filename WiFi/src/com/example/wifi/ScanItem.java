@@ -13,6 +13,7 @@ public class ScanItem {
     private boolean connect_flag;
     private String cipher;
     public int apcolor;
+    public int diff_rssi;
     
     //SSID name
     public String getSSID(){

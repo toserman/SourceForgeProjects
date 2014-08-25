@@ -260,39 +260,140 @@ public class ChartEngine {
      
 	}
 		
-	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap)
+	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new)
 	{
 //		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
 		//Display list
-//    	for (int i=0; i < list_ap.size();i++)
+//		for (int i=0; i < list_ap_new.size();i++)
 //    	{
-//  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_ap.get(i).getBSSID());
-  		//drawAP(canvas,list_ap[list_ap.get(i)], test);  		
+//  		  Log.d("MY TAG ", "list_ap_new i = " + Integer.toString(i) + " " + list_ap_new.get(i).getBSSID());   		
 //    	}
     	
-    	  for (ScanItem list_test : list_ap) {
-    		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
-    		  drawAP(canvas,list_test, test);
-    	  }
-    	
-	
-////		CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
-//		channel2rectDraw(canvas,2412,-20,test); //1st ch
-////		channel2rectDraw(canvas,2417,-30,test);	//2nd ch
-////		channel2rectDraw(canvas,2422,-30,test); //3rd ch
-////		channel2rectDraw(canvas,2427,-30,test); //4rd ch
-////		channel2rectDraw(canvas,2432,-30,test); //5th ch
-//		channel2rectDraw(canvas,2437,-30,test); //6th ch
-//		channel2rectDraw(canvas,2442,-30,test); //7th ch
-//		channel2rectDraw(canvas,2462,-30,test); //11th ch
-//		channel2rectDraw(canvas,2484,-30,test); //14th ch
-			
-//		if (test >= 65)
-//			if (test >= getCoordRSSILevel(-30))
-//				frame_ready = 0;//Stop to draw	
-
+		// OLD VERSION
+//    	  for (ScanItem list_test : list_ap_old) {
+//    		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+//    		  drawAP(canvas,list_test, test);
+//    	  }
+		for (ScanItem list_test : list_ap_new) {
+  		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+  		  drawAP(canvas,list_test, test);
+  	  }
 	}
 
+	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
+	{
+		Log.d("MY TAG ", "compareListData: ");
+		//For case when list size  is equal
+		if (list_ap_old.get(0).getBSSID().equals(list_ap_new.get(0).getBSSID()))
+		{
+			list_ap_res.add(0,list_ap_new.get(0));
+			Log.e("MY TAG ", "compareListData: " + list_ap_new.get(0).getBSSID() + " equal " + list_ap_old.get(0).getBSSID());
+			list_ap_res.get(0).setBSSID(list_ap_new.get(0).getBSSID()) ;
+			list_ap_res.get(0).old_rssi = list_ap_old.get(0).rssi ;
+			list_ap_res.get(0).rssi = list_ap_new.get(0).rssi ;
+			list_ap_res.get(0).diff_rssi = list_ap_new.get(0).rssi - list_ap_old.get(0).rssi;
+			Log.e("MY TAG ", "compareListData: list_ap_res.get(0).diff_rssi = " + Integer.toString(list_ap_res.get(0).diff_rssi) );
+    	}
+		
+		if (list_ap_old.get(1).getBSSID().equals(list_ap_new.get(1).getBSSID()))
+		{
+			list_ap_res.add(1,list_ap_new.get(1));
+//			Log.e("MY TAG ", "compareListData: " + list_ap_new.get(0).getBSSID() + " equal " + list_ap_old.get(0).getBSSID());
+			list_ap_res.get(1).setBSSID(list_ap_new.get(1).getBSSID()) ;
+			list_ap_res.get(1).old_rssi = list_ap_old.get(1).rssi ;
+			list_ap_res.get(1).rssi = list_ap_new.get(1).rssi ;
+			list_ap_res.get(1).diff_rssi = list_ap_new.get(1).rssi - list_ap_old.get(1).rssi;
+//			Log.e("MY TAG ", "compareListData: list_ap_res.get(0).diff_rssi = " + Integer.toString(list_ap_res.get(0).diff_rssi) );
+    	}
+	}
+	
+	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
+	{		
+		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
+		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+//		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
+//		Log.d("MY ChartEngine ","drawAP" + "draw_limit = " + Integer.toString(draw_limit));
+		
+		//OLD VERSION
+//		/*Draw AP rectangle*/
+//		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
+//		{
+//			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
+//		} else {
+//		/*No need to increase current bar. Just draw last state*/
+//			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
+//		}
+		
+		Log.d("MY ChartEngine ","drawAP " + "draw_limit = " + Integer.toString(draw_limit));
+		Log.d("MY ChartEngine ","drawAP " + "ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi));
+		Log.d("MY ChartEngine ","drawAP " + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
+		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi)));
+		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.old_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.old_rssi)));
+		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.diff_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.diff_rssi)));
+		
+		/*Draw AP rectangle*/
+		//if((getCoordRSSILevel(ap_draw.old_rssi) + draw_limit) >  getCoordRSSILevel(ap_draw.rssi))
+		//Math.abs((evalY_px/RSSI_STEP)*coord_rssi)
+//		if((getCoordRSSILevel(-80)) > draw_limit )
+		if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
+		{
+			Log.d("MY ChartEngine ","drawAP CONTINUE DRAW");
+				//OLD VERSION
+//			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
+//			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.old_rssi) - draw_limit,ap_draw.ssid,ap_draw.apcolor);
+			drawAPrect(canvas,ap_draw.channel,
+					getCoordRSSILevel(ap_draw.old_rssi) + ( (ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
+					ap_draw.ssid,ap_draw.apcolor);	
+		} else {
+			Log.d("MY ChartEngine ","drawAP STOP DRAW");
+		/*No need to increase current bar. Just draw last state*/
+			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
+		}
+	}
+	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color) 
+	{	
+		p.setColor(color);
+		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
+
+		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
+//	    setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
+	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel);		
+	}
+	protected int getCoordRSSILevel(int rssi_level){
+		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
+		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
+	}
+	protected void setcalcAPrectWidth(int x_pixels) {
+		staRectWidth = (x_pixels*4 +3);
+	}
+	
+	public int findHighestRSSI (ArrayList<ScanItem> list_ap)
+	{
+		int high_rssi = 0;
+		int tmp_rssi = -999;//fake value
+    	for (int i=0; i < list_ap.size();i++)
+    	{
+    		if (tmp_rssi < list_ap.get(i).rssi)
+    		{
+    			Log.d("MY findHighestRSSI ", "i = " + Integer.toString(i) + " " + list_ap.get(i).rssi);    			
+    			tmp_rssi = list_ap.get(i).rssi;
+    			high_rssi = tmp_rssi;
+    		}
+    	}
+		
+    	Log.d("MY findHighestRSSI ", "high_rssi =  " + high_rssi);
+    	    	
+		return high_rssi;
+	}
+	private void fillColors(APcolors [] ap_colors, int [] arr_colors)
+	{
+		for (int i = 0; i < NUMBER_OF_COLORS;i++)
+		{
+			ap_colors[i] = new APcolors(arr_colors[i]);
+		}
+	}
+	
+	/*OLD VERSION*/
 	protected void channel2rectDraw(Canvas canvas,int channel,int rssi , int test)
 	{
 		Log.d("MY ChartEngine ","channel2rectDraw");
@@ -337,43 +438,7 @@ public class ChartEngine {
 				break;	
 		}
 	}
-	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
-	{		
-		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
-		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 	
-//		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
-	
-//		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
-//			Log.e("MY ChartEngine TRUE","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
-//		else
-//			Log.e("MY ChartEngine FALSE ","ap_draw.rssi = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi))+" draw_limit = " + Integer.toString(draw_limit));
-		
-		/*Draw AP rectangle*/
-		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
-		{
-			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
-		} else {
-			/*No need to increase current bar. Just draw last state*/
-			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
-		}
-	
-
-	}
-	protected int getCoordRSSILevel(int rssi_level){
-		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
-		return Math.abs((evalY_px/RSSI_STEP)*coord_rssi);
-	}
-	protected void setcalcAPrectWidth(int x_pixels) {
-		staRectWidth = (x_pixels*4 +3);
-	}
-	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color)
-	{	
-		p.setColor(color);
-		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
-//	       setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
-	       setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 4 - 70 - draw_step,ssid_name + " " + channel);		
-	}
 	/*NOT USED*/
 	protected void rectPaint(Canvas canvas,Rect rect)
 	{
@@ -395,30 +460,5 @@ public class ChartEngine {
 				p.reset();
 				
 	}
-	public int findHighestRSSI (ArrayList<ScanItem> list_ap)
-	{
-		int high_rssi = 0;
-		int tmp_rssi = -999;//fake value
-    	for (int i=0; i < list_ap.size();i++)
-    	{
-    		if (tmp_rssi < list_ap.get(i).rssi)
-    		{
-    			Log.d("MY findHighestRSSI ", "i = " + Integer.toString(i) + " " + list_ap.get(i).rssi);    			
-    			tmp_rssi = list_ap.get(i).rssi;
-    			high_rssi = tmp_rssi;
-    		}
-    	}
-		
-    	Log.d("MY findHighestRSSI ", "high_rssi =  " + high_rssi);
-    	    	
-		return high_rssi;
-	}
-	private void fillColors(APcolors [] ap_colors, int [] arr_colors)
-	{
-		for (int i = 0; i < NUMBER_OF_COLORS;i++)
-		{
-			ap_colors[i] = new APcolors(arr_colors[i]);
-		}
-	}
-
+	
 }

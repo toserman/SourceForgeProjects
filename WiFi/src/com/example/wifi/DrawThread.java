@@ -68,23 +68,28 @@ public class DrawThread extends Thread {
     	Random rnd = new Random(); //Just for debug
     	Log.d("MY DrawThread:", "run() draw picture !!!");    	
 		canvas = new Canvas(myBitmap);
-    	ArrayList<ScanItem> list_ap = new ArrayList<ScanItem>();
-    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>();    	
+    	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
+    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
+    	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
     	//List <ScanItem> list_sta = new List<ScanItem>();
-    	    
-    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
-    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
+
+		testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-55,2437,1,list_ap_old);
+//    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
     	
-    	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_old);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap_old);
-    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);
-    	
-    	
+		testAddScanItem("TEST","01:02:03:04:05:06",-60,2412,0,list_ap_new);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-95,2437,1,list_ap_new);
+    	    	
     	if (DrawThread.new_data_flag == true)
     	{
     		//Compare here old and new data
+        	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_new);
+//        	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
+//        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
+
     	}
+    	
+    	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
     	
     	//Display list
 //    	for (int i=0; i < list_ap.size();i++)
@@ -100,9 +105,10 @@ public class DrawThread extends Thread {
 		canvas.drawBitmap(myBitmap,0,0,p);
 		
 		//find the biggest RSSI and set limitation for draw
-		high_rssi = chart.findHighestRSSI(list_ap);
+		high_rssi = chart.findHighestRSSI(list_ap_old);///// ???? NED CHECK new AP LIST
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
-	    
+	    draw_marker = 400; //Just for test
+	    Log.e("MY TAG ", "draw_marker" + Integer.toString(draw_marker));
 	    //Copy new to old
 	    
 	    
@@ -130,7 +136,8 @@ public class DrawThread extends Thread {
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
-                	chart.startDraw(canvas,temp,list_ap);
+                	//chart.startDraw(canvas,temp,list_ap_old,list_ap_new);
+                    chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
               		temp+=1;
                 }
             } 
