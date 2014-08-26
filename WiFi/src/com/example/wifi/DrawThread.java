@@ -73,13 +73,16 @@ public class DrawThread extends Thread {
     	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
     	//List <ScanItem> list_sta = new List<ScanItem>();
 
+    
+    	
 		testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
     	testAddScanItem("ACTION","01:11:22:33:44:55",-55,2437,1,list_ap_old);
 //    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
     	
-		testAddScanItem("TEST","01:02:03:04:05:06",-60,2412,0,list_ap_new);
+		testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,0,list_ap_new);
     	testAddScanItem("ACTION","01:11:22:33:44:55",-95,2437,1,list_ap_new);
-    	    	
+    		
+    	
     	if (DrawThread.new_data_flag == true)
     	{
     		//Compare here old and new data
@@ -163,8 +166,17 @@ public class DrawThread extends Thread {
     	x.setAPcolor(chart.arr_ap_colors[index_color].ap_color);
     	//Add in list
     	inp_list_ap.add(x);
-    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor())); 
-    	
+    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor()));     	
+	}
+	public void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
+	{
+		//Display list
+		Log.d("MY TAG ", "****** START LIST " + note + " *******" );
+    	for (int i=0; i < inp_list_ap.size();i++)
+    	{
+  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + inp_list_ap.get(i).getBSSID());
+    	} 
+    	Log.d("MY TAG ", "****** END LIST " + note + " *******" );
 	}
 	  
 }
