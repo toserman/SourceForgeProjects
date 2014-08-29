@@ -324,20 +324,20 @@ public class ChartEngine {
 //			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
 //		}
 		
-		Log.d("MY ChartEngine ","drawAP " + "draw_limit = " + Integer.toString(draw_limit));
-		Log.d("MY ChartEngine ","drawAP " + "ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi));
-		Log.d("MY ChartEngine ","drawAP " + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
-		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi)));
-		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.old_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.old_rssi)));
-		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.diff_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.diff_rssi)));
-		
+//		Log.d("MY ChartEngine ","drawAP " + "draw_limit = " + Integer.toString(draw_limit));
+//		Log.d("MY ChartEngine ","drawAP " + "ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi));
+//		Log.d("MY ChartEngine ","drawAP " + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
+//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi)));
+//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.old_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.old_rssi)));
+//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.diff_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.diff_rssi)));
+//		
 		/*Draw AP rectangle*/
 		//if((getCoordRSSILevel(ap_draw.old_rssi) + draw_limit) >  getCoordRSSILevel(ap_draw.rssi))
 		//Math.abs((evalY_px/RSSI_STEP)*coord_rssi)
 //		if((getCoordRSSILevel(-80)) > draw_limit )
 		if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
 		{
-			Log.d("MY ChartEngine ","drawAP CONTINUE DRAW");
+//			Log.d("MY ChartEngine ","drawAP CONTINUE DRAW");
 				//OLD VERSION
 //			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
 //			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.old_rssi) - draw_limit,ap_draw.ssid,ap_draw.apcolor);
@@ -345,7 +345,7 @@ public class ChartEngine {
 					getCoordRSSILevel(ap_draw.old_rssi) + ( (ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
 					ap_draw.ssid,ap_draw.apcolor);	
 		} else {
-			Log.d("MY ChartEngine ","drawAP STOP DRAW");
+//			Log.d("MY ChartEngine ","drawAP STOP DRAW");
 		/*No need to increase current bar. Just draw last state*/
 			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
 		}
@@ -353,7 +353,7 @@ public class ChartEngine {
 	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color) 
 	{	
 		p.setColor(color);
-		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
+//		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
 
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
 //	    setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");

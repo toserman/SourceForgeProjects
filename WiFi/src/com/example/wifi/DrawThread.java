@@ -76,11 +76,11 @@ public class DrawThread extends Thread {
     
     	
 		testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-55,2437,1,list_ap_old);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-75,2437,1,list_ap_old);
 //    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
     	
 		testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,0,list_ap_new);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-95,2437,1,list_ap_new);
+    	testAddScanItem("ACTION","01:11:22:33:44:55",-55,2437,1,list_ap_new);
     		
     	
     	if (DrawThread.new_data_flag == true)
@@ -94,6 +94,7 @@ public class DrawThread extends Thread {
     	
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
     	
+    	testPrintList(list_ap_new,"list_ap_new");
     	//Display list
 //    	for (int i=0; i < list_ap.size();i++)
 //    	{
@@ -171,10 +172,22 @@ public class DrawThread extends Thread {
 	public void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
 	{
 		//Display list
-		Log.d("MY TAG ", "****** START LIST " + note + " *******" );
+		Log.d("MY TAG ", "****** " + note + " *******" );
+		
+		if (inp_list_ap.isEmpty())
+		{
+			Log.d("MY TAG ", "****** EMPTY " + note + " *******" );
+			return ;
+		}
     	for (int i=0; i < inp_list_ap.size();i++)
     	{
-  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + inp_list_ap.get(i).getBSSID());
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "SSID = " + inp_list_ap.get(i).ssid + " BSSID = " + inp_list_ap.get(i).getBSSID());    		
+    		//Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] "  + "ch num = " + Integer.toString(inp_list_ap.get(i).getChannelNum()) + 
+    						 " ch freq = " + Integer.toString(inp_list_ap.get(i).getChannelFreq()) + " apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "rssi = " + Integer.toString(inp_list_ap.get(i).rssi) +
+    						  " old_rssi = " + Integer.toString(inp_list_ap.get(i).old_rssi) +
+    						 " diff_rssi = " + Integer.toString(inp_list_ap.get(i).diff_rssi));    		
     	} 
     	Log.d("MY TAG ", "****** END LIST " + note + " *******" );
 	}
