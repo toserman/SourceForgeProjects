@@ -1,7 +1,9 @@
 package com.example.wifi;
 
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import android.app.Activity;
@@ -263,48 +265,54 @@ public class ChartEngine {
 	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new)
 	{
 //		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
-		//Display list
-//		for (int i=0; i < list_ap_new.size();i++)
-//    	{
-//  		  Log.d("MY TAG ", "list_ap_new i = " + Integer.toString(i) + " " + list_ap_new.get(i).getBSSID());   		
-//    	}
-    	
-		// OLD VERSION
-//    	  for (ScanItem list_test : list_ap_old) {
-//    		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
-//    		  drawAP(canvas,list_test, test);
-//    	  }
+  	
 		for (ScanItem list_test : list_ap_new) {
   		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
   		  drawAP(canvas,list_test, test);
-  	  }
+  	  	}
 	}
 
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
 		Log.d("MY TAG ", "compareListData: ");
-		//For case when list size  is equal
-		if (list_ap_old.get(0).getBSSID().equals(list_ap_new.get(0).getBSSID()))
-		{
-			list_ap_res.add(0,list_ap_new.get(0));
-			Log.e("MY TAG ", "compareListData: " + list_ap_new.get(0).getBSSID() + " equal " + list_ap_old.get(0).getBSSID());
-			list_ap_res.get(0).setBSSID(list_ap_new.get(0).getBSSID()) ;
-			list_ap_res.get(0).old_rssi = list_ap_old.get(0).rssi ;
-			list_ap_res.get(0).rssi = list_ap_new.get(0).rssi ;
-			list_ap_res.get(0).diff_rssi = list_ap_new.get(0).rssi - list_ap_old.get(0).rssi;
-			Log.e("MY TAG ", "compareListData: list_ap_res.get(0).diff_rssi = " + Integer.toString(list_ap_res.get(0).diff_rssi) );
-    	}
+
+		/* Find existing objects,what present on the display */
+		for(int i = 0; i < list_ap_old.size(); i++ )
+		{			
+			for (int k = 0; k < list_ap_new.size(); k++)
+			{
+				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
+				{
+					list_ap_res.add(i,list_ap_new.get(k));
+					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
+					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
+					list_ap_res.get(i).old_rssi = list_ap_old.get(i).rssi ;
+					list_ap_res.get(i).rssi = list_ap_new.get(k).rssi ;
+					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
+					Log.d("MY TAG ", "compareListData: OBJECT WAS FOUND !");
+					list_ap_new.remove(k);//Remove from list_ap_new after copy
+				}
+			}
+		}
+
+		Log.d("MY TAG ", "compareListData: AFTER FIRST SEARCH");
+		testPrintList(list_ap_new, "list_ap_new");
+		testPrintList(list_ap_old, "list_ap_old");
+		testPrintList(list_ap_res, "list_ap_res");
 		
-		if (list_ap_old.get(1).getBSSID().equals(list_ap_new.get(1).getBSSID()))
-		{
-			list_ap_res.add(1,list_ap_new.get(1));
-//			Log.e("MY TAG ", "compareListData: " + list_ap_new.get(0).getBSSID() + " equal " + list_ap_old.get(0).getBSSID());
-			list_ap_res.get(1).setBSSID(list_ap_new.get(1).getBSSID()) ;
-			list_ap_res.get(1).old_rssi = list_ap_old.get(1).rssi ;
-			list_ap_res.get(1).rssi = list_ap_new.get(1).rssi ;
-			list_ap_res.get(1).diff_rssi = list_ap_new.get(1).rssi - list_ap_old.get(1).rssi;
-//			Log.e("MY TAG ", "compareListData: list_ap_res.get(0).diff_rssi = " + Integer.toString(list_ap_res.get(0).diff_rssi) );
-    	}
+		/* For objects what still exist in received data and wasn't display before*/				
+		for (ScanItem getobject: list_ap_new)
+			list_ap_res.add(getobject);
+
+		list_ap_new.clear();//Clear list with new data
+		list_ap_old.clear();//Clear list with old data
+		//Collections.copy(list_ap_old,list_ap_res);//Copy current list to old for next act
+		 
+		 Log.d("MY TAG ", "compareListData: AFTER SECOND SEARCH");
+		 
+		testPrintList(list_ap_new, "list_ap_new");
+		testPrintList(list_ap_old, "list_ap_old");
+		testPrintList(list_ap_res, "list_ap_res");
 	}
 	
 	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
@@ -335,19 +343,26 @@ public class ChartEngine {
 		//if((getCoordRSSILevel(ap_draw.old_rssi) + draw_limit) >  getCoordRSSILevel(ap_draw.rssi))
 		//Math.abs((evalY_px/RSSI_STEP)*coord_rssi)
 //		if((getCoordRSSILevel(-80)) > draw_limit )
-		if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
+				
+		/*New AP appears in list*/
+		if (ap_draw.old_rssi == 0)
 		{
-//			Log.d("MY ChartEngine ","drawAP CONTINUE DRAW");
-				//OLD VERSION
-//			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
-//			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.old_rssi) - draw_limit,ap_draw.ssid,ap_draw.apcolor);
-			drawAPrect(canvas,ap_draw.channel,
-					getCoordRSSILevel(ap_draw.old_rssi) + ( (ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
-					ap_draw.ssid,ap_draw.apcolor);	
-		} else {
-//			Log.d("MY ChartEngine ","drawAP STOP DRAW");
-		/*No need to increase current bar. Just draw last state*/
-			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
+			if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
+				drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
+			else/*No need to increase current bar. Just draw last state*/
+				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
+				
+		} else { /*For existing AP*/				
+			if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
+			{
+				drawAPrect(canvas,ap_draw.channel,
+							getCoordRSSILevel(ap_draw.old_rssi) + 
+							((ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
+							ap_draw.ssid,ap_draw.apcolor);
+			} else {
+				/*No need to increase current bar. Just draw last state*/			
+				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);				
+			}
 		}
 	}
 	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color) 
@@ -356,7 +371,6 @@ public class ChartEngine {
 //		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
 
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
-//	    setName(canvas,15,0, (coord8 - 10 - (coord8 - coord7)/2) ,canvas.getHeight() - 70 - test,"Ch 4");
 	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel);		
 	}
 	protected int getCoordRSSILevel(int rssi_level){
@@ -375,7 +389,7 @@ public class ChartEngine {
     	{
     		if (tmp_rssi < list_ap.get(i).rssi)
     		{
-    			Log.d("MY findHighestRSSI ", "i = " + Integer.toString(i) + " " + list_ap.get(i).rssi);    			
+    			//Log.d("MY findHighestRSSI ", "i = " + Integer.toString(i) + " " + list_ap.get(i).rssi);    			
     			tmp_rssi = list_ap.get(i).rssi;
     			high_rssi = tmp_rssi;
     		}
@@ -393,6 +407,44 @@ public class ChartEngine {
 		}
 	}
 	
+	public void testAddScanItem(String SSID,String BSSID,int inpRSSI,int inpFreq,int index_color,
+			ArrayList<ScanItem> inp_list_ap)
+	{
+		ScanItem x = new ScanItem();
+    	x.setSSID(SSID);
+    	x.setBSSID(BSSID);
+    	x.setRSSIlevel(inpRSSI);
+//    	first.setOldRSSIlevel(0);
+    	x.setChannelFreq(inpFreq);
+    	x.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(inpFreq,CustomScanListAdapter.arr_freq));
+    	x.setAPcolor(arr_ap_colors[index_color].ap_color);
+    	//Add in list
+    	inp_list_ap.add(x);
+//    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor()));     	
+	}
+	public void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
+	{
+		//Display list
+		Log.d("MY TAG ", "********* " + note + " **********" );
+		
+		if (inp_list_ap.isEmpty())
+		{
+			Log.d("MY TAG ", "****** EMPTY " + note + " *******" );
+			return ;
+		}
+    	for (int i=0; i < inp_list_ap.size();i++)
+    	{
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "SSID = " + inp_list_ap.get(i).ssid + " BSSID = " + inp_list_ap.get(i).getBSSID());    		
+    		//Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] "  + "ch num = " + Integer.toString(inp_list_ap.get(i).getChannelNum()) + 
+    						 " ch freq = " + Integer.toString(inp_list_ap.get(i).getChannelFreq()) + " apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
+    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "rssi = " + Integer.toString(inp_list_ap.get(i).rssi) +
+    						  " old_rssi = " + Integer.toString(inp_list_ap.get(i).old_rssi) +
+    						 " diff_rssi = " + Integer.toString(inp_list_ap.get(i).diff_rssi));    		
+    	} 
+    	Log.d("MY TAG ", "********* END LIST " + note + " *********" );
+	}
+	 
 	/*OLD VERSION*/
 	protected void channel2rectDraw(Canvas canvas,int channel,int rssi , int test)
 	{

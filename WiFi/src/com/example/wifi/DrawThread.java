@@ -33,6 +33,10 @@ public class DrawThread extends Thread {
     static boolean test_flag = true;
     static boolean new_data_flag = false;
     
+	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
+	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
+	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
+    
     Paint p;
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context){
     
@@ -66,55 +70,44 @@ public class DrawThread extends Thread {
     	//debug_scan_result = wifiManager.getScanResults();
     	Canvas canvas;
     	Random rnd = new Random(); //Just for debug
-    	Log.d("MY DrawThread:", "run() draw picture !!!");    	
+    	//Log.d("MY DrawThread:", "run() draw picture !!!");    	
 		canvas = new Canvas(myBitmap);
-    	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
-    	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
-    	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
+    					//  		   1	2	3	4    5     6    7    8    9    10   11  12   13    14
+//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     	//List <ScanItem> list_sta = new List<ScanItem>();
-
-    
     	
-		testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-75,2437,1,list_ap_old);
+    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
+		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
+    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
 //    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
     	
-		testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,0,list_ap_new);
-    	testAddScanItem("ACTION","01:11:22:33:44:55",-55,2437,1,list_ap_new);
-    		
+    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
+		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
+    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
+    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);
+    	
+    	
     	
     	if (DrawThread.new_data_flag == true)
     	{
     		//Compare here old and new data
-        	testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_new);
+    		 Log.e("MY TAG ", "NEW DATA RECEIVED");
+        	chart.testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_new);
 //        	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
 //        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
-
     	}
-    	
+    	chart.testPrintList(list_ap_new,"list_ap_new");
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
-    	
-    	testPrintList(list_ap_new,"list_ap_new");
-    	//Display list
-//    	for (int i=0; i < list_ap.size();i++)
-//    	{
-//  		  Log.d("MY TAG ", "i = " + Integer.toString(i) + " " + list_ap.get(i).getBSSID());
-//    	}
-//    	
-//    	  for (ScanItem list_test : list_ap) {
-//    		  Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
-//    	  }
-    	  
+
 		chart.drawAxisXY(canvas);
 		canvas.drawBitmap(myBitmap,0,0,p);
 		
-		//find the biggest RSSI and set limitation for draw
-		high_rssi = chart.findHighestRSSI(list_ap_old);///// ???? NED CHECK new AP LIST
+		/* find the biggest RSSI and set limitation for draw */
+		high_rssi = chart.findHighestRSSI(list_ap_res);
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
-	    draw_marker = 400; //Just for test
-	    Log.e("MY TAG ", "draw_marker" + Integer.toString(draw_marker));
-	    //Copy new to old
-	    
+	    //draw_marker = 400; //Just for test
+	    Log.e("MY TAG ", "draw_marker " + Integer.toString(draw_marker));
+	       
 	    
         //while (runFlag) {
 	    while (DrawThread.test_flag) {
@@ -135,8 +128,11 @@ public class DrawThread extends Thread {
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
                 	if (temp == draw_marker)
+                	{
                 		setRunning(false);
-                	
+                		list_ap_new.clear();
+                		chart.testPrintList(list_ap_new, "list_ap_new");
+                	}
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
@@ -154,44 +150,7 @@ public class DrawThread extends Thread {
             }
         } //end while
     } //end run()
-	public void testAddScanItem(String SSID,String BSSID,int inpRSSI,int inpFreq,int index_color,
-			ArrayList<ScanItem> inp_list_ap)
-	{
-		ScanItem x = new ScanItem();
-    	x.setSSID(SSID);
-    	x.setBSSID(BSSID);
-    	x.setRSSIlevel(inpRSSI);
-//    	first.setOldRSSIlevel(0);
-    	x.setChannelFreq(inpFreq);
-    	x.setChannelNum(CustomScanListAdapter.convertFreqtoChannelNum(inpFreq,CustomScanListAdapter.arr_freq));
-    	x.setAPcolor(chart.arr_ap_colors[index_color].ap_color);
-    	//Add in list
-    	inp_list_ap.add(x);
-    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor()));     	
-	}
-	public void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
-	{
-		//Display list
-		Log.d("MY TAG ", "****** " + note + " *******" );
-		
-		if (inp_list_ap.isEmpty())
-		{
-			Log.d("MY TAG ", "****** EMPTY " + note + " *******" );
-			return ;
-		}
-    	for (int i=0; i < inp_list_ap.size();i++)
-    	{
-    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "SSID = " + inp_list_ap.get(i).ssid + " BSSID = " + inp_list_ap.get(i).getBSSID());    		
-    		//Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
-    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] "  + "ch num = " + Integer.toString(inp_list_ap.get(i).getChannelNum()) + 
-    						 " ch freq = " + Integer.toString(inp_list_ap.get(i).getChannelFreq()) + " apcolor = " + " 0x" + Integer.toHexString(inp_list_ap.get(i).apcolor));
-    		Log.d("MY TAG ", "id[" + Integer.toString(i)+ "] " + "rssi = " + Integer.toString(inp_list_ap.get(i).rssi) +
-    						  " old_rssi = " + Integer.toString(inp_list_ap.get(i).old_rssi) +
-    						 " diff_rssi = " + Integer.toString(inp_list_ap.get(i).diff_rssi));    		
-    	} 
-    	Log.d("MY TAG ", "****** END LIST " + note + " *******" );
-	}
-	  
+	
 }
 
 
