@@ -305,7 +305,8 @@ public class ChartEngine {
 			list_ap_res.add(getobject);
 
 		list_ap_new.clear();//Clear list with new data
-		list_ap_old.clear();//Clear list with old data
+		//list_ap_old.clear();//Clear list with old data
+		
 		//Collections.copy(list_ap_old,list_ap_res);//Copy current list to old for next act
 		 
 		 Log.d("MY TAG ", "compareListData: AFTER SECOND SEARCH");

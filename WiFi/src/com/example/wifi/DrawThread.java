@@ -1,6 +1,7 @@
 package com.example.wifi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import android.R.bool;
@@ -33,6 +34,7 @@ public class DrawThread extends Thread {
     static boolean test_flag = true;
     static boolean new_data_flag = false;
     
+    
 	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
 	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
 	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
@@ -55,6 +57,17 @@ public class DrawThread extends Thread {
 
         // Save current time
         prevTime = System.currentTimeMillis();
+        
+        	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
+    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
+        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
+//        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
+        	
+        	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
+    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
+        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
+        	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);        	
+        
     }
 
     public void setRunning(boolean run) {
@@ -75,24 +88,20 @@ public class DrawThread extends Thread {
     					//  		   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     	//List <ScanItem> list_sta = new List<ScanItem>();
-    	
-    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
-		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
-    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
-//    	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
-    	
-    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
-		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
-    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
-    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);
-    	
-    	
-    	
     	if (DrawThread.new_data_flag == true)
     	{
-    		//Compare here old and new data
-    		 Log.e("MY TAG ", "NEW DATA RECEIVED");
-        	chart.testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_new);
+    		Log.e("MY TAG ", "NEW DATA RECEIVED");
+    		for (int i = 0; i < list_ap_new.size(); i++)
+    		{
+    			if (list_ap_new.get(i).getSSID().equals("TEST"))
+    			{
+    				Log.e("MY TAG ", "SIMILAR OBJECT WAS FOUND");
+    				list_ap_new.get(i).rssi = -90;
+    			}
+    		}
+    			    		 
+    			//chart.testAddScanItem("TEST","01:02:03:04:05:06",-90,2412,0,list_ap_new);
+    		
 //        	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
 //        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
     	}
@@ -128,10 +137,12 @@ public class DrawThread extends Thread {
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
                 	if (temp == draw_marker)
-                	{
+                	{                		
                 		setRunning(false);
+                		Collections.copy(list_ap_old, list_ap_new);
                 		list_ap_new.clear();
                 		chart.testPrintList(list_ap_new, "list_ap_new");
+                		chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old");
                 	}
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
