@@ -91,26 +91,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	   
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
 	    	  Log.d("MY ON_CREATE ", "WIFI_STATE_DISABLED" );
-	      
-	      
-	      //Just test	      
-	      /*
-	      CustomDialogWindow obj1 = new CustomDialogWindow(MainActivity.this,this,test);
-	      CustomDialogWindow obj2 = new CustomDialogWindow(MainActivity.this,this,test);
-	      obj1.setX(10);
-	      System.out.println("obj1 = " + obj1);
-	      Log.e("MY JUST TEST obj1.x = ", Integer.toString(obj1.getX()));
-	      obj2.setX(20);
-	      //Log.d("MY JUST TEST REFERENCE obj2 = ", obj2);
-	      System.out.println("obj2 = " + obj2);	      
-	      Log.e("MY JUST TEST obj2.x = ", Integer.toString(obj2.getX()));
-	      obj1 = obj2;
-	      System.out.println("AFTER equal: obj1 = " + obj1);
-	      Log.e("MY JUST TEST AFTER equal: obj1.x = ", Integer.toString(obj1.getX()));
-	      */	      
-	      cdd = new CustomDialogWindow(MainActivity.this,this);
-	      //MyProgressDialog waiting_icon = new MyProgressDialog(this);
-	      
+	     
+	      /* Create dialog window for WIFI state */
+	      cdd = new CustomDialogWindow(MainActivity.this,this);	      
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {    	     
     	     cdd.setCancelable(false);
@@ -119,11 +102,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
 	      Log.d("MY ON_CREATE STATE = ", Integer.toString(wifiManager.getWifiState() )); 	     
-      
-	      /** Get result for first run */
-		  results = wifiManager.getScanResults();
-  
-		  
+      	      
+		  results = wifiManager.getScanResults();//Get result for first run
+  		  
 		 if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_ENABLED)
 		 {			 		 
 			  adapterlist = new CustomScanListAdapter(this,results); 	 
@@ -220,17 +201,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    case R.id.switch_screen:
 		    	Log.d("MY TAG ", "Choose item = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
-		    	startActivity(intent);
-		    
-		    	//BarGraph barchart = new BarGraph();
-			    //  Intent intent = barchart.getIntent(this,results);
-
-			      /*Enable Bubble chart*/
-		    	  //Intent intent = barchart.executeBubble(this);
-		    	
-		    	
-			    
-		    			    			     
+		    	startActivity(intent);	    
 		      break;	
 		    }
 		    return super.onOptionsItemSelected(item);

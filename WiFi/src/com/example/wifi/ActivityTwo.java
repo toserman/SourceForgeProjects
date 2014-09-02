@@ -25,7 +25,7 @@ public class ActivityTwo extends Activity {
 	TimerTask tasktimerChart;
 	List<ScanResult> results_scan_intent;
 	WifiManager wifiManager;
-	
+	List<ScanResult> results; //JUST FOR TEST
 	 Button btnGenerate;
 	 DrawChart barChart;
 	 ChartSurfaceView draw_barChart; 
@@ -72,23 +72,26 @@ public class ActivityTwo extends Activity {
 		  }
 		  
 	 
-		  void timerMethod()
+		  void timerMethodSecondAct()
 		  {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
-				//	  Log.d("MY timerChart", "run code in timerChart");
-	
+					  Log.d("MY timerMethodSecondAct", "run code in timerChart");
 					 // wifiManager.startScan();
-					 
+//					  results = wifiManager.getScanResults();
+//					  ScanResult obj1 = new ScanResult() ;					  
+//					  results.add(arg0)
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 5000, 5000);
+	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	  		  	  		
+	  		 
+	  		  
 		  }	
 		  protected void onStart() {
-		//	  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
+//			  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
 			  /** Run timer*/
-			  timerMethod();
+			  timerMethodSecondAct();
 			  super.onStart();
 		  }
 		  protected void onStop() {
@@ -110,9 +113,6 @@ public class ActivityTwo extends Activity {
 			    	//draw_barChart = new ChartSurfaceView(this);
 			    	
 				    setContentView(draw_barChart);
-			    	
-			    	
-		
 			    }
 			    return true;
 		  }
