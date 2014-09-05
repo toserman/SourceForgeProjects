@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;

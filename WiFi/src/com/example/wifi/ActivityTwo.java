@@ -1,5 +1,6 @@
 package com.example.wifi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
 public class ActivityTwo extends Activity {
 
 	IntentFilter wifiScanAvailIntentSecond;
@@ -31,6 +31,10 @@ public class ActivityTwo extends Activity {
 	 DrawChart barChart;
 	 ChartSurfaceView draw_barChart; 
 	 static int test  = 1;
+	 ArrayList<TestScanResult> list_one = new ArrayList<TestScanResult>(); //JUST FOR TEST
+	 ArrayList<TestScanResult> list_two = new ArrayList<TestScanResult>(); //JUST FOR TEST
+	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
+	 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
@@ -85,8 +89,11 @@ public class ActivityTwo extends Activity {
 //					  results.add(arg0)
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	  		  	  		
-	  		 TestScanResult new = TestScanResult
+	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	 
+//			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
+//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+	  		//public TestScanResult (String SSID, String BSSID, int freq, int rssi) {
+//	  		 TestScanResult obj1 = new TestScanResult("DIMON","00:01:02:03:04:88",2437,-90);
 	  		  
 		  }	
 		  protected void onStart() {
