@@ -18,8 +18,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+
 public class ActivityTwo extends Activity {
-	
+
 	IntentFilter wifiScanAvailIntentSecond;
 	Timer timerChart;
 	TimerTask tasktimerChart;
@@ -77,7 +78,7 @@ public class ActivityTwo extends Activity {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
-					  Log.d("MY timerMethodSecondAct", "run code in timerChart");
+					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 5 sec");
 					 // wifiManager.startScan();
 //					  results = wifiManager.getScanResults();
 //					  ScanResult obj1 = new ScanResult() ;					  
@@ -85,7 +86,7 @@ public class ActivityTwo extends Activity {
 				  }
 	  		  };
 	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	  		  	  		
-	  		 
+	  		 TestScanResult new = TestScanResult
 	  		  
 		  }	
 		  protected void onStart() {
