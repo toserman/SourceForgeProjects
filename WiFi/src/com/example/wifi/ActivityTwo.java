@@ -59,7 +59,10 @@ public class ActivityTwo extends Activity {
 		    //OLD VERSION
 //		   setContentView(R.layout.activity_two);
 //		    barChart = (DrawChart) findViewById(R.id.barchart);		    
-//		
+		    TestScanResult.FillListOne(list_one);
+		    TestScanResult.FillListSecond(list_two);
+		    TestScanResult.FillListThird(list_third);
+		   
 		    // btnGenerate = (Button)findllViewById(R.id.test_button_generate);		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
@@ -92,8 +95,6 @@ public class ActivityTwo extends Activity {
 	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
-	  		//public TestScanResult (String SSID, String BSSID, int freq, int rssi) {
-//	  		 TestScanResult obj1 = new TestScanResult("DIMON","00:01:02:03:04:88",2437,-90);
 	  		  
 		  }	
 		  protected void onStart() {
