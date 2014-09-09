@@ -17,6 +17,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -63,6 +65,7 @@ public class ActivityTwo extends Activity {
 		    //NEW VERSION
 		    draw_barChart = new ChartSurfaceView(this,list_one);
 		    setContentView(draw_barChart);
+		    
 		    //OLD VERSION
 //		   setContentView(R.layout.activity_two);
 //		    barChart = (DrawChart) findViewById(R.id.barchart);		    
@@ -91,7 +94,13 @@ public class ActivityTwo extends Activity {
 				  public void run() {
 					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 10 sec");
 					  draw_barChart.test_scan_list = list_two;
-//					  setContentView(draw_barChart);
+
+					  DrawThread.test_flag = true;
+				      DrawThread.new_data_flag = true; //New data received
+					  draw_barChart.postInvalidate();
+					  					  					  				      
+//					  setContentView(draw_barChart);					  
+					  
 					 // wifiManager.startScan();
 //					  results = wifiManager.getScanResults();
 //					  ScanResult obj1 = new ScanResult() ;					  
