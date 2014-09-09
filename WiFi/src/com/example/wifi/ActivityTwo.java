@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.w3c.dom.ls.LSInput;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,6 +36,7 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_one = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_two = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
+
 	 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
@@ -53,16 +56,17 @@ public class ActivityTwo extends Activity {
 		   // wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		   //wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 
+		    TestScanResult.FillListOne(list_one);
+		    TestScanResult.FillListSecond(list_two);
+		    TestScanResult.FillListThird(list_third);
+		    
 		    //NEW VERSION
-		    draw_barChart = new ChartSurfaceView(this);
+		    draw_barChart = new ChartSurfaceView(this,list_one);
 		    setContentView(draw_barChart);
 		    //OLD VERSION
 //		   setContentView(R.layout.activity_two);
 //		    barChart = (DrawChart) findViewById(R.id.barchart);		    
-		    TestScanResult.FillListOne(list_one);
-		    TestScanResult.FillListSecond(list_two);
-		    TestScanResult.FillListThird(list_third);
-		   
+
 		    // btnGenerate = (Button)findllViewById(R.id.test_button_generate);		    
 		    OnClickListener btnGen = new OnClickListener() {
 		        @Override
@@ -85,14 +89,16 @@ public class ActivityTwo extends Activity {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
-					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 5 sec");
+					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 10 sec");
+					  draw_barChart.test_scan_list = list_two;
+//					  setContentView(draw_barChart);
 					 // wifiManager.startScan();
 //					  results = wifiManager.getScanResults();
 //					  ScanResult obj1 = new ScanResult() ;					  
 //					  results.add(arg0)
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 5000, 5000);	 
+	  		  timerChart.schedule(tasktimerChart, 10000, 10000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 	  		  
@@ -119,9 +125,9 @@ public class ActivityTwo extends Activity {
 			    {
 			    	DrawThread.test_flag = true;
 			    	DrawThread.new_data_flag = true; //New data received
-			    	//draw_barChart = new ChartSurfaceView(this);
-			    	
+			    	    
 				    setContentView(draw_barChart);
+				    
 			    }
 			    return true;
 		  }

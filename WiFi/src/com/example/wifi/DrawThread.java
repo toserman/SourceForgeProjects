@@ -34,20 +34,21 @@ public class DrawThread extends Thread {
     static boolean test_flag = true;
     static boolean new_data_flag = false;
     
+    ArrayList<TestScanResult> test_inp_wifi_list; //JUST FOR TEST
     
 	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
 	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
 	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
     
     Paint p;
-    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context){
+    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context, ArrayList<TestScanResult> inp_wifi_list){
     
         this.surfaceHolder = surfaceHolder;
     	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
     	chart = new ChartEngine(context);
-    	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);
-    	
+    	test_inp_wifi_list = inp_wifi_list;
+    	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);    	
         // Load image for display on the screen
         picture = BitmapFactory.decodeResource(resources, R.drawable.decrypted);
         // формируем матрицу преобразований для картинки
@@ -58,16 +59,27 @@ public class DrawThread extends Thread {
         // Save current time
         prevTime = System.currentTimeMillis();
         
-        	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
-    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
-        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
-//        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
-        	
-        	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
-    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
-        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
-        	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);        	
+//        	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
+//    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
+//        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
+////        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
+//    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
+//		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
+//    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
+//    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);        	
+//
+        	//Received new data fill ap_new list
+        	for (int i = 0; i < test_inp_wifi_list.size(); i++)
+        	{
+//        		chart.testAddScanItem(SSID, BSSID, inpRSSI, inpFreq, index_color, inp_list_ap);
+        		chart.testAddScanItem(test_inp_wifi_list.get(i).SSID,
+        							  test_inp_wifi_list.get(i).BSSID,
+        							  test_inp_wifi_list.get(i).rssi,
+        							  test_inp_wifi_list.get(i).freq,
+        							  i,list_ap_new);        				
+        	}
         
+      
     }
 
     public void setRunning(boolean run) {

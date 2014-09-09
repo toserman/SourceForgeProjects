@@ -1,16 +1,23 @@
 package com.example.wifi;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+
 public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	private DrawThread drawThread;
 	public int just_test = 100;
+
+	public ArrayList<TestScanResult> test_scan_list; //JUST FOR TEST	
 	
-	 public ChartSurfaceView(Context context) {
+	 public ChartSurfaceView(Context context,ArrayList<TestScanResult> wifi_scan_list) {
 	        super(context);
+	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR" );
+	        test_scan_list = wifi_scan_list;
 	        getHolder().addCallback(this);
 	    }
 
@@ -22,7 +29,7 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	    @Override
 	    public void surfaceCreated(SurfaceHolder holder) {
-	    	drawThread = new DrawThread(getHolder(), getResources(),getContext());
+	    	drawThread = new DrawThread(getHolder(), getResources(),getContext(),test_scan_list);
 	    	Log.d("MY ChartSurfaceView:", "surfaceCreated() create and run Draw stream" );
 	        drawThread.setRunning(true);
 	        drawThread.start();	        
