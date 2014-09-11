@@ -35,6 +35,7 @@ public class ActivityTwo extends Activity {
 	 DrawChart barChart;
 	 ChartSurfaceView draw_barChart; 
 	 static int test  = 1;
+	 static int count_list = 0; //JUST FOR TEST
 	 ArrayList<TestScanResult> list_one = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_two = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
@@ -92,14 +93,24 @@ public class ActivityTwo extends Activity {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
-					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 10 sec");
-					  draw_barChart.test_scan_list = list_two;
-
-					  DrawThread.test_flag = true;
-				      DrawThread.new_data_flag = true; //New data received
-					  draw_barChart.postInvalidate();
-					  					  					  				      
-//					  setContentView(draw_barChart);					  
+					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 10 sec count_list: " + Integer.toString(count_list));
+					  					  
+					  count_list++;
+					  if (count_list == 1)
+					  {
+						  draw_barChart.test_scan_list = list_two;
+					  }
+						  
+						  
+					  if (count_list == 2)
+					  {
+						  list_two.clear();
+						  TestScanResult.FillListSecondUpdated(list_two);
+						  draw_barChart.test_scan_list = list_two;						  
+					  }				
+					  
+					draw_barChart.surfaceCreated(draw_barChart.getHolder());  					  					  				      
+				//	  setContentView(draw_barChart);					  
 					  
 					 // wifiManager.startScan();
 //					  results = wifiManager.getScanResults();

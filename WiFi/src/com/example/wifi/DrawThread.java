@@ -40,7 +40,9 @@ public class DrawThread extends Thread {
 	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
 	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
     
-    Paint p;
+    Paint p;    
+    Canvas canvas;
+	    	
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context, ArrayList<TestScanResult> inp_wifi_list){
     
         this.surfaceHolder = surfaceHolder;
@@ -48,6 +50,7 @@ public class DrawThread extends Thread {
     	p = new Paint();
     	chart = new ChartEngine(context);
     	test_inp_wifi_list = inp_wifi_list;
+    	
     	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);    	
         // Load image for display on the screen
         picture = BitmapFactory.decodeResource(resources, R.drawable.decrypted);
@@ -56,6 +59,8 @@ public class DrawThread extends Thread {
         matrix.postScale(3.0f, 3.0f);
         matrix.postTranslate(100.0f, 100.0f);
 
+    	canvas = new Canvas(myBitmap);
+        
         // Save current time
         prevTime = System.currentTimeMillis();
         
@@ -93,10 +98,10 @@ public class DrawThread extends Thread {
 //    	List<ScanResult> debug_scan_result;
     	//WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
     	//debug_scan_result = wifiManager.getScanResults();
-    	Canvas canvas;
+//    	Canvas canvas;
     	Random rnd = new Random(); //Just for debug
     	//Log.d("MY DrawThread:", "run() draw picture !!!");    	
-		canvas = new Canvas(myBitmap);
+//		canvas = new Canvas(myBitmap);
     					//  		   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     	//List <ScanItem> list_sta = new List<ScanItem>();
@@ -154,7 +159,8 @@ public class DrawThread extends Thread {
                 		Collections.copy(list_ap_old, list_ap_new);
                 		list_ap_new.clear();
                 		chart.testPrintList(list_ap_new, "list_ap_new");
-                		chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old");
+                		chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old"); 
+                		
                 	}
 //                    canvas.drawColor(Color.BLACK);
 //                    canvas.drawBitmap(picture, matrix, null);            		
