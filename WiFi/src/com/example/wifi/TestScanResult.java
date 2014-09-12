@@ -47,7 +47,7 @@ public class TestScanResult {
 		list_second.add(ap6);
 	}
 	
-	static void FillListSecondUpdated(ArrayList<TestScanResult> list_second) {
+	static void FillListSecondUpdated_1(ArrayList<TestScanResult> list_second) {
 		TestScanResult ap1 = new TestScanResult("ANTON","01:11:22:33:31:55",2452,-70);
 		TestScanResult ap2 = new TestScanResult("LAND","01:11:22:33:45:55",2462,-85);
 		TestScanResult ap3 = new TestScanResult("SWIFT","01:11:22:33:24:50",2427,-80);
@@ -60,6 +60,23 @@ public class TestScanResult {
 		list_second.add(ap4);
 		list_second.add(ap5);
 		list_second.add(ap6);
+	}
+	
+	static void FillListSecondUpdated_2(ArrayList<TestScanResult> list_second) {
+		TestScanResult ap1 = new TestScanResult("ANTON","01:11:22:33:31:55",2452,-70);
+		TestScanResult ap2 = new TestScanResult("LAND","01:11:22:33:45:55",2462,-85);
+		TestScanResult ap3 = new TestScanResult("SWIFT","01:11:22:33:24:50",2427,-80);
+		TestScanResult ap4 = new TestScanResult("SPAIN","01:11:22:33:12:55",2472,-87);
+		TestScanResult ap5 = new TestScanResult("FUNNY","01:11:22:33:12:51",2422,-92);
+		TestScanResult ap6 = new TestScanResult("BUGS","01:11:22:33:44:59",2447,-60);
+		TestScanResult ap7 = new TestScanResult("NEW AP","01:11:22:33:44:99",2484,-60);
+		list_second.add(ap1);
+		list_second.add(ap2);
+		list_second.add(ap3);
+		list_second.add(ap4);
+		list_second.add(ap5);
+		list_second.add(ap6);
+		list_second.add(ap7);
 	}
 	static void FillListThird(ArrayList<TestScanResult> list_third) {
 		TestScanResult ap1 = new TestScanResult("HELLO","01:11:21:33:44:55",2417,-90);

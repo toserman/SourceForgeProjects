@@ -64,7 +64,7 @@ public class ActivityTwo extends Activity {
 		    TestScanResult.FillListThird(list_third);
 		    
 		    //NEW VERSION
-		    draw_barChart = new ChartSurfaceView(this,list_one);
+		    draw_barChart = new ChartSurfaceView(this,list_two);
 		    setContentView(draw_barChart);
 		    
 		    //OLD VERSION
@@ -96,20 +96,30 @@ public class ActivityTwo extends Activity {
 					  Log.d("MY timerMethodSecondAct", "run code in timerChart each 10 sec count_list: " + Integer.toString(count_list));
 					  					  
 					  count_list++;
+					  DrawThread.new_data_flag = true;
 					  if (count_list == 1)
-					  {
-						  draw_barChart.test_scan_list = list_two;
+					  {						  
+						  draw_barChart.test_scan_list = list_two;						  
 					  }
 						  
 						  
 					  if (count_list == 2)
 					  {
 						  list_two.clear();
-						  TestScanResult.FillListSecondUpdated(list_two);
+						  TestScanResult.FillListSecondUpdated_1(list_two);
+						  draw_barChart.test_scan_list = list_two;						  
+					  }
+					  
+					  if (count_list == 3)
+					  {
+						  list_two.clear();
+						  TestScanResult.FillListSecondUpdated_2(list_two);
 						  draw_barChart.test_scan_list = list_two;						  
 					  }				
+				
 					  
-					draw_barChart.surfaceCreated(draw_barChart.getHolder());  					  					  				      
+					draw_barChart.surfaceCreated(draw_barChart.getHolder());  
+					list_two.clear();
 				//	  setContentView(draw_barChart);					  
 					  
 					 // wifiManager.startScan();

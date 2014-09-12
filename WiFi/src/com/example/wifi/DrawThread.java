@@ -37,18 +37,19 @@ public class DrawThread extends Thread {
     ArrayList<TestScanResult> test_inp_wifi_list; //JUST FOR TEST
     
 	ArrayList<ScanItem> list_ap_new = new ArrayList<ScanItem>();
-	ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
+	public static ArrayList<ScanItem> list_ap_old = new ArrayList<ScanItem>(); 
 	ArrayList<ScanItem> list_ap_res = new ArrayList<ScanItem>(); 
     
     Paint p;    
     Canvas canvas;
 	    	
-    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context, ArrayList<TestScanResult> inp_wifi_list){
+    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context, ArrayList<TestScanResult> inp_wifi_list,ChartEngine inp_chart){
     
         this.surfaceHolder = surfaceHolder;
     	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
-    	chart = new ChartEngine(context);
+//    	chart = new ChartEngine(context);
+    	chart = inp_chart;
     	test_inp_wifi_list = inp_wifi_list;
     	
     	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);    	
@@ -60,7 +61,7 @@ public class DrawThread extends Thread {
         matrix.postTranslate(100.0f, 100.0f);
 
     	canvas = new Canvas(myBitmap);
-        
+    	chart.drawAxisXY(canvas);
         // Save current time
         prevTime = System.currentTimeMillis();
         
@@ -68,12 +69,12 @@ public class DrawThread extends Thread {
 //    		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
 //        	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
 ////        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
-//    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-96,2452,4,list_ap_new);
-//		chart.testAddScanItem("TEST","01:02:03:04:05:06",-80,2412,1,list_ap_new);
-//    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-78,2437,2,list_ap_new);
-//    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-85,2472,3,list_ap_new);        	
+//    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-95,2452,4,list_ap_new);
+//		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_new);
+//    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-70,2437,1,list_ap_new);
+//    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_new);        	
 //
-        	//Received new data fill ap_new list
+//        	//Received new data fill ap_new list
         	for (int i = 0; i < test_inp_wifi_list.size(); i++)
         	{
 //        		chart.testAddScanItem(SSID, BSSID, inpRSSI, inpFreq, index_color, inp_list_ap);
@@ -122,10 +123,10 @@ public class DrawThread extends Thread {
 //        	testAddScanItem("ACTION","01:11:22:33:44:55",-85,2437,1,list_ap);
 //        	testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap);
     	}
-    	chart.testPrintList(list_ap_new,"list_ap_new");
+//    	chart.testPrintList(list_ap_new,"list_ap_new");
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
-
-		chart.drawAxisXY(canvas);
+    	chart.testPrintList(list_ap_old,"list_ap_old");
+		
 		canvas.drawBitmap(myBitmap,0,0,p);
 		
 		/* find the biggest RSSI and set limitation for draw */
@@ -156,9 +157,10 @@ public class DrawThread extends Thread {
                 	if (temp == draw_marker)
                 	{                		
                 		setRunning(false);
+                		chart.testPrintList(list_ap_new, "list_ap_new");                		                		
                 		Collections.copy(list_ap_old, list_ap_new);
                 		list_ap_new.clear();
-                		chart.testPrintList(list_ap_new, "list_ap_new");
+                		
                 		chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old"); 
                 		
                 	}
@@ -167,7 +169,7 @@ public class DrawThread extends Thread {
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
                 	//chart.startDraw(canvas,temp,list_ap_old,list_ap_new);
                     chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
-              		temp+=1;
+              		temp+= 2;
                 }
             } 
             finally {

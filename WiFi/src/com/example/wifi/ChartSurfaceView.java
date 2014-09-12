@@ -12,12 +12,14 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	private DrawThread drawThread;
 	public int just_test = 100;
 
+	ChartEngine inp_chart;
 	public ArrayList<TestScanResult> test_scan_list; //JUST FOR TEST	
 	
 	 public ChartSurfaceView(Context context,ArrayList<TestScanResult> wifi_scan_list) {
 	        super(context);
 	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR" );
 	        test_scan_list = wifi_scan_list;
+	        inp_chart = new ChartEngine(context);
 	        getHolder().addCallback(this);
 	    }
 
@@ -29,8 +31,8 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 
 	    @Override
 	    public void surfaceCreated(SurfaceHolder holder) {
-	    	drawThread = new DrawThread(getHolder(), getResources(),getContext(),test_scan_list);
 	    	Log.d("MY ChartSurfaceView:", "surfaceCreated() create and run Draw stream" );
+	    	drawThread = new DrawThread(getHolder(), getResources(),getContext(),test_scan_list,inp_chart);	    	
 	        drawThread.setRunning(true);
 	        drawThread.start();	        
 	    }

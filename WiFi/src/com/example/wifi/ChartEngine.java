@@ -252,7 +252,7 @@ public class ChartEngine {
 
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
-//       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
+       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
         
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
@@ -283,19 +283,19 @@ public class ChartEngine {
 			{
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
+					Log.e("MY TAG ", "compareListData: OBJECT WAS FOUND !");
 					list_ap_res.add(i,list_ap_new.get(k));
 					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
 					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
 					list_ap_res.get(i).old_rssi = list_ap_old.get(i).rssi ;
 					list_ap_res.get(i).rssi = list_ap_new.get(k).rssi ;
-					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
-					Log.d("MY TAG ", "compareListData: OBJECT WAS FOUND !");
+					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;					
 					list_ap_new.remove(k);//Remove from list_ap_new after copy
 				}
 			}
 		}
 
-		Log.d("MY TAG ", "compareListData: AFTER FIRST SEARCH");
+		Log.e("MY TAG ", "compareListData: AFTER FIRST SEARCH");
 		testPrintList(list_ap_new, "list_ap_new");
 		testPrintList(list_ap_old, "list_ap_old");
 		testPrintList(list_ap_res, "list_ap_res");
@@ -304,13 +304,15 @@ public class ChartEngine {
 		for (ScanItem getobject: list_ap_new)
 			list_ap_res.add(getobject);
 
-		list_ap_new.clear();//Clear list with new data
-		//list_ap_old.clear();//Clear list with old data
+//		list_ap_new.clear();//Clear list with new data
+		list_ap_old.clear();//Clear list with old data
+		
+		for (ScanItem getobject: list_ap_res)
+			list_ap_old.add(getobject);
 		
 		//Collections.copy(list_ap_old,list_ap_res);//Copy current list to old for next act
 		 
-		 Log.d("MY TAG ", "compareListData: AFTER SECOND SEARCH");
-		 
+		Log.e("MY TAG ", "compareListData: AFTER SECOND SEARCH");		 
 		testPrintList(list_ap_new, "list_ap_new");
 		testPrintList(list_ap_old, "list_ap_old");
 		testPrintList(list_ap_res, "list_ap_res");
