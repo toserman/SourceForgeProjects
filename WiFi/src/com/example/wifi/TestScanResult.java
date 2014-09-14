@@ -1,6 +1,10 @@
 package com.example.wifi;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import android.net.wifi.ScanResult;
+import android.util.Log;
 
 public class TestScanResult {
 
@@ -17,6 +21,38 @@ public class TestScanResult {
 		this.SSID = SSID;
 		this.rssi = rssi;
 		// TODO Auto-generated constructor stub
+	}
+	
+	static void FillListFromWIFI(List<ScanResult> results,ArrayList<TestScanResult> inp_list) {
+//		for (int i = 0; i < results.size(); i++)			
+//		{
+//			TestScanResult ap_obj = new TestScanResult(results.get(i).SSID,
+//													   results.get(i).BSSID,
+//													   results.get(i).frequency,
+//													   results.get(i).level);
+//			inp_list.add(ap_obj);
+//		}
+//		
+		TestScanResult ap_obj0 = new TestScanResult(results.get(0).SSID,
+													   results.get(0).BSSID,
+													   results.get(0).frequency,
+													   results.get(0).level);
+		TestScanResult ap_obj1 = new TestScanResult(results.get(1).SSID,
+													   results.get(1).BSSID,
+													   results.get(1).frequency,
+													   results.get(1).level);
+
+		inp_list.add(ap_obj0);
+		inp_list.add(ap_obj1);
+		
+		Log.e("MY FillListFromWIFI ", "PRINT inp_list AFTER get from WIFI = ");
+		for (int i=0; i < inp_list.size();i++)
+    	{
+  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).SSID);
+  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).rssi);
+    	}
+		
+		
 	}
 	
 	static void FillListOne(ArrayList<TestScanResult> list_one) {
@@ -69,7 +105,7 @@ public class TestScanResult {
 		TestScanResult ap4 = new TestScanResult("SPAIN","01:11:22:33:12:55",2472,-87);
 		TestScanResult ap5 = new TestScanResult("FUNNY","01:11:22:33:12:51",2422,-92);
 		TestScanResult ap6 = new TestScanResult("BUGS","01:11:22:33:44:59",2447,-60);
-		TestScanResult ap7 = new TestScanResult("NEW AP","01:11:22:33:44:99",2484,-60);
+		TestScanResult ap7 = new TestScanResult("NEW AP","01:11:22:33:44:99",2484,-35);
 		list_second.add(ap1);
 		list_second.add(ap2);
 		list_second.add(ap3);

@@ -59,7 +59,8 @@ public class ChartEngine {
 			0x643e8c2a /*green*/,
 			0x64ed1b79 /*raspberry*/,
 			0x6490CE80 /*green*/,			
-			0x648af0c7 /*light green*/,			
+			0x648af0c7 /*light green*/,
+
 	};
 	
 	int evalX_px = 0; //Size of segment X axis in pixels
@@ -138,11 +139,6 @@ public class ChartEngine {
 		int k = 1;
 		int lastch = 18;//for 14 WIFI channels
 		int chnum = 13;
-			
-		// myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
-		 //canvas = new Canvas(myBitmap);
-		 //canvas.drawBitmap(myBitmap, 0, 0, p);
-		
 		
 		/*Evaluate size of segment in pixels*/
 		evalX_px = ((width-20) - OFFSET_X_AXISX) / lastch;  
@@ -252,7 +248,7 @@ public class ChartEngine {
 
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
-       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
+//       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
         
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
@@ -264,7 +260,7 @@ public class ChartEngine {
 		
 	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new)
 	{
-//		Log.d("MY ChartEngine " + "startDraw temp = ", Integer.toString(test));
+//		Log.e("MY ChartEngine",  "startDraw ");
   	
 		for (ScanItem list_test : list_ap_new) {
   		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
@@ -291,6 +287,13 @@ public class ChartEngine {
 					list_ap_res.get(i).rssi = list_ap_new.get(k).rssi ;
 					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;					
 					list_ap_new.remove(k);//Remove from list_ap_new after copy
+					
+					if (list_ap_res.get(i).diff_rssi != 0)
+					{
+						Log.e("MY TAG ", "compareListData: list_ap_res.get(i).diff_rssi = " 
+								+ Integer.toString(list_ap_res.get(i).diff_rssi)+ " " + list_ap_res.get(i).getSSID());
+					}
+					
 				}
 			}
 		}
@@ -411,7 +414,7 @@ public class ChartEngine {
 	}
 	
 	public void testAddScanItem(String SSID,String BSSID,int inpRSSI,int inpFreq,int index_color,
-			ArrayList<ScanItem> inp_list_ap)
+								ArrayList<ScanItem> inp_list_ap)
 	{
 		ScanItem x = new ScanItem();
     	x.setSSID(SSID);

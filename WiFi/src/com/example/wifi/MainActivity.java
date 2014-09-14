@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      if (wifiManager.getWifiState() ==  wifiManager.WIFI_STATE_DISABLED)
     	  {    	     
     	     cdd.setCancelable(false);
-//    	     cdd.show();  
+    	     cdd.show();  
     	  }
 	      
 	      Log.d("MY ON_CREATE ", "BACK TO MAIN_ACTIVITY");	    
@@ -197,7 +197,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		    // TODO Auto-generated method stub
 		    switch (item.getItemId()) {		    
 		    case R.id.switch_screen:
-		    	Log.d("MY TAG ", "Choose item = ");
+		    	Log.d("MY TAG ", "Choose item GO TO ActivityTwo = ");
 		    	Intent intent = new Intent(this, ActivityTwo.class);
 		    	startActivity(intent);	    
 		      break;	
@@ -251,9 +251,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			  Log.d("MY 1 ON_STATE ", "onStart" );
 		  }
 		  protected void onPause() {
-			//  unregisterReceiver(WifiScanResultReceiver);
-			 // unregisterReceiver(WifiStateChangedReceiver);
-			  Log.d("MY 1 ON_STATE ", "onPause" );			  
+			  Log.d("MY 1 ON_STATE ", "onPause" );
+//			  unregisterReceiver(WifiScanResultReceiver);
+//			  unregisterReceiver(WifiStateChangedReceiver);			  			  
 			  //timerScanUpdate.cancel();//Timer stop
 		      super.onPause();
 		    }
@@ -286,7 +286,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
-			  //Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
+			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
 				   
 		  results_new_intent = wifiManager.getScanResults();
 			  
