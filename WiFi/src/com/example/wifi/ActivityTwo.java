@@ -51,6 +51,7 @@ public class ActivityTwo extends Activity {
 			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " +
 					  Integer.toString(results.size()) );
 			  list_two.clear();
+			  draw_barChart.test_scan_list.clear();
 			  TestScanResult.FillListFromWIFI(results,list_two);
 			  draw_barChart.test_scan_list = list_two;	
 			  draw_barChart.surfaceCreated(draw_barChart.getHolder());
@@ -80,18 +81,19 @@ public class ActivityTwo extends Activity {
 		    super.onCreate(savedInstanceState);
 		    Log.d("MY ActivityTwo ", "onCreate()" );
 		    
-		    // FOR PHONE
-		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
-		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-		    /* Register Receiver */		    	     
-		    this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);	
-		    results = wifiManager.getScanResults();//Get result for first run	
-		    TestScanResult.FillListFromWIFI(results,list_two);
-		    //////-- END FOR PHONE --/////////
+//		    // FOR PHONE
+//		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+//		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+//		    /* Register Receiver */		    	     
+//		    this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);	
+//		    results = wifiManager.getScanResults();//Get result for first run	
+//		    TestScanResult.FillListFromWIFI(results,list_two);
+//		    //////-- END FOR PHONE --/////////
 		    
-//		    TestScanResult.FillListOne(list_one);
-//		    TestScanResult.FillListSecond(list_two);
-//		    TestScanResult.FillListThird(list_third);
+		    // FOR DEBUG 
+		    TestScanResult.FillListOne(list_one);
+		    TestScanResult.FillListSecond(list_two);
+		    TestScanResult.FillListThird(list_third);
 		    
 		    //NEW VERSION
 		    draw_barChart = new ChartSurfaceView(this,list_two);
@@ -107,30 +109,30 @@ public class ActivityTwo extends Activity {
 					  Log.e("MY timerMethodSecondAct", "run code in timerChart each 15 sec count_list: " + Integer.toString(count_list));
 					  				  
 					  count_list++;
-//					
-//					  if (count_list == 1)
-//					  {						  
-//						  draw_barChart.test_scan_list = list_two;						  
-//					  }  
-//					  if (count_list == 2)
-//					  {
-//						  list_two.clear();
-//						  TestScanResult.FillListSecondUpdated_1(list_two);
-//						  draw_barChart.test_scan_list = list_two;						  
-//					  }
-//					  if (count_list == 3)
-//					  {
-//						  list_two.clear();
-//						  TestScanResult.FillListSecondUpdated_2(list_two);
-//						  draw_barChart.test_scan_list = list_two;						  
-//					  }		
-//				
-//					  
-//					draw_barChart.surfaceCreated(draw_barChart.getHolder());  
+					
+					  if (count_list == 1)
+					  {						  
+						  draw_barChart.test_scan_list = list_two;						  
+					  }  
+					  if (count_list == 2)
+					  {
+						  list_two.clear();
+						  TestScanResult.FillListSecondUpdated_1(list_two);
+						  draw_barChart.test_scan_list = list_two;						  
+					  }
+					  if (count_list == 3)
+					  {
+						  list_two.clear();
+						  TestScanResult.FillListSecondUpdated_2(list_two);
+						  draw_barChart.test_scan_list = list_two;						  
+					  }		
+				
+					  
+					draw_barChart.surfaceCreated(draw_barChart.getHolder());  
 					
 					/*-- PHONE */
 					  // Request for WIFI scan results
-					  wifiManager.startScan();
+//					  wifiManager.startScan();
 					  
 					/*-- PHONE */
 
