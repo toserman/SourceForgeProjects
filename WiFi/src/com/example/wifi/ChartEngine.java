@@ -88,16 +88,13 @@ public class ChartEngine {
 		}
 	}
 	
-	static int frame_ready = 1; //??????
-	
+	static int frame_ready = 1; //??????	
 	ChannelCoord [] ch_coord = new ChannelCoord[NUMBER_OF_CHANNELS];
 	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBER_OF_CHANNELS];
-	APcolors	 [] arr_ap_colors = new APcolors[NUMBER_OF_COLORS];
-	
+	APcolors	 [] arr_ap_colors = new APcolors[NUMBER_OF_COLORS];	
 	Paint p;
-
 	public int y;
-
+	
 	public ChartEngine(Context context)
 	{
 		//super(context);
@@ -249,10 +246,8 @@ public class ChartEngine {
 		canvas.drawLine(OFFSET_X_AXISX,(height - OFFSET_Y_AXISX),(width-20),(height - OFFSET_Y_AXISX),p);//Draw axis X
         canvas.drawLine(OFFSET_X_AXISY,(height - OFFSET_Y_AXISY),OFFSET_X_AXISY,30,p);//Draw axis Y
 //       	Log.e("MY ChartEngine: drawAxisXY: ", "width = " + Integer.toString(width) + " height = " + Integer.toString(height));
-        
         drawSegmentsAxisX(canvas);
         drawSegmentsAxisY(canvas);
-
         setName(canvas,20,0,canvas.getWidth()/2 - 40,canvas.getHeight() - (canvas.getHeight()-25),"Channel graph");   
         setName(canvas,15,0,canvas.getWidth()/2 - 40,canvas.getHeight() - 30,"WIFI Channels");
      
@@ -270,7 +265,7 @@ public class ChartEngine {
 
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
-		Log.d("MY TAG ", "compareListData: ");
+		Log.d("MY ChartEngine ", "compareListData: ");
 
 		/* Find existing objects,what present on the display */
 		for(int i = 0; i < list_ap_old.size(); i++ )
@@ -279,7 +274,7 @@ public class ChartEngine {
 			{
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
-					Log.e("MY TAG ", "compareListData: OBJECT WAS FOUND !");
+					Log.e("MY ChartEngine ", "compareListData: OBJECT WAS FOUND !");
 					list_ap_res.add(i,list_ap_new.get(k));
 					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
 					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
@@ -290,7 +285,7 @@ public class ChartEngine {
 					
 					if (list_ap_res.get(i).diff_rssi != 0)
 					{
-						Log.e("MY TAG ", "compareListData: list_ap_res.get(i).diff_rssi = " 
+						Log.e("MY ChartEngine ", "compareListData: list_ap_res.get(i).diff_rssi = " 
 								+ Integer.toString(list_ap_res.get(i).diff_rssi)+ " " + list_ap_res.get(i).getSSID());
 					}
 					
@@ -298,7 +293,7 @@ public class ChartEngine {
 			}
 		}
 
-		Log.e("MY TAG ", "compareListData: AFTER FIRST SEARCH");
+		Log.e("MY ChartEngine ", "compareListData: AFTER FIRST SEARCH");
 		testPrintList(list_ap_new, "list_ap_new");
 		testPrintList(list_ap_old, "list_ap_old");
 		testPrintList(list_ap_res, "list_ap_res");
@@ -315,7 +310,7 @@ public class ChartEngine {
 		
 		//Collections.copy(list_ap_old,list_ap_res);//Copy current list to old for next act
 		 
-		Log.e("MY TAG ", "compareListData: AFTER SECOND SEARCH");		 
+		Log.e("MY ChartEngine ", "compareListData: AFTER SECOND SEARCH");		 
 		testPrintList(list_ap_new, "list_ap_new");
 		testPrintList(list_ap_old, "list_ap_old");
 		testPrintList(list_ap_res, "list_ap_res");

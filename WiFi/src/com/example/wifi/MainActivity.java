@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.R.bool;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,11 +39,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	int scanState_integer;
 	List<ScanResult> results_new_intent;
 	CustomScanListAdapter adapterlist;	
-		
-	final int DIALOG_EXIT = 1;	
-	
+
 	ArrayList<ScanItem> scanDetails;
-	//final ArrayList<String> apnames = new ArrayList<String>() ;	//OLD CODE
 	Intent intent_1 = new Intent("my.action.bat.SCHEDULE_ACT");
 		
 	IntentFilter wifiStateIntent;
@@ -53,6 +51,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	CustomDialogWindow cdd;
 	MyProgressDialog waiting_icon, temp_waiting_icon;
+	
+	
 		 
 	  /** Called when the activity is first created. */
 	  @Override
@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      scanDetails = new ArrayList<ScanItem>();
       
 	      /**Create timer*/
-	    //  timerScanUpdate = new Timer();
+	      // timerScanUpdate = new Timer();
 	      
 	      /** Intents for Broadcast receivers */
 	  	  wifiStateIntent  = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);

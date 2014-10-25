@@ -40,6 +40,7 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
+	 public static final boolean PHONE = true; //true = PHONE , false = AVD
 	 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
@@ -81,14 +82,16 @@ public class ActivityTwo extends Activity {
 		    super.onCreate(savedInstanceState);
 		    Log.d("MY ActivityTwo ", "onCreate()" );
 		    
-//		    // FOR PHONE
-//		    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
-//		    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-//		    /* Register Receiver */		    	     
-//		    this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);	
-//		    results = wifiManager.getScanResults();//Get result for first run	
-//		    TestScanResult.FillListFromWIFI(results,list_two);
-//		    //////-- END FOR PHONE --/////////
+		    // FOR PHONE
+		    if (ActivityTwo.PHONE)
+		    {
+			    wifiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+			    wifiScanAvailIntentSecond =  new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+			    /* Register Receiver */		    	     
+			    this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);	
+			    results = wifiManager.getScanResults();//Get result for first run	
+			    TestScanResult.FillListFromWIFI(results,list_two);
+		    }
 		    
 		    // FOR DEBUG 
 		    TestScanResult.FillListOne(list_one);
@@ -129,19 +132,17 @@ public class ActivityTwo extends Activity {
 				
 					  
 					draw_barChart.surfaceCreated(draw_barChart.getHolder());  
-					
-					/*-- PHONE */
-					  // Request for WIFI scan results
-//					  wifiManager.startScan();
-					  
-					/*-- PHONE */
-
+										
+					 if (ActivityTwo.PHONE)
+					 {
+						 // Request for WIFI scan results
+						 wifiManager.startScan();
+					 }
 				  }
 	  		  };
 	  		  timerChart.schedule(tasktimerChart, 10000, 15000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
-	  		  
 		  }	
 		  protected void onStart() {
 //			  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
@@ -164,15 +165,11 @@ public class ActivityTwo extends Activity {
 			    if(event.getAction() == MotionEvent.ACTION_DOWN)
 			    {
 			    	DrawThread.test_flag = true;
-			    	DrawThread.new_data_flag = true; //New data received
-			    	    
-				    setContentView(draw_barChart);
-				    
+			    	DrawThread.new_data_flag = true; //New data received			    	    
+				    setContentView(draw_barChart);				    
 			    }
 			    return true;
 		  }
-		  
-		  
 }
 
 

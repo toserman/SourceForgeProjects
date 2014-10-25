@@ -45,16 +45,12 @@ public class DrawThread extends Thread {
         this.surfaceHolder = surfaceHolder;
 //    	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
-//    	chart = new ChartEngine(context);
     	chart = inp_chart;
-    	test_inp_wifi_list = inp_wifi_list;
-    	
+    	test_inp_wifi_list = inp_wifi_list;    	
     	myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);    	
-
     	canvas = new Canvas(myBitmap);
     	chart.drawAxisXY(canvas);
         // Save current time
-       
         
 //      chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
 //    	chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
@@ -70,10 +66,10 @@ public class DrawThread extends Thread {
         	{
 //        		chart.testAddScanItem(SSID, BSSID, inpRSSI, inpFreq, index_color, inp_list_ap);
         		/* */
-        		if (i >= chart.NUMBER_OF_COLORS)
+       // 		if (i >= chart.NUMBER_OF_COLORS)
+        			//break;
+        		if(i == 1)//Limit AP for DEBUG
         			break;
-//        		if (i > 2)//Limit AP for DEBUG
-//        			break;
         		chart.testAddScanItem(test_inp_wifi_list.get(i).SSID,
         							  test_inp_wifi_list.get(i).BSSID,
         							  test_inp_wifi_list.get(i).rssi,
@@ -99,7 +95,6 @@ public class DrawThread extends Thread {
     	//if (DrawThread.new_data_flag == true)
     	//{
 
-
 //    	chart.testPrintList(list_ap_new,"list_ap_new");
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
 //    	chart.testPrintList(list_ap_old,"list_ap_old");
@@ -107,10 +102,8 @@ public class DrawThread extends Thread {
 		/* find the biggest RSSI and set limitation for draw */
 		high_rssi = chart.findHighestRSSI(list_ap_res);
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
-	   
+   
 //	    Log.e("MY TAG ", "draw_marker " + Integer.toString(draw_marker));
-	       
-	    
         while (runFlag) {
 //	    while (DrawThread.test_flag) {
             canvas = null;
