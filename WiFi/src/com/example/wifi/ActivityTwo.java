@@ -55,9 +55,10 @@ public class ActivityTwo extends Activity {
 			  draw_barChart.test_scan_list.clear();
 			  TestScanResult.FillListFromWIFI(results,list_two);
 			  draw_barChart.test_scan_list = list_two;	
+			  
 			  draw_barChart.surfaceCreated(draw_barChart.getHolder());
 			  
-//			  if (count_list == 1)
+//			  if (count_list == 1)hjghjg
 //			  {						  
 //				  draw_barChart.test_scan_list = list_two;						  
 //			  }  
@@ -100,9 +101,8 @@ public class ActivityTwo extends Activity {
 		    
 		    //NEW VERSION
 		    draw_barChart = new ChartSurfaceView(this,list_two);
-		    setContentView(draw_barChart);
-				    
-	 }
+		    setContentView(draw_barChart);		   
+		}
 
 	 	void timerMethodSecondAct()
 		  {
@@ -110,29 +110,30 @@ public class ActivityTwo extends Activity {
 			  tasktimerChart = new TimerTask() {
 				  public void run() {
 					  Log.e("MY timerMethodSecondAct", "run code in timerChart each 15 sec count_list: " + Integer.toString(count_list));
-					  				  
-					  count_list++;
 					
-					  if (count_list == 1)
-					  {						  
-						  draw_barChart.test_scan_list = list_two;						  
-					  }  
-					  if (count_list == 2)
-					  {
-						  list_two.clear();
-						  TestScanResult.FillListSecondUpdated_1(list_two);
-						  draw_barChart.test_scan_list = list_two;						  
-					  }
-					  if (count_list == 3)
-					  {
-						  list_two.clear();
-						  TestScanResult.FillListSecondUpdated_2(list_two);
-						  draw_barChart.test_scan_list = list_two;						  
-					  }		
-				
-					  
-					draw_barChart.surfaceCreated(draw_barChart.getHolder());  
-										
+					  if (!ActivityTwo.PHONE)
+					  {						
+						  count_list++;
+						
+						  if (count_list == 1)
+						  {						  
+							  draw_barChart.test_scan_list = list_two;						  
+						  }  
+						  if (count_list == 2)
+						  {
+							  list_two.clear();
+							  TestScanResult.FillListSecondUpdated_1(list_two);
+							  draw_barChart.test_scan_list = list_two;						  
+						  }
+						  if (count_list == 3)
+						  {
+							  list_two.clear();
+							  TestScanResult.FillListSecondUpdated_2(list_two);
+							  draw_barChart.test_scan_list = list_two;						  
+						  }
+						  draw_barChart.surfaceCreated(draw_barChart.getHolder());  
+					  }				  
+															
 					 if (ActivityTwo.PHONE)
 					 {
 						 // Request for WIFI scan results

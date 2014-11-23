@@ -302,7 +302,7 @@ public class ChartEngine {
 		for (ScanItem getobject: list_ap_new)
 			list_ap_res.add(getobject);
 
-//		list_ap_new.clear();//Clear list with new data
+//		list_ap_new.clear();//Clear list with new data.......
 		list_ap_old.clear();//Clear list with old data
 		
 		for (ScanItem getobject: list_ap_res)

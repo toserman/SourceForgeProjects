@@ -68,14 +68,17 @@ public class DrawThread extends Thread {
         		/* */
        // 		if (i >= chart.NUMBER_OF_COLORS)
         			//break;
-        		if(i == 1)//Limit AP for DEBUG
-        			break;
+        		if (ActivityTwo.PHONE)
+        		{      			
+        			if(i == 2)//Limit AP for DEBUG
+        				break;
+        		} 
         		chart.testAddScanItem(test_inp_wifi_list.get(i).SSID,
         							  test_inp_wifi_list.get(i).BSSID,
         							  test_inp_wifi_list.get(i).rssi,
         							  test_inp_wifi_list.get(i).freq,
         							  i,list_ap_new);  
-
+        		
         	}        
       
     }
@@ -129,7 +132,7 @@ public class DrawThread extends Thread {
             finally {
                 if (canvas != null) {
              
-                	// Drawing finish and display on the screen
+                	// Drawing finish and display on the screenhjghj
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }
