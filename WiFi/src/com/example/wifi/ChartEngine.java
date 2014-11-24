@@ -344,35 +344,43 @@ public class ChartEngine {
 		//if((getCoordRSSILevel(ap_draw.old_rssi) + draw_limit) >  getCoordRSSILevel(ap_draw.rssi))
 		//Math.abs((evalY_px/RSSI_STEP)*coord_rssi)
 //		if((getCoordRSSILevel(-80)) > draw_limit )
-				
+		
+		Log.e("MY ChartEngine ","------------ " + " ap_draw.rssi = " + Integer.toString(ap_draw.rssi)
+								+ " ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi) +
+								 " draw_limit = " + Integer.toString(draw_limit) + " ------------------");
+		
 		/*New AP appears in list*/
 		if (ap_draw.old_rssi == 0)
-		{
-			if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
-				drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
-			else/*No need to increase current bar. Just draw last state*/
-				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
-				
+		{	
+			if(getCoordRSSILevel(ap_draw.rssi) > draw_limit) {
+				Log.e("MY ChartEngine ","New AP appears in list: new AP :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
+				drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
+			} else {/*No need to increase current bar. Just draw last state*/
+				Log.e("MY ChartEngine ","New AP appears in list: Just draw last state :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
+				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
+			}
 		} else { /*For existing AP*/				
 			if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
 			{
+				Log.e("MY ChartEngine ","For existing AP: :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				drawAPrect(canvas,ap_draw.channel,
 							getCoordRSSILevel(ap_draw.old_rssi) + 
 							((ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
-							ap_draw.ssid,ap_draw.apcolor);
+							ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
 			} else {
+				Log.e("MY ChartEngine ","For existing AP:Just draw last state :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				/*No need to increase current bar. Just draw last state*/			
-				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);				
+				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);				
 			}
 		}
 	}
-	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color) 
+	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color, int debug_rssi) 
 	{	
 		p.setColor(color);
 //		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
 
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
-	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel);		
+	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel + " " + debug_rssi);		
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
@@ -456,39 +464,39 @@ public class ChartEngine {
 		int ch = CustomScanListAdapter.convertFreqtoChannelNum(channel,CustomScanListAdapter.arr_freq);
 		switch(ch)
 		{
-			case 1://need fill
-				if(Math.abs(rssi) >= test)
-				{
-					drawAPrect(canvas,ch,test,"Antonio ",0x30F7E836);
-				} else {
-					drawAPrect(canvas,ch,Math.abs(rssi),"Antonio ",0x30F7E836);
-				}
-				break;
-			case 2:
-				drawAPrect(canvas,ch,test,"Cambium ",0x64CC0000);
-				break;
-			case 3:
-				drawAPrect(canvas,ch,test,"Mario ",0x64CCBBDD);
-				break;
-			case 4:
-				drawAPrect(canvas,ch,test,"Barcelona ",0x6464E80C);
-				break;
-			case 5:
-				drawAPrect(canvas,ch,test,"Fabregas ",0x64E80C64);
-				break;
-			case 6:
-				drawAPrect(canvas,ch,test,"Watch out!!! ",0x64E80100);
-//				drawSTArect(canvas,ch,test,"Attention!!! ",0x10FFC703);
-				break;
-			case 7:
-				drawAPrect(canvas,ch,test,"Hello ",0x6490CE80);
-				break;
-			case 11:
-				drawAPrect(canvas,ch,test,"Wireless ",0x643EB489);
-				break;			
-			case 14:
-				drawAPrect(canvas,ch,test,"Dublin ",0x64FF0C3E);
-				break;	
+//			case 1://need fill
+//				if(Math.abs(rssi) >= test)
+//				{
+//					drawAPrect(canvas,ch,test,"Antonio ",0x30F7E836);
+//				} else {
+//					drawAPrect(canvas,ch,Math.abs(rssi),"Antonio ",0x30F7E836);
+//				}
+//				break;
+//			case 2:
+//				drawAPrect(canvas,ch,test,"Cambium ",0x64CC0000);
+//				break;
+//			case 3:
+//				drawAPrect(canvas,ch,test,"Mario ",0x64CCBBDD);
+//				break;
+//			case 4:
+//				drawAPrect(canvas,ch,test,"Barcelona ",0x6464E80C);
+//				break;
+//			case 5:
+//				drawAPrect(canvas,ch,test,"Fabregas ",0x64E80C64);
+//				break;
+//			case 6:
+//				drawAPrect(canvas,ch,test,"Watch out!!! ",0x64E80100);
+////				drawSTArect(canvas,ch,test,"Attention!!! ",0x10FFC703);
+//				break;
+//			case 7:
+//				drawAPrect(canvas,ch,test,"Hello ",0x6490CE80);
+//				break;
+//			case 11:
+//				drawAPrect(canvas,ch,test,"Wireless ",0x643EB489);
+//				break;			
+//			case 14:
+//				drawAPrect(canvas,ch,test,"Dublin ",0x64FF0C3E);
+//				break;	
 		}
 	}
 	

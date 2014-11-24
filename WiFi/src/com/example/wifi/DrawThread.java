@@ -51,7 +51,7 @@ public class DrawThread extends Thread {
     	canvas = new Canvas(myBitmap);
     	chart.drawAxisXY(canvas);
         // Save current time
-        
+        temp = 0;
 //      chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
 //    	chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
 //      chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
@@ -70,7 +70,7 @@ public class DrawThread extends Thread {
         			//break;
         		if (ActivityTwo.PHONE)
         		{      			
-        			if(i == 2)//Limit AP for DEBUG
+        			if(i == 1)//Limit AP for DEBUG
         				break;
         		} 
         		chart.testAddScanItem(test_inp_wifi_list.get(i).SSID,

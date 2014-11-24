@@ -51,12 +51,15 @@ public class ActivityTwo extends Activity {
 			  results = wifiManager.getScanResults();
 			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " +
 					  Integer.toString(results.size()) );
+			  
+			  
 			  list_two.clear();
-			  draw_barChart.test_scan_list.clear();
+		//	  draw_barChart.test_scan_list.clear();
 			  TestScanResult.FillListFromWIFI(results,list_two);
 			  draw_barChart.test_scan_list = list_two;	
 			  
 			  draw_barChart.surfaceCreated(draw_barChart.getHolder());
+			 // draw_barChart.getHolder();
 			  
 //			  if (count_list == 1)hjghjg
 //			  {						  
