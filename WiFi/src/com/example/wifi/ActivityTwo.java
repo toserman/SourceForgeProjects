@@ -76,7 +76,7 @@ public class ActivityTwo extends Activity {
 			    TestScanResult.FillListFromWIFI(results,list_two);
 		    }
 		    
-		    // FOR DEBUG 
+		    // FOR AVD 
 		    if (!ActivityTwo.PHONE)
 			{		
 		    	TestScanResult.FillListOne(list_one);

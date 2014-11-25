@@ -24,36 +24,36 @@ public class TestScanResult {
 	}
 	
 	static void FillListFromWIFI(List<ScanResult> results,ArrayList<TestScanResult> inp_list) {
-//		for (int i = 0; i < results.size(); i++)			
-//		{
-//			TestScanResult ap_obj = new TestScanResult(results.get(i).SSID,
-//													   results.get(i).BSSID,
-//													   results.get(i).frequency,
-//													   results.get(i).level);
-//			inp_list.add(ap_obj);
-//		}
+		for (int i = 0; i < results.size(); i++)			
+		{
+			TestScanResult ap_obj = new TestScanResult(results.get(i).SSID,
+													   results.get(i).BSSID,
+													   results.get(i).frequency,
+													   results.get(i).level);
+			inp_list.add(ap_obj);
+		}
 //		
-		TestScanResult ap_obj0 = new TestScanResult(results.get(0).SSID,
-													   results.get(0).BSSID,
-													   results.get(0).frequency,
-													   results.get(0).level);
-		TestScanResult ap_obj1 = new TestScanResult(results.get(1).SSID,
-													   results.get(1).BSSID,
-													   results.get(1).frequency,
-													   results.get(1).level);
-		TestScanResult ap_obj2 = new TestScanResult(results.get(2).SSID,
-				   results.get(2).BSSID,
-				   results.get(2).frequency,
-				   results.get(2).level);
-		TestScanResult ap_obj3 = new TestScanResult(results.get(2).SSID,
-				   results.get(3).BSSID,
-				   results.get(3).frequency,
-				   results.get(3).level);
-
-		inp_list.add(ap_obj0);
-		//inp_list.add(ap_obj1);
-		//inp_list.add(ap_obj2);
-		//inp_list.add(ap_obj3);
+//		TestScanResult ap_obj0 = new TestScanResult(results.get(0).SSID,
+//													   results.get(0).BSSID,
+//													   results.get(0).frequency,
+//													   results.get(0).level);
+//		TestScanResult ap_obj1 = new TestScanResult(results.get(1).SSID,
+//													   results.get(1).BSSID,
+//													   results.get(1).frequency,
+//													   results.get(1).level);
+//		TestScanResult ap_obj2 = new TestScanResult(results.get(2).SSID,
+//				   results.get(2).BSSID,
+//				   results.get(2).frequency,
+//				   results.get(2).level);
+//		TestScanResult ap_obj3 = new TestScanResult(results.get(2).SSID,
+//				   results.get(3).BSSID,
+//				   results.get(3).frequency,
+//				   results.get(3).level);
+//
+//		inp_list.add(ap_obj0);
+//		inp_list.add(ap_obj1);
+//		inp_list.add(ap_obj2);
+//		inp_list.add(ap_obj3);
 		
 
 		

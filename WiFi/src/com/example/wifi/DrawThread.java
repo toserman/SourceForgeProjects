@@ -40,8 +40,12 @@ public class DrawThread extends Thread {
     Paint p;    
     Canvas canvas;
 	    	
-    public DrawThread(SurfaceHolder surfaceHolder, Resources resources,Context context, ArrayList<TestScanResult> inp_wifi_list,ChartEngine inp_chart){
-    
+    public DrawThread(SurfaceHolder surfaceHolder,
+    				   Resources resources,
+    				   Context context,
+    				   ArrayList<TestScanResult> inp_wifi_list,
+    				   ChartEngine inp_chart)
+    {    
         this.surfaceHolder = surfaceHolder;
 //    	Log.d("MY DrawThread:", "Constructor create !!!" );
     	p = new Paint();
@@ -52,27 +56,19 @@ public class DrawThread extends Thread {
     	chart.drawAxisXY(canvas);
         // Save current time
         temp = 0;
-//      chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_old);
-//    	chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_old);
-//      chart.testAddScanItem("ACTION","01:11:22:33:44:55",-80,2437,1,list_ap_old);    	
-////    testAddScanItem("MAPROAD","77:11:22:33:44:55",-95,2457,2,list_ap_old);    	
-//    	chart.testAddScanItem("MARCH","01:11:22:33:31:55",-95,2452,4,list_ap_new);
-//		chart.testAddScanItem("TEST","01:02:03:04:05:06",-70,2412,0,list_ap_new);
-//    	chart.testAddScanItem("ACTION","01:11:22:33:44:55",-70,2437,1,list_ap_new);
-//    	chart.testAddScanItem("MARADONA","01:11:22:33:41:55",-95,2472,2,list_ap_new);        	
-//
-//        	//Received new data fill ap_new list
+
+        	//Received new data fill ap_new list
         	for (int i = 0; i < test_inp_wifi_list.size(); i++)
         	{
 //        		chart.testAddScanItem(SSID, BSSID, inpRSSI, inpFreq, index_color, inp_list_ap);
         		/* */
-       // 		if (i >= chart.NUMBER_OF_COLORS)
-        			//break;
-        		if (ActivityTwo.PHONE)
-        		{      			
-        			if(i == 1)//Limit AP for DEBUG
-        				break;
-        		} 
+        		if (i >= chart.NUMBER_OF_COLORS)
+        			break;
+//        		if (ActivityTwo.PHONE)
+//        		{      			
+//        			if(i == 1)//Limit AP for DEBUG
+//        				break;
+//        		} 
         		chart.testAddScanItem(test_inp_wifi_list.get(i).SSID,
         							  test_inp_wifi_list.get(i).BSSID,
         							  test_inp_wifi_list.get(i).rssi,

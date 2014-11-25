@@ -226,9 +226,7 @@ public class ChartEngine {
 		Rect rect = new Rect();		
 		p.setTextSize(textsize);
 		int width_pix = (int)Math.round(p.measureText(displ_str));
-	
-//		Log.d("MY setName: ", displ_str + " axis_name.length() = " + Integer.toString(displ_str.length()) + 
-//							" width_pix = " + Float.toString(width_pix));
+
 		//canvas.translate(x, y);		
     	 //   canvas.rotate(rotate_angle, x + rect.exactCenterX(),y + rect.exactCenterY());
     	    //canvas.rotate(rotate_angle, x + canvas.getWidth(),canvas.getHeight() -y);
@@ -320,56 +318,27 @@ public class ChartEngine {
 	{		
 		//									   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 		//public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
-//		Log.d("MY ChartEngine ","drawAP" + " channel = " + Integer.toString(ap_draw.channel));
-//		Log.d("MY ChartEngine ","drawAP" + "draw_limit = " + Integer.toString(draw_limit));
-		
-		//OLD VERSION
-//		/*Draw AP rectangle*/
-//		if(getCoordRSSILevel(ap_draw.rssi) > draw_limit)
-//		{
-//			drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor);
-//		} else {
-//		/*No need to increase current bar. Just draw last state*/
-//			drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor);
-//		}
-		
-//		Log.d("MY ChartEngine ","drawAP " + "draw_limit = " + Integer.toString(draw_limit));
-//		Log.d("MY ChartEngine ","drawAP " + "ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi));
-//		Log.d("MY ChartEngine ","drawAP " + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
-//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.rssi)));
-//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.old_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.old_rssi)));
-//		Log.d("MY ChartEngine ","drawAP " + "getCoordRSSILevel(ap_draw.diff_rssi) = " + Integer.toString(getCoordRSSILevel(ap_draw.diff_rssi)));
-//		
-		/*Draw AP rectangle*/
-		//if((getCoordRSSILevel(ap_draw.old_rssi) + draw_limit) >  getCoordRSSILevel(ap_draw.rssi))
-		//Math.abs((evalY_px/RSSI_STEP)*coord_rssi)
-//		if((getCoordRSSILevel(-80)) > draw_limit )
-	
 		
 //		Log.e("MY ChartEngine ","------------ " + " ap_draw.rssi = " + Integer.toString(ap_draw.rssi)
 //								+ " ap_draw.old_rssi = " + Integer.toString(ap_draw.old_rssi) +
 //								 " draw_limit = " + Integer.toString(draw_limit) + " ------------------");
-//		
-		/*New AP appears in list*/
+		
+		/* New AP appears in list */
 		if (ap_draw.old_rssi == 0)
 		{	
 			if(getCoordRSSILevel(ap_draw.rssi) > draw_limit) {
-//				Log.e("MY ChartEngine ","New AP appears in list: new AP :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				drawAPrect(canvas,ap_draw.channel,draw_limit,ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
 			} else {/*No need to increase current bar. Just draw last state*/
-//				Log.e("MY ChartEngine ","New AP appears in list: Just draw last state :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
 			}
 		} else { /*For existing AP*/				
 			if (Math.abs((evalY_px/RSSI_STEP)*(ap_draw.diff_rssi)) > draw_limit)
 			{
-//				Log.e("MY ChartEngine ","For existing AP: :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				drawAPrect(canvas,ap_draw.channel,
 							getCoordRSSILevel(ap_draw.old_rssi) + 
 							((ap_draw.old_rssi > ap_draw.rssi) ? ( - draw_limit):draw_limit),
 							ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);
 			} else {
-//				Log.e("MY ChartEngine ","For existing AP:Just draw last state :drawAP " + ap_draw.ssid + "ap_draw.rssi = " + Integer.toString(ap_draw.rssi));
 				/*No need to increase current bar. Just draw last state*/			
 				drawAPrect(canvas,ap_draw.channel,getCoordRSSILevel(ap_draw.rssi),ap_draw.ssid,ap_draw.apcolor,ap_draw.rssi);				
 			}
