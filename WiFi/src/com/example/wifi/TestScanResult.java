@@ -41,16 +41,29 @@ public class TestScanResult {
 													   results.get(1).BSSID,
 													   results.get(1).frequency,
 													   results.get(1).level);
+		TestScanResult ap_obj2 = new TestScanResult(results.get(2).SSID,
+				   results.get(2).BSSID,
+				   results.get(2).frequency,
+				   results.get(2).level);
+		TestScanResult ap_obj3 = new TestScanResult(results.get(2).SSID,
+				   results.get(3).BSSID,
+				   results.get(3).frequency,
+				   results.get(3).level);
 
 		inp_list.add(ap_obj0);
-		inp_list.add(ap_obj1);
+		//inp_list.add(ap_obj1);
+		//inp_list.add(ap_obj2);
+		//inp_list.add(ap_obj3);
 		
-		Log.e("MY FillListFromWIFI ", "PRINT inp_list AFTER get from WIFI = ");
-		for (int i=0; i < inp_list.size();i++)
-    	{
-  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).SSID);
-  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).rssi);
-    	}
+
+		
+//		Log.e("MY FillListFromWIFI ", "PRINT inp_list AFTER get from WIFI = ");
+//		for (int i=0; i < inp_list.size();i++)
+//    	{
+//  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).SSID);
+//  		  Log.d("MY FillListFromWIFI ", "i = " + Integer.toString(i) + " " + inp_list.get(i).rssi);
+//
+//    	}
 		
 		
 	}

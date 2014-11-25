@@ -106,14 +106,15 @@ public class DrawThread extends Thread {
 		high_rssi = chart.findHighestRSSI(list_ap_res);
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
    
-//	    Log.e("MY TAG ", "draw_marker " + Integer.toString(draw_marker));
+   Log.e("MY TAG ", "draw_marker = " + Integer.toString(draw_marker));
+   Log.e("MY TAG ", "temp =  " + Integer.toString(temp));
         while (runFlag) {
 //	    while (DrawThread.test_flag) {
             canvas = null;
             try {
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
-                	if (temp == draw_marker)
+                	if (temp >= draw_marker)
                 	{                		
                 		setRunning(false);
                 		chart.testPrintList(list_ap_new, "list_ap_new");                		                		
@@ -126,7 +127,10 @@ public class DrawThread extends Thread {
             		
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
                     chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
-              		temp+= 2;
+              		temp+= 2; //temp = 2 
+              		 Log.e("MY TAG ", "INSIDE THREAD temp =  " + Integer.toString(temp));
+              		if (temp == draw_marker)
+                	    break;
                 }
             } 
             finally {

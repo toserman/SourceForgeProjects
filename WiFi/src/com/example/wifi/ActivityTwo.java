@@ -50,36 +50,15 @@ public class ActivityTwo extends Activity {
 					  								Toast.LENGTH_LONG).show();
 			  results = wifiManager.getScanResults();
 			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " +
-					  Integer.toString(results.size()) );
-			  
+					  Integer.toString(results.size()) );			  
 			  
 			  list_two.clear();
-		//	  draw_barChart.test_scan_list.clear();
+			  draw_barChart.test_scan_list.clear();
 			  TestScanResult.FillListFromWIFI(results,list_two);
 			  draw_barChart.test_scan_list = list_two;	
-			  
-			  draw_barChart.surfaceCreated(draw_barChart.getHolder());
-			 // draw_barChart.getHolder();
-			  
-//			  if (count_list == 1)hjghjg
-//			  {						  
-//				  draw_barChart.test_scan_list = list_two;						  
-//			  }  
-//			  if (count_list == 2)
-//			  {
-//				  list_two.clear();
-//				  TestScanResult.FillListSecondUpdated_1(list_two);
-//				  draw_barChart.test_scan_list = list_two;						  
-//			  }
-//			  if (count_list == 3)
-//			  {
-//				  list_two.clear();
-//				  TestScanResult.FillListSecondUpdated_2(list_two);
-//				  draw_barChart.test_scan_list = list_two;						  
-//			  }		
-//		
-//			  draw_barChart.surfaceCreated(draw_barChart.getHolder());  
-			 
+			  draw_barChart.destroyDrawingCache();
+			  draw_barChart.surfaceCreated(draw_barChart.getHolder());			  
+			  	 
 		  }
 	 };  
 	 protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +77,12 @@ public class ActivityTwo extends Activity {
 		    }
 		    
 		    // FOR DEBUG 
-		    TestScanResult.FillListOne(list_one);
-		    TestScanResult.FillListSecond(list_two);
-		    TestScanResult.FillListThird(list_third);
+		    if (!ActivityTwo.PHONE)
+			{		
+		    	TestScanResult.FillListOne(list_one);
+		    	TestScanResult.FillListSecond(list_two);
+		    	TestScanResult.FillListThird(list_third);
+			}
 		    
 		    //NEW VERSION
 		    draw_barChart = new ChartSurfaceView(this,list_two);
@@ -144,7 +126,7 @@ public class ActivityTwo extends Activity {
 					 }
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 10000, 15000);	 
+	  		  timerChart.schedule(tasktimerChart, 10000, 7000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		  }	
