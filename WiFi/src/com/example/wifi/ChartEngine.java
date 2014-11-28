@@ -252,9 +252,7 @@ public class ChartEngine {
 	}
 		
 	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new)
-	{
-//		Log.e("MY ChartEngine",  "startDraw ");
-  	
+	{	
 		for (ScanItem list_test : list_ap_new) {
   		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
   		  drawAP(canvas,list_test, test);
@@ -263,8 +261,11 @@ public class ChartEngine {
 
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
-		Log.d("MY ChartEngine ", "compareListData: ");
-
+//		Log.d("MY ChartEngine ", "compareListData: ");
+		Log.e("MY ChartEngine ", "compareListData: list_ap_old.size() = " + Integer.toString(list_ap_old.size()) + 
+				" list_ap_new.size() = " + Integer.toString(list_ap_new.size()) +
+				" list_ap_res.size() = " + Integer.toString(list_ap_res.size()) );
+		
 		/* Find existing objects,what present on the display */
 		for(int i = 0; i < list_ap_old.size(); i++ )
 		{			
@@ -272,7 +273,7 @@ public class ChartEngine {
 			{
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
-					Log.e("MY ChartEngine ", "compareListData: OBJECT WAS FOUND !");
+//					Log.e("MY ChartEngine ", "compareListData: OBJECT WAS FOUND !");
 					list_ap_res.add(i,list_ap_new.get(k));
 					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
 					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
@@ -283,7 +284,7 @@ public class ChartEngine {
 					
 					if (list_ap_res.get(i).diff_rssi != 0)
 					{
-						Log.e("MY ChartEngine ", "compareListData: list_ap_res.get(i).diff_rssi = " 
+						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " list_ap_res.get(i).diff_rssi = " 
 								+ Integer.toString(list_ap_res.get(i).diff_rssi)+ " " + list_ap_res.get(i).getSSID());
 					}
 					
@@ -291,10 +292,10 @@ public class ChartEngine {
 			}
 		}
 
-		Log.e("MY ChartEngine ", "compareListData: AFTER FIRST SEARCH");
-		testPrintList(list_ap_new, "list_ap_new");
-		testPrintList(list_ap_old, "list_ap_old");
-		testPrintList(list_ap_res, "list_ap_res");
+		//Log.e("MY ChartEngine ", "compareListData: AFTER FIRST SEARCH");
+		//testPrintList(list_ap_new, "list_ap_new");
+		//testPrintList(list_ap_old, "list_ap_old");
+		//testPrintList(list_ap_res, "list_ap_res");
 		
 		/* For objects what still exist in received data and wasn't display before*/				
 		for (ScanItem getobject: list_ap_new)
@@ -305,13 +306,11 @@ public class ChartEngine {
 		
 		for (ScanItem getobject: list_ap_res)
 			list_ap_old.add(getobject);
-		
-		//Collections.copy(list_ap_old,list_ap_res);//Copy current list to old for next act
 		 
-		Log.e("MY ChartEngine ", "compareListData: AFTER SECOND SEARCH");		 
-		testPrintList(list_ap_new, "list_ap_new");
-		testPrintList(list_ap_old, "list_ap_old");
-		testPrintList(list_ap_res, "list_ap_res");
+//		Log.e("MY ChartEngine ", "compareListData: AFTER SECOND SEARCH");		 
+//		testPrintList(list_ap_new, "list_ap_new");
+//		testPrintList(list_ap_old, "list_ap_old");
+//		testPrintList(list_ap_res, "list_ap_res");
 	}
 	
 	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
@@ -372,12 +371,11 @@ public class ChartEngine {
     			tmp_rssi = list_ap.get(i).rssi;
     			high_rssi = tmp_rssi;
     		}
-    	}
-		
-    	Log.d("MY findHighestRSSI ", "high_rssi =  " + high_rssi);
-    	    	
+    	}		
+//    	Log.d("MY findHighestRSSI ", "high_rssi =  " + high_rssi);    	    	
 		return high_rssi;
 	}
+	
 	private void fillColors(APcolors [] ap_colors, int [] arr_colors)
 	{
 		for (int i = 0; i < NUMBER_OF_COLORS;i++)

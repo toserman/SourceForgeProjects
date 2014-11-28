@@ -40,7 +40,7 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
-	 public static final boolean PHONE = true; //true = PHONE , false = AVD
+	 public static final boolean PHONE = false; //true = PHONE , false = AVD
 	 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
@@ -48,14 +48,12 @@ public class ActivityTwo extends Activity {
 						  
 			  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!",
 					  								Toast.LENGTH_LONG).show();
+			  results.clear();
 			  results = wifiManager.getScanResults();
 			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " +
 					  Integer.toString(results.size()) );			  
-			  
-			  list_two.clear();
-			  draw_barChart.test_scan_list.clear();
-			  TestScanResult.FillListFromWIFI(results,list_two);
-			  draw_barChart.test_scan_list = list_two;	
+
+			  draw_barChart.wifi_results = results;
 			  draw_barChart.destroyDrawingCache();
 			  draw_barChart.surfaceCreated(draw_barChart.getHolder());			  
 			  	 
@@ -63,8 +61,7 @@ public class ActivityTwo extends Activity {
 	 };  
 	 protected void onCreate(Bundle savedInstanceState) {
 		    super.onCreate(savedInstanceState);
-		    Log.d("MY ActivityTwo ", "onCreate()" );
-		    
+		    Log.d("MY ActivityTwo ", "onCreate()" );		    
 		    // FOR PHONE
 		    if (ActivityTwo.PHONE)
 		    {
@@ -73,19 +70,20 @@ public class ActivityTwo extends Activity {
 			    /* Register Receiver */		    	     
 			    this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);	
 			    results = wifiManager.getScanResults();//Get result for first run	
-			    TestScanResult.FillListFromWIFI(results,list_two);
-		    }
-		    
+			    //TestScanResult.FillListFromWIFI(results,list_two);
+			    draw_barChart = new ChartSurfaceView(this,results); //FOR PHONE
+		    }		    
 		    // FOR AVD 
 		    if (!ActivityTwo.PHONE)
 			{		
 		    	TestScanResult.FillListOne(list_one);
 		    	TestScanResult.FillListSecond(list_two);
 		    	TestScanResult.FillListThird(list_third);
-			}
+		    	draw_barChart = new ChartSurfaceView(this,list_two); // FOR AVD
+
+			}		    
+		    	
 		    
-		    //NEW VERSION
-		    draw_barChart = new ChartSurfaceView(this,list_two);
 		    setContentView(draw_barChart);		   
 		}
 
@@ -116,6 +114,17 @@ public class ActivityTwo extends Activity {
 							  TestScanResult.FillListSecondUpdated_2(list_two);
 							  draw_barChart.test_scan_list = list_two;						  
 						  }
+						  if (count_list == 4)
+						  {
+							  list_two.clear();
+							  TestScanResult.FillListThird(list_two);
+							  draw_barChart.test_scan_list = list_two;
+							  
+							  count_list = 0;
+						  }
+						  
+						  
+						  
 						  draw_barChart.surfaceCreated(draw_barChart.getHolder());  
 					  }				  
 															

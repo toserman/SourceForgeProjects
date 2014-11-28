@@ -21,17 +21,19 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	
 	 public ChartSurfaceView(Context context,ArrayList<TestScanResult> wifi_scan_list) {
 	        super(context);
-	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR" );
+	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR AVD" );
 	        test_scan_list = wifi_scan_list;
 	        inp_chart = new ChartEngine(context);
 	        getHolder().addCallback(this);
 	    }
 	 public ChartSurfaceView(Context context,List<ScanResult> results) {
 	        super(context);
-	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR WIFI" );
+	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR WIFI 1" );
 	        wifi_results = results;//Get received results
+	        Log.d("MY ChartSurfaceView:", "CONSTRUCTOR WIFI 2" );
 	        inp_chart = new ChartEngine(context);
-//	        MoveFromWifiToList(wifi_results,list_ready); // FOR PHONE
+	      //  MoveFromWifiToList(wifi_results,list_ready); // FOR PHONE
+	        //TestScanResult.FillListFromWIFI(results,test_scan_list);
 	        getHolder().addCallback(this);
 	    }
 	    @Override
@@ -44,7 +46,11 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	    public void surfaceCreated(SurfaceHolder holder) {
 	    	Log.d("MY ChartSurfaceView:", "surfaceCreated() create and run Draw stream" );
 //	    	drawThread = new DrawThread(getHolder(), getResources(),getContext(),test_scan_list,inp_chart);	    	
-	    	drawThread = new DrawThread(getHolder(), getResources(),getContext(),test_scan_list,inp_chart); // FOR PHONE
+	    	//drawThread = new DrawThread(getHolder(),getResources(),getContext(),test_scan_list,inp_chart); // FOR AVD
+	    	 if (ActivityTwo.PHONE)
+	    		 drawThread = new DrawThread(getHolder(),getResources(),getContext(),wifi_results,inp_chart); // FOR PHONE
+	    	 else
+	    		drawThread = new DrawThread(getHolder(),getResources(),getContext(),test_scan_list,inp_chart); // FOR AVD
 	    	
 	    	drawThread.setRunning(true);
 	        drawThread.start();	        
