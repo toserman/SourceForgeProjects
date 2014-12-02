@@ -40,13 +40,13 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
-	 public static final boolean PHONE = false; //true = PHONE , false = AVD
+	 public static final boolean PHONE = true; //true = PHONE , false = AVD
 	 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 						  
-			  Toast.makeText(getApplicationContext(), "MY ActivityTwo WifiScanResultReceiver !!!",
+			  Toast.makeText(getApplicationContext(), "MY ActivityTwo WIFI results.size = " + Integer.toString(results.size()),
 					  								Toast.LENGTH_LONG).show();
 			  results.clear();
 			  results = wifiManager.getScanResults();

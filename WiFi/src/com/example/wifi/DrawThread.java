@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 public class DrawThread extends Thread {
 	private boolean runFlag = false;
@@ -143,6 +144,7 @@ public class DrawThread extends Thread {
     					//  		   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     	
+
 //    	chart.testPrintList(list_ap_new,"list_ap_new");
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
 //    	chart.testPrintList(list_ap_old,"list_ap_old");

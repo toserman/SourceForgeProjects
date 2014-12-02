@@ -273,7 +273,7 @@ public class ChartEngine {
 			{
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
-//					Log.e("MY ChartEngine ", "compareListData: OBJECT WAS FOUND !");
+					Log.e("MY ChartEngine ", "compareListData: add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
 					list_ap_res.add(i,list_ap_new.get(k));
 					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
 					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
