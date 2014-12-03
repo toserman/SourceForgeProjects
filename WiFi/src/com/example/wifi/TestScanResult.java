@@ -84,24 +84,26 @@ public class TestScanResult {
 		
 	}
 	
-	static void FillListSecond(ArrayList<TestScanResult> list_second) {
-		TestScanResult ap1 = new TestScanResult("ANTON","01:11:22:33:31:55",2452,-70);
-		TestScanResult ap2 = new TestScanResult("LAND","01:11:22:33:45:55",2462,-85);
-		//TestScanResult ap3 = new TestScanResult("SWIFT","01:11:22:33:24:50",2427,-80);
+	static void FillListSecond(ArrayList<TestScanResult> list_second) {		
+		TestScanResult ap1 = new TestScanResult("AND","91:11:22:33:45:55",2462,-85);
+//		TestScanResult ap2 = new TestScanResult("MOTHERLAND","01:11:22:33:41:55",2412,-79); SECOND BUG CASE
+		TestScanResult ap3 = new TestScanResult("SWIFT","01:11:22:33:24:50",2427,-80);
 		TestScanResult ap4 = new TestScanResult("SPAIN","01:11:22:33:12:55",2472,-87);
 		TestScanResult ap5 = new TestScanResult("FUNNY","01:11:22:33:12:51",2422,-92);
 		TestScanResult ap6 = new TestScanResult("BUGS","01:11:22:33:44:59",2447,-72);
 		TestScanResult ap7 = new TestScanResult("HELLLLLLO","01:11:28:33:44:51",2422,-67);
 		TestScanResult ap8 = new TestScanResult("PEACE","01:11:29:33:44:51",2422,-57);
+		TestScanResult ap9 = new TestScanResult("ANTON","01:11:22:33:31:55",2452,-70);
 		
 		list_second.add(ap1);
-		list_second.add(ap2);
-//		list_second.add(ap3);
+//		list_second.add(ap2);
+		list_second.add(ap3);
 		list_second.add(ap4);
 		list_second.add(ap5);
 		list_second.add(ap6);
 		list_second.add(ap7);
 		list_second.add(ap8);
+		list_second.add(ap9);
 		
 	}
 	
@@ -120,11 +122,11 @@ public class TestScanResult {
 		list_second.add(ap6);
 		
 		/*For CHECK COLOR SUPPORT BUGGGGGGGGGGGGGGGGGGG !!!!*/
-		for (int g = 0 ; g < 14; g++)
-		{
-			TestScanResult ap = new TestScanResult("COLOR","01:11:22:33:44:59",2447,-90);
-			list_second.add(ap);
-		}
+//		for (int g = 0 ; g < 14; g++)
+//		{
+//			TestScanResult ap = new TestScanResult("COLOR","01:11:22:33:44:59",2447,-90);
+//			list_second.add(ap);
+//		}
 			
 			
 		

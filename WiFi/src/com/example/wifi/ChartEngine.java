@@ -261,35 +261,84 @@ public class ChartEngine {
 
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
+		
 //		Log.d("MY ChartEngine ", "compareListData: ");
 		Log.e("MY ChartEngine ", "compareListData: list_ap_old.size() = " + Integer.toString(list_ap_old.size()) + 
 				" list_ap_new.size() = " + Integer.toString(list_ap_new.size()) +
 				" list_ap_res.size() = " + Integer.toString(list_ap_res.size()) );
-		
+		testPrintList(list_ap_old, "--- list_ap_old --");
+		testPrintList(list_ap_new, "--- list_ap_new --");
 		/* Find existing objects,what present on the display */
+		
+		//list_ap_res.add(1,list_ap_new.get(3));
 		for(int i = 0; i < list_ap_old.size(); i++ )
-		{			
+		{		
 			for (int k = 0; k < list_ap_new.size(); k++)
 			{
+				Log.e("MY ChartEngine ", "compareListData: BEFORE equal add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
+					ScanItem obj;
+			
 					Log.e("MY ChartEngine ", "compareListData: add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
-					list_ap_res.add(i,list_ap_new.get(k));
-					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
-					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
-					list_ap_res.get(i).old_rssi = list_ap_old.get(i).rssi ;
-					list_ap_res.get(i).rssi = list_ap_new.get(k).rssi ;
-					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;					
+					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_old.size()  " + Integer.toString(list_ap_old.size()));
+					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_new.size  " + Integer.toString(list_ap_new.size()));					
+					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_res.size()  " + Integer.toString(list_ap_res.size()));
+					
+					obj = list_ap_new.get(k);
+					obj.setBSSID(list_ap_new.get(k).getBSSID());
+					obj.apcolor = list_ap_old.get(i).getAPcolor();
+					obj.old_rssi = list_ap_old.get(i).rssi ;
+					obj.rssi = list_ap_new.get(k).rssi ;
+					obj.diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
+					list_ap_res.add(obj);
+					testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");
 					list_ap_new.remove(k);//Remove from list_ap_new after copy
 					
-					if (list_ap_res.get(i).diff_rssi != 0)
+					if (obj.diff_rssi != 0)
 					{
-						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " list_ap_res.get(i).diff_rssi = " 
-								+ Integer.toString(list_ap_res.get(i).diff_rssi)+ " " + list_ap_res.get(i).getSSID());
+						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " obj.diff_rssi = " 
+								+ Integer.toString(obj.diff_rssi)+ " " + obj.getSSID());
 					}
 					
-				}
-			}
+				} //END OF EQUAL()
+				
+//				/* OLD VERSION */
+//				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
+//				{
+//					Log.e("MY ChartEngine ", "compareListData: add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
+//					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_old.size()  " + Integer.toString(list_ap_old.size()));
+//					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_new.size  " + Integer.toString(list_ap_new.size()));					
+//					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_res.size()  " + Integer.toString(list_ap_res.size()));
+//					testPrintList(list_ap_new, "---BEFORE get value list_ap_new --");
+//					if(list_ap_res.size() != 0)
+//					{
+//						list_ap_res.add(i,list_ap_new.get(k));
+//					} else {
+//						list_ap_res.add(list_ap_new.get(k));
+//						Log.e("MY ChartEngine ", "compareListData: FIRST ELEMENT add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
+//						testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");
+//					}
+//					
+//					list_ap_res.get(i).setBSSID(list_ap_new.get(k).getBSSID());
+//					list_ap_res.get(i).apcolor = list_ap_old.get(i).getAPcolor();
+//					list_ap_res.get(i).old_rssi = list_ap_old.get(i).rssi ;
+//					list_ap_res.get(i).rssi = list_ap_new.get(k).rssi ;
+//					list_ap_res.get(i).diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;					
+//					list_ap_new.remove(k);//Remove from list_ap_new after copy
+//					Log.e("MY ChartEngine ", "compareListData: AFTER REMOVE list_ap_new.size  " + Integer.toString(list_ap_new.size()));
+//					testPrintList(list_ap_new, "--- AFTER REMOVE list_ap_new --");
+//					
+//					if (list_ap_res.get(i).diff_rssi != 0)
+//					{
+//						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " list_ap_res.get(i).diff_rssi = " 
+//								+ Integer.toString(list_ap_res.get(i).diff_rssi)+ " " + list_ap_res.get(i).getSSID());
+//					}
+//					
+//				} // end of equal()
+				
+			}			
+			
 		}
 
 		//Log.e("MY ChartEngine ", "compareListData: AFTER FIRST SEARCH");
