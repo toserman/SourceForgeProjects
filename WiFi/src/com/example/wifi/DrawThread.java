@@ -59,7 +59,7 @@ public class DrawThread extends Thread {
 		myBitmap =  Bitmap.createBitmap(ChartEngine.width,ChartEngine.height,Bitmap.Config.ARGB_8888);    	
 		canvas = new Canvas(myBitmap);
 		chart.drawAxisXY(canvas);
-		// Save current time
+	
 		temp = 0;
 		
 //		Log.d("MY DrawThread:", "PHONE Constructor create  2 !!!" );
@@ -75,19 +75,39 @@ public class DrawThread extends Thread {
 		//			if(i == 1)//Limit AP for DEBUG
 		//				break;
 		//		} 
-//				Log.d("MY DrawThread:", "PHONE Constructor create  3 !!!" );
+
+				//DEBUG SECTION
+//				//SSID = GL-Visitors BSSID = 18:64:72:ac:d9:a1
+////				 SSID = GL-KBP-VLAN BSSID = 6c:f3:7f:15:a7:c0
+////				SSID = GL-Corp BSSID = 6c:f3:7f:15:a7:c3
+//				if (wifi_list_draw.get(i).BSSID.contains("18:64:72:ac:d9:a2") ||
+//						(wifi_list_draw.get(i).BSSID.contains("18:64:72:ac:d9:a1")))
+//				{
+//					Log.e("MY DrawThread ", "DrawThread: REMOVE FROM position = " + Integer.toString(i)
+//								+ " BSSID : " + wifi_list_draw.get(i).BSSID);
+//					//COPY last DATA to AP_NEW
+//					chart.testAddScanItem(wifi_list_draw.get(i).SSID,
+//							wifi_list_draw.get(i).BSSID,
+//							wifi_list_draw.get(i).level,
+//							wifi_list_draw.get(i).frequency,
+//										  i,list_ap_new);
+//				} else {
+////					Log.e("MY DrawThread ", "DrawThread: REMOVE FROM wifi_list_draw wifi_list_draw.get(i).BSSID = "
+////										+ wifi_list_draw.get(i).BSSID);
+//					wifi_list_draw.remove(i);
+//				}
+////				 chart.testPrintList(list_ap_new, "UPDATE DEBUG list_ap_new");
 				
-				//COPY last DATA to AP_NEW
+				/* WORK CODE */
 				chart.testAddScanItem(wifi_list_draw.get(i).SSID,
 						wifi_list_draw.get(i).BSSID,
 						wifi_list_draw.get(i).level,
 						wifi_list_draw.get(i).frequency,
 									  i,list_ap_new);
 				
-//				Log.d("MY DrawThread:", "PHONEConstructor create  4 !!!" );
-//				
-			}        
-
+			}  
+			
+			
 }
     
   public DrawThread(SurfaceHolder surfaceHolder,
@@ -153,8 +173,16 @@ public class DrawThread extends Thread {
 		high_rssi = chart.findHighestRSSI(list_ap_res);
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
    
-//   Log.e("MY TAG ", "draw_marker = " + Integer.toString(draw_marker));
-//   Log.e("MY TAG ", "temp =  " + Integer.toString(temp));
+   Log.e("MY TAG ", "draw_marker = " + Integer.toString(draw_marker) + " high_rssi = " + Integer.toString(high_rssi));
+   Log.e("MY TAG ", "temp =  " + Integer.toString(temp));
+	try {
+		  if(temp != 0)
+		  	throw new Exception();
+		} 
+		  catch (Exception e) {
+		  Log.e("ERROR", " EXCEPTION temp NOT ZERO " + e.toString());
+		  //e.printStackTrace();
+		}
         while (runFlag) {
             canvas = null;
             try {
@@ -166,16 +194,30 @@ public class DrawThread extends Thread {
                 		//chart.testPrintList(list_ap_new, "list_ap_new"); //FOR DEBUG                		                		
                 		Collections.copy(list_ap_old, list_ap_new);
                 		list_ap_new.clear();
-                		//chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old"); 
-                		
+                		//chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old");       
+                		// Exception
+                  		try {
+                  			  if(temp >= draw_marker);
+                  			  	throw new Exception();
+                  			} 
+                  			  catch (Exception e) {
+                  			  Log.e("ERROR", "EXCEPTION temp >= draw_marker STOP DRAW " + e.toString());
+//                  			  chart.testPrintList(list_ap_res, "AFTER STOP DRAW list_ap_res");
+                  			  //e.printStackTrace();
+                  			}
                 	}
             		// TO DO : NO NEED TO REDRAW SCREEN WHEN NOTHING CHANGED temp value incremented !!!!
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
                     chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
-              		temp+= 2; //temp = 2 
+              		temp+= 3; //temp = 2 
 //              		 Log.e("MY TAG ", "INSIDE THREAD temp =  " + Integer.toString(temp));
-              		if (temp == draw_marker)
-                	    break;
+              	
+//              		if (temp == draw_marker)
+//              		{
+//              			Log.e("MY TAG ", "temp == draw_marker BREAK");
+//                	    break;
+//              		}
+              	
                 }
             } 
             finally {

@@ -50,8 +50,7 @@ public class ActivityTwo extends Activity {
 					  								Toast.LENGTH_LONG).show();
 			  results.clear();
 			  results = wifiManager.getScanResults();
-			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " +
-					  Integer.toString(results.size()) );			  
+//			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " + Integer.toString(results.size()) );			  
 
 			  draw_barChart.wifi_results = results;
 			  draw_barChart.destroyDrawingCache();
@@ -135,7 +134,7 @@ public class ActivityTwo extends Activity {
 					 }
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 10000, 7000);	 
+	  		  timerChart.schedule(tasktimerChart, 10000, 10000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		  }	

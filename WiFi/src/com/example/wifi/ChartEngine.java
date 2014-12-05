@@ -1,28 +1,15 @@
 package com.example.wifi;
 
-
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 public class ChartEngine {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
@@ -40,27 +27,39 @@ public class ChartEngine {
 	final int USE = 1;
 	final int NOT_USE = 0;
 	final int [] arr_const_color = new int[]{
-			0x6409e9a3 /*green*/,
+			0x6409e9a3 /*green*/, // 0
 			0x64FF00CC /*raspberry*/,
 			0x64CC0000 /*red*/,
-			0x64FFFF00 /*yellow*/,
-			0x645638d7 /**/,	
-			0x647879fd /*purple*/,
-			0x6486c683 /**/,
-			0x6400FFFF /*cyan*/,
+			0x64FFD700 /* gold */,		
+			0x643C3C7E /*black purple*/,
+			0x644B0082 /* indigo */,
+			0x6400FFFF /*aqua*/,
+			0x64696969 /* dim gray */,
 			0x64da6e17 /*orange*/,
-			0x64d71b06 /**/,
+			0x64db311e /*pink*/,
 			0x6464E80C /*green*/,
-			0x6423e6e0 /**/,
+			0x64238be6 /*blue*/,
 			0x64CCBBDD /*grey*/,
-			0x641ad233 /*green*/,
-			0x64e5cb47 /*yellow*/,		
+			0x64e5cb47 /*yellow*/,			
 			0x64b741cc /*purple*/,
-			0x643e8c2a /*green*/,
+			0x64FF00FF /* magenta */,
 			0x64ed1b79 /*raspberry*/,
-			0x6490CE80 /*green*/,			
-			0x648af0c7 /*light green*/,
-
+			0x64DAA520 /*goldenRod*/,		
+			0x64008000 /*green*/,
+			0x64006666 /*cyan black*/,//19
+			
+			0x64AA9BEB /*purple*/,
+			0x64688266 /*green black*/,
+			0x64808000 /* olive */,		
+			0x64FF8509 /* orange lighter */,
+			0x64E0FFFF /* cyan light */,
+			0x64F2AAA2 /* pink light */,
+			0x64FFFF00 /* yellow */,
+			0x64008B8B /* darkCyan */,
+			0x64800000 /* red (maroon)*/,			
+			0x643E8C2A /*green*/, //29			
+			
+			//http://www.w3schools.com/html/html_colornames.asp
 	};
 	
 	int evalX_px = 0; //Size of segment X axis in pixels
@@ -107,12 +106,8 @@ public class ChartEngine {
 			ch_coord[i] = new ChannelCoord();
 			rect_ch_coord[i] = new RectSTACoord();
 		}
-		//Set AP colors
+		/* Set default AP colors */
 		fillColors(arr_ap_colors, arr_const_color);
-		
-//		myBitmap = Bitmap.createBitmap( (int)canvas.getWidth(), (int)canvas.getHeight(), Config.RGB_565);
-//		canvas = new Canvas(myBitmap);
-//		canvas.drawBitmap(myBitmap, 0, 0, p);
 		
 	}
 	
@@ -262,44 +257,30 @@ public class ChartEngine {
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
 		
-//		Log.d("MY ChartEngine ", "compareListData: ");
-		Log.e("MY ChartEngine ", "compareListData: list_ap_old.size() = " + Integer.toString(list_ap_old.size()) + 
-				" list_ap_new.size() = " + Integer.toString(list_ap_new.size()) +
-				" list_ap_res.size() = " + Integer.toString(list_ap_res.size()) );
-		testPrintList(list_ap_old, "--- list_ap_old --");
-		testPrintList(list_ap_new, "--- list_ap_new --");
-		/* Find existing objects,what present on the display */
-		
-		//list_ap_res.add(1,list_ap_new.get(3));
+		/* Find existing objects,what present on the display */		
 		for(int i = 0; i < list_ap_old.size(); i++ )
 		{		
 			for (int k = 0; k < list_ap_new.size(); k++)
-			{
-				Log.e("MY ChartEngine ", "compareListData: BEFORE equal add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
+			{					
 				if (list_ap_old.get(i).getBSSID().equals(list_ap_new.get(k).getBSSID()))
 				{
-					ScanItem obj;
-			
-					Log.e("MY ChartEngine ", "compareListData: add i = " + Integer.toString(i) + " get k = " + Integer.toString(k));
-					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_old.size()  " + Integer.toString(list_ap_old.size()));
-					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_new.size  " + Integer.toString(list_ap_new.size()));					
-					Log.e("MY ChartEngine ", "compareListData: BEFORE get value list_ap_res.size()  " + Integer.toString(list_ap_res.size()));
-					
-					obj = list_ap_new.get(k);
-					obj.setBSSID(list_ap_new.get(k).getBSSID());
-					obj.apcolor = list_ap_old.get(i).getAPcolor();
-					obj.old_rssi = list_ap_old.get(i).rssi ;
-					obj.rssi = list_ap_new.get(k).rssi ;
-					obj.diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
-					list_ap_res.add(obj);
-					testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");
+					ScanItem res_obj;
+				
+					res_obj = list_ap_new.get(k);
+					res_obj.setBSSID(list_ap_new.get(k).getBSSID());
+					res_obj.apcolor = list_ap_old.get(i).getAPcolor();
+					res_obj.old_rssi = list_ap_old.get(i).rssi ;
+					res_obj.rssi = list_ap_new.get(k).rssi ;
+					res_obj.diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
+					list_ap_res.add(res_obj);					
 					list_ap_new.remove(k);//Remove from list_ap_new after copy
+//					testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");
 					
-					if (obj.diff_rssi != 0)
-					{
-						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " obj.diff_rssi = " 
-								+ Integer.toString(obj.diff_rssi)+ " " + obj.getSSID());
-					}
+//					if (res_obj.diff_rssi != 0)
+//					{
+//						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " obj.diff_rssi = " 
+//								+ Integer.toString(res_obj.diff_rssi)+ " " + res_obj.getSSID());
+//					}
 					
 				} //END OF EQUAL()
 				
@@ -341,25 +322,20 @@ public class ChartEngine {
 			
 		}
 
-		//Log.e("MY ChartEngine ", "compareListData: AFTER FIRST SEARCH");
-		//testPrintList(list_ap_new, "list_ap_new");
-		//testPrintList(list_ap_old, "list_ap_old");
-		//testPrintList(list_ap_res, "list_ap_res");
 		
-		/* For objects what still exist in received data and wasn't display before*/				
+		/* For objects what still exist in received data and were not displayed before*/				
 		for (ScanItem getobject: list_ap_new)
+		{
+			Log.e("MY ChartEngine ", "compareListData: NEW SSID = "	+ getobject.getSSID()
+					+ " BSSID:" + getobject.getBSSID());
 			list_ap_res.add(getobject);
+		}
 
-//		list_ap_new.clear();//Clear list with new data.......
 		list_ap_old.clear();//Clear list with old data
 		
 		for (ScanItem getobject: list_ap_res)
 			list_ap_old.add(getobject);
 		 
-//		Log.e("MY ChartEngine ", "compareListData: AFTER SECOND SEARCH");		 
-//		testPrintList(list_ap_new, "list_ap_new");
-//		testPrintList(list_ap_old, "list_ap_old");
-//		testPrintList(list_ap_res, "list_ap_res");
 	}
 	
 	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
