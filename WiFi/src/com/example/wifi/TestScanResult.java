@@ -126,9 +126,7 @@ public class TestScanResult {
 //		{
 //			TestScanResult ap = new TestScanResult("COLOR","01:11:22:33:44:59",2447,-90);
 //			list_second.add(ap);
-//		}
-			
-			
+//		}	
 		
 	}
 	
@@ -161,6 +159,36 @@ public class TestScanResult {
 		list_third.add(ap4);
 		list_third.add(ap5);
 		list_third.add(ap6);
+	}
+	
+	
+	static void FillList_On1ch(ArrayList<TestScanResult> list_second) {		
+		TestScanResult ap1 = new TestScanResult("MNSPD","91:11:22:33:45:55",2462,-65);
+		TestScanResult ap2 = new TestScanResult("GL","01:11:22:33:41:55",2462,-59);
+		TestScanResult ap3 = new TestScanResult("MUSIC","01:11:22:33:24:50",2462,-68);
+//		TestScanResult ap4 = new TestScanResult("BOOM","01:11:22:33:12:55",2462,-60);
+//		TestScanResult ap5 = new TestScanResult("FUNNY","01:11:22:33:12:51",2462,-72);
+		
+		list_second.add(ap1);
+		list_second.add(ap2);
+		list_second.add(ap3);
+//		list_second.add(ap4);
+//		list_second.add(ap5);
+	}
+	
+	static void FillListSecondUpdated_On1ch(ArrayList<TestScanResult> list_second) {
+		TestScanResult ap1 = new TestScanResult("MNSPD","91:11:22:33:45:55",2462,-85);
+		TestScanResult ap2 = new TestScanResult("GL","01:11:22:33:41:55",2462,-59);
+		TestScanResult ap3 = new TestScanResult("MUSIC","01:11:22:33:24:50",2462,-78);
+//		TestScanResult ap4 = new TestScanResult("BOOM","01:11:22:33:12:55",2462,-88);
+//		TestScanResult ap5 = new TestScanResult("FUNNY","01:11:22:33:12:51",2462,-90);
+
+		list_second.add(ap1);
+		list_second.add(ap2);
+		list_second.add(ap3);
+//		list_second.add(ap4);
+//		list_second.add(ap5);		
+		
 	}
 	
 }

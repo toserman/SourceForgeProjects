@@ -27,7 +27,7 @@ public class DrawThread extends Thread {
     private Bitmap myBitmap;
     ChartEngine chart;
     
-    int temp;
+    int draw_curstep;
     int draw_marker;
     int high_rssi;
 	
@@ -60,7 +60,7 @@ public class DrawThread extends Thread {
 		canvas = new Canvas(myBitmap);
 		chart.drawAxisXY(canvas);
 	
-		temp = 0;
+		draw_curstep = 0;
 		
 //		Log.d("MY DrawThread:", "PHONE Constructor create  2 !!!" );
 			//Received new data fill ap_new list
@@ -125,7 +125,7 @@ public class DrawThread extends Thread {
     	canvas = new Canvas(myBitmap);
     	chart.drawAxisXY(canvas);
         // Save current time
-        temp = 0;
+    	draw_curstep = 0;
 
         	//Received new data fill ap_new list
         	for (int i = 0; i < test_inp_wifi_list.size(); i++)
@@ -163,9 +163,8 @@ public class DrawThread extends Thread {
 //    	Log.d("MY DrawThread:", "run() draw picture !!!");    	
     					//  		   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
-    	
-
-//    	chart.testPrintList(list_ap_new,"list_ap_new");
+  	
+   	
     	chart.compareListData(list_ap_old, list_ap_new,list_ap_res);
 //    	chart.testPrintList(list_ap_old,"list_ap_old");
 
@@ -174,9 +173,9 @@ public class DrawThread extends Thread {
 	    draw_marker = chart.getCoordRSSILevel(high_rssi);
    
    Log.e("MY TAG ", "draw_marker = " + Integer.toString(draw_marker) + " high_rssi = " + Integer.toString(high_rssi));
-   Log.e("MY TAG ", "temp =  " + Integer.toString(temp));
+   Log.e("MY TAG ", "draw_curstep =  " + Integer.toString(draw_curstep));
 	try {
-		  if(temp != 0)
+		  if(draw_curstep != 0)
 		  	throw new Exception();
 		} 
 		  catch (Exception e) {
@@ -188,7 +187,7 @@ public class DrawThread extends Thread {
             try {
                 canvas = surfaceHolder.lockCanvas(null);
                 synchronized(surfaceHolder) {
-                	if (temp >= draw_marker)
+                	if (draw_curstep >= draw_marker)
                 	{                		
                 		setRunning(false);
                 		//chart.testPrintList(list_ap_new, "list_ap_new"); //FOR DEBUG                		                		
@@ -197,19 +196,20 @@ public class DrawThread extends Thread {
                 		//chart.testPrintList(list_ap_old, "AFTER COPY list_ap_old");       
                 		// Exception
                   		try {
-                  			  if(temp >= draw_marker);
+                  			  if(draw_curstep >= draw_marker);
                   			  	throw new Exception();
                   			} 
                   			  catch (Exception e) {
                   			  Log.e("ERROR", "EXCEPTION temp >= draw_marker STOP DRAW " + e.toString());
-//                  			  chart.testPrintList(list_ap_res, "AFTER STOP DRAW list_ap_res");
-                  			  //e.printStackTrace();
+                  			  		//  chart.testPrintList(list_ap_res, "AFTER STOP DRAW list_ap_res");
+                  			  		//  e.printStackTrace();
                   			}
                 	}
             		// TO DO : NO NEED TO REDRAW SCREEN WHEN NOTHING CHANGED temp value incremented !!!!
                     canvas.drawBitmap(myBitmap, 0, 0,null );                    
-                    chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
-              		temp+= 3; //temp = 2 
+//                    chart.startDraw(canvas,temp,list_ap_old,list_ap_res);
+                    chart.startDraw(canvas,draw_curstep,list_ap_res);
+                    draw_curstep+= 3; //temp = 2 
 //              		 Log.e("MY TAG ", "INSIDE THREAD temp =  " + Integer.toString(temp));
               	
 //              		if (temp == draw_marker)

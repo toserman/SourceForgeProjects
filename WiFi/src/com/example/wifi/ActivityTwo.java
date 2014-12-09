@@ -75,9 +75,9 @@ public class ActivityTwo extends Activity {
 		    // FOR AVD 
 		    if (!ActivityTwo.PHONE)
 			{		
-		    	TestScanResult.FillListOne(list_one);
-		    	TestScanResult.FillListSecond(list_two);
-		    	TestScanResult.FillListThird(list_third);
+//		    	TestScanResult.FillListOne(list_one);
+//		    	TestScanResult.FillListSecond(list_two);
+//		    	TestScanResult.FillListThird(list_third);
 		    	draw_barChart = new ChartSurfaceView(this,list_two); // FOR AVD
 
 			}		    
@@ -90,13 +90,40 @@ public class ActivityTwo extends Activity {
 		  {
 			  timerChart = new Timer();
 			  tasktimerChart = new TimerTask() {
+				  
 				  public void run() {
-					  Log.e("MY timerMethodSecondAct", "run code in timerChart each 15 sec count_list: " + Integer.toString(count_list));
+					  Log.e("MY timerMethodSecondAct", "run code in timerChart each 15 sec count_list: " + Integer.toString(count_list));					  
 					
 					  if (!ActivityTwo.PHONE)
 					  {						
 						  count_list++;
 						
+//						  if (count_list == 1)
+//						  {						  
+//							  draw_barChart.test_scan_list = list_two;						  
+//						  }  
+//						  if (count_list == 2)
+//						  {
+//							  list_two.clear();
+//							  TestScanResult.FillListSecondUpdated_1(list_two);
+//							  draw_barChart.test_scan_list = list_two;						  
+//						  }
+//						  if (count_list == 3)
+//						  {
+//							  list_two.clear();
+//							  TestScanResult.FillListSecondUpdated_2(list_two);
+//							  draw_barChart.test_scan_list = list_two;						  
+//						  }
+//						  if (count_list == 4)
+//						  {
+//							  list_two.clear();
+//							  TestScanResult.FillListThird(list_two);
+//							  draw_barChart.test_scan_list = list_two;
+//							  
+//							  count_list = 0;
+//						  }
+						  
+						  /* SECTION FOR UPGRADE */ 
 						  if (count_list == 1)
 						  {						  
 							  draw_barChart.test_scan_list = list_two;						  
@@ -104,27 +131,18 @@ public class ActivityTwo extends Activity {
 						  if (count_list == 2)
 						  {
 							  list_two.clear();
-							  TestScanResult.FillListSecondUpdated_1(list_two);
+							  TestScanResult. FillList_On1ch(list_two);
 							  draw_barChart.test_scan_list = list_two;						  
 						  }
 						  if (count_list == 3)
 						  {
 							  list_two.clear();
-							  TestScanResult.FillListSecondUpdated_2(list_two);
-							  draw_barChart.test_scan_list = list_two;						  
-						  }
-						  if (count_list == 4)
-						  {
-							  list_two.clear();
-							  TestScanResult.FillListThird(list_two);
-							  draw_barChart.test_scan_list = list_two;
-							  
+							  TestScanResult. FillListSecondUpdated_On1ch(list_two);
+							  draw_barChart.test_scan_list = list_two;	
 							  count_list = 0;
-						  }
+						  }				
 						  
-						  
-						  
-						  draw_barChart.surfaceCreated(draw_barChart.getHolder());  
+						    draw_barChart.surfaceCreated(draw_barChart.getHolder());  
 					  }				  
 															
 					 if (ActivityTwo.PHONE)
@@ -134,7 +152,7 @@ public class ActivityTwo extends Activity {
 					 }
 				  }
 	  		  };
-	  		  timerChart.schedule(tasktimerChart, 10000, 10000);	 
+	  		  timerChart.schedule(tasktimerChart, 5000, 10000);	 
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		  }	

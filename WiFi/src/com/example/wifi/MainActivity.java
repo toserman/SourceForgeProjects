@@ -222,7 +222,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLED:
 		   WifiState.setText("WIFI STATE ENABLED");
-		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );  
+//		   Log.d("MY BroadcastReceiver !!!  ", "WIFI STATE ENABLED" );  
 		   //Toast.makeText(getApplicationContext(), "WIFI_STATE_ENABLED", Toast.LENGTH_LONG).show(); 
 		   break;
 		  case WifiManager.WIFI_STATE_ENABLING:
@@ -247,11 +247,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			  super.onStart();// WIFI state is DISABLED !!!!!!!!!!
 	
 			//  Log.d("MY ON_STATE ", "onStart Timer Stop ActivityTwo.activity = " + ActivityTwo.activity );
-			  
-			  Log.d("MY 1 ON_STATE ", "onStart" );
+//			  Log.d("MY 1 ON_STATE ", "onStart" );
 		  }
 		  protected void onPause() {
-			  Log.d("MY 1 ON_STATE ", "onPause" );
+//			  Log.d("MY 1 ON_STATE ", "onPause" );
 //			  unregisterReceiver(WifiScanResultReceiver);
 //			  unregisterReceiver(WifiStateChangedReceiver);			  			  
 			  //timerScanUpdate.cancel();//Timer stop
@@ -261,13 +260,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		  protected void onResume() {
 			  super.onResume();
 			  //timerMethod();
-			  Log.d("MY 1 ON_STATE ", "onResume" );
+//			  Log.d("MY 1 ON_STATE ", "onResume" );
 		  }
 		  protected void onStop()
 		  {
 		      unregisterReceiver(WifiScanResultReceiver);
 		      unregisterReceiver(WifiStateChangedReceiver);
-		      Log.d("MY 1 ON_STATE ", "onStop" );		    
+//		      Log.d("MY 1 ON_STATE ", "onStop" );		    
 		      if(timerScanUpdate != null)
 		    	  timerScanUpdate.cancel();//Timer stop	
 		    //  if(ActivityTwo.activity == false)
@@ -276,7 +275,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  }
 		  protected void onDestroy()
 		  {
-		      Log.d("MY 1 ON_STATE ", "onDestroy" );
+//		      Log.d("MY 1 ON_STATE ", "onDestroy" );
 		      //timerScanUpdate.cancel();//Timer stop
 		      super.onDestroy();
 		  }
@@ -286,7 +285,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
-			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
+//			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
 				   
 		  results_new_intent = wifiManager.getScanResults();
 			  

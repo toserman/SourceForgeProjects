@@ -1,7 +1,10 @@
 package com.example.wifi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,6 +13,7 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
+import java.lang.Comparable;
 public class ChartEngine {
 	public static int width;//Display size values
 	public static int height; //width = 480 height = 800//690 end // MY HTC 480/690
@@ -26,38 +30,75 @@ public class ChartEngine {
 	final int NUMBER_OF_COLORS = 20;
 	final int USE = 1;
 	final int NOT_USE = 0;
+//	final int [] arr_const_color = new int[]{
+////			0x6409e9a3 /*green*/, // 0
+////			0x64FF00CC /*raspberry*/,
+////			0x64CC0000 /*red*/,
+//			0x64FFD700 /* gold */,		
+//			0x643C3C7E /*black purple*/,
+//			0x644B0082 /* indigo */,
+//			0x6400FFFF /*aqua*/,
+//			0x64696969 /* dim gray */,
+//			0x64da6e17 /*orange*/,
+//			0x64db311e /*pink*/,
+//			0x6464E80C /*green*/,
+//			0x64238be6 /*blue*/,
+//			0x64CCBBDD /*grey*/,
+//			0x64e5cb47 /*yellow*/,			
+//			0x64b741cc /*purple*/,
+//			0x64FF00FF /* magenta */,
+//			0x64ed1b79 /*raspberry*/,
+//			0x64DAA520 /*goldenRod*/,		
+//			0x64008000 /*green*/,
+//			0x64006666 /*cyan black*/,//19
+//			
+//			0x64AA9BEB /*purple*/,
+//			0x64688266 /*green black*/,
+//			0x64808000 /* olive */,		
+//			0x64FF8509 /* orange lighter */,
+//			0x64E0FFFF /* cyan light */,
+//			0x64F2AAA2 /* pink light */,
+//			0x64FFFF00 /* yellow */,
+//			0x64008B8B /* darkCyan */,
+//			0x64800000 /* red (maroon)*/,			
+//			0x643E8C2A /*green*/, //29			
+//			
+//			//http://www.w3schools.com/html/html_colornames.asp
+//	};
+	
+	/* NOT TRANSPARENT*/
 	final int [] arr_const_color = new int[]{
-			0x6409e9a3 /*green*/, // 0
-			0x64FF00CC /*raspberry*/,
-			0x64CC0000 /*red*/,
-			0x64FFD700 /* gold */,		
-			0x643C3C7E /*black purple*/,
-			0x644B0082 /* indigo */,
-			0x6400FFFF /*aqua*/,
-			0x64696969 /* dim gray */,
-			0x64da6e17 /*orange*/,
-			0x64db311e /*pink*/,
-			0x6464E80C /*green*/,
-			0x64238be6 /*blue*/,
-			0x64CCBBDD /*grey*/,
-			0x64e5cb47 /*yellow*/,			
-			0x64b741cc /*purple*/,
-			0x64FF00FF /* magenta */,
-			0x64ed1b79 /*raspberry*/,
-			0x64DAA520 /*goldenRod*/,		
-			0x64008000 /*green*/,
-			0x64006666 /*cyan black*/,//19
+			0xF109e9a3 /*green*/, // 0
+			0xF1FF00CC /*raspberry*/,
+			0xF1CC0000 /*red*/,
+			0xF1FFD700 /* gold */,		
+			0xF13C3C7E /*black purple*/,
+			0xF14B0082 /* indigo */,
+			0xF100FFFF /*aqua*/,
+			0xF1696969 /* dim gray */,
+			0xF1da6e17 /*orange*/,
+			0xF1db311e /*pink*/,
+			0xF164E80C /*green*/,
+			0xF1238be6 /*blue*/,
+			0xF1CCBBDD /*grey*/,
+			0xF1e5cb47 /*yellow*/,			
+			0xF1b741cc /*purple*/,
+			0xF1FF00FF /* magenta */,
+			0xF1ed1b79 /*raspberry*/,
+			0xF1DAA520 /*goldenRod*/,		
+			0xF1008000 /*green*/,
+			0xF1006666 /*cyan black*/,//19
 			
-			0x64AA9BEB /*purple*/,
-			0x64688266 /*green black*/,
-			0x64808000 /* olive */,		
-			0x64FF8509 /* orange lighter */,
-			0x64E0FFFF /* cyan light */,
-			0x64F2AAA2 /* pink light */,
-			0x64FFFF00 /* yellow */,
-			0x64008B8B /* darkCyan */,
-			0x64800000 /* red (maroon)*/,			
-			0x643E8C2A /*green*/, //29			
+			0xF1AA9BEB /*purple*/,
+			0xF1688266 /*green black*/,
+			0xF1808000 /* olive */,		
+			0xF1FF8509 /* orange lighter */,
+			0xF1E0FFFF /* cyan light */,
+			0xF1F2AAA2 /* pink light */,
+			0xF1FFFF00 /* yellow */,
+			0xF1008B8B /* darkCyan */,
+			0xF1800000 /* red (maroon)*/,			
+			0xF13E8C2A /*green*/, //29			
 			
 			//http://www.w3schools.com/html/html_colornames.asp
 	};
@@ -87,6 +128,15 @@ public class ChartEngine {
 		}
 	}
 	
+	public class SortScanItem implements Comparator<ScanItem>
+	{
+	    public int compare(ScanItem left, ScanItem right) {
+//	        return (left.rssi < right.rssi)? -1 : (left.rssi > right.rssi) ? 1:0 ; //from 1 -> 10
+	        return (left.rssi > right.rssi)? -1 : (left.rssi > right.rssi) ? 1:0 ; // from 10 -> 1  WORKING
+//http://www.limbaniandroid.com/2013/01/sorting-arraylist-string-arraylist-and.html
+	    }
+	}
+//	Collections.sort(fishes, new FishNameComparator());
 	static int frame_ready = 1; //??????	
 	ChannelCoord [] ch_coord = new ChannelCoord[NUMBER_OF_CHANNELS];
 	RectSTACoord [] rect_ch_coord = new RectSTACoord[NUMBER_OF_CHANNELS];
@@ -245,18 +295,32 @@ public class ChartEngine {
         setName(canvas,15,0,canvas.getWidth()/2 - 40,canvas.getHeight() - 30,"WIFI Channels");
      
 	}
-		
-	public void startDraw (Canvas canvas,int test,ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new)
+
+	public void startDraw (Canvas canvas,int draw_step,ArrayList<ScanItem> draw_list)
 	{	
-		for (ScanItem list_test : list_ap_new) {
-  		  //Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
-  		  drawAP(canvas,list_test, test);
+		for (ScanItem draw_list_obj : draw_list) {
+			//Log.d("MY TAG ", "BSSID = " + list_test.getBSSID() + " RSSI= " + list_test.getRSSIlevel());
+			drawAP(canvas,draw_list_obj, draw_step);
   	  	}
 	}
 
+//	Collections.sort(list, new Comparator<String>() {
+//        @Override
+//        public int compare(String s1, String s2) {
+//            return s1.compareToIgnoreCase(s2);
+//        }
+//    });
+	
+
+	
 	public void compareListData	(ArrayList<ScanItem> list_ap_old,ArrayList<ScanItem> list_ap_new,ArrayList<ScanItem> list_ap_res)
 	{
 		
+//		Collections.sort(list_ap_old);
+    	ChartEngine.testPrintList(list_ap_old,"BEFORE COMPARE list_ap_old");    	
+    	ChartEngine.testPrintList(list_ap_res,"BEFORE COMPARE list_ap_res");
+    	ChartEngine.testPrintList(list_ap_new,"BEFORE COMPARE list_ap_new");
+    	
 		/* Find existing objects,what present on the display */		
 		for(int i = 0; i < list_ap_old.size(); i++ )
 		{		
@@ -274,8 +338,7 @@ public class ChartEngine {
 					res_obj.diff_rssi = list_ap_new.get(k).rssi - list_ap_old.get(i).rssi;
 					list_ap_res.add(res_obj);					
 					list_ap_new.remove(k);//Remove from list_ap_new after copy
-//					testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");
-					
+//					testPrintList(list_ap_res, "--- FIRST ELEMENT list_ap_res --");					
 //					if (res_obj.diff_rssi != 0)
 //					{
 //						Log.e("MY ChartEngine ", "compareListData: i= [ " + Integer.toString(i) + " ] " + " obj.diff_rssi = " 
@@ -321,21 +384,36 @@ public class ChartEngine {
 			}			
 			
 		}
-
 		
 		/* For objects what still exist in received data and were not displayed before*/				
 		for (ScanItem getobject: list_ap_new)
 		{
-			Log.e("MY ChartEngine ", "compareListData: NEW SSID = "	+ getobject.getSSID()
-					+ " BSSID:" + getobject.getBSSID());
+//			Log.e("MY ChartEngine ", "compareListData: NEW SSID = "	+ getobject.getSSID()
+//					+ " BSSID:" + getobject.getBSSID());
 			list_ap_res.add(getobject);
 		}
 
 		list_ap_old.clear();//Clear list with old data
 		
+		Log.e("MY ChartEngine ", "");
+    	Log.e("MY ChartEngine ", "##################################################################");
+		
+    	Collections.sort(list_ap_res, new SortScanItem());
+    	ChartEngine.testPrintList(list_ap_res,"AFTER SORT BEFORE DRAW list_ap_new");
+    	
+    	Log.e("MY ChartEngine ", "");
+    	Log.e("MY ChartEngine ", "##################################################################");
+		
+		/* Save new data for next step */
 		for (ScanItem getobject: list_ap_res)
-			list_ap_old.add(getobject);
-		 
+			list_ap_old.add(getobject);	
+
+//		Log.e("MY ChartEngine ", "##################################################################");
+//		Log.e("MY ChartEngine ", "");
+//		testPrintList(list_ap_new, "--- AFTER COMPARE list_ap_new --");
+//		testPrintList(list_ap_old, "--- AFTER COMPARE list_ap_old --");		
+//		testPrintList(list_ap_res, "--- AFTER COMPARE list_ap_res  --");
+//		Log.e("MY ChartEngine ", "##################################################################");
 	}
 	
 	protected void drawAP(Canvas canvas,ScanItem ap_draw, int draw_limit)
@@ -424,7 +502,7 @@ public class ChartEngine {
     	inp_list_ap.add(x);
 //    	Log.d("MY TAG ", SSID + " " + Integer.toHexString(x.getAPcolor()));     	
 	}
-	public void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
+	static void testPrintList(ArrayList<ScanItem> inp_list_ap, String note)
 	{
 		//Display list
 		Log.d("MY TAG ", "********* " + note + " **********" );
