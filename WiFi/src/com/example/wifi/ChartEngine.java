@@ -450,9 +450,10 @@ public class ChartEngine {
 	{	
 		p.setColor(color);
 //		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
-
+		 p.setStrokeWidth(10);
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
-	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel + " " + debug_rssi);		
+	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel + " " + debug_rssi);
+	    p.setStrokeWidth(0);
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
