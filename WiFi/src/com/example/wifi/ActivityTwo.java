@@ -98,32 +98,6 @@ public class ActivityTwo extends Activity {
 					  {						
 						  count_list++;
 						
-//						  if (count_list == 1)
-//						  {						  
-//							  draw_barChart.test_scan_list = list_two;						  
-//						  }  
-//						  if (count_list == 2)
-//						  {
-//							  list_two.clear();
-//							  TestScanResult.FillListSecondUpdated_1(list_two);
-//							  draw_barChart.test_scan_list = list_two;						  
-//						  }
-//						  if (count_list == 3)
-//						  {
-//							  list_two.clear();
-//							  TestScanResult.FillListSecondUpdated_2(list_two);
-//							  draw_barChart.test_scan_list = list_two;						  
-//						  }
-//						  if (count_list == 4)
-//						  {
-//							  list_two.clear();
-//							  TestScanResult.FillListThird(list_two);
-//							  draw_barChart.test_scan_list = list_two;
-//							  
-//							  count_list = 0;
-//						  }
-						  
-						  /* SECTION FOR UPGRADE */ 
 						  if (count_list == 1)
 						  {						  
 							  draw_barChart.test_scan_list = list_two;						  
@@ -131,16 +105,42 @@ public class ActivityTwo extends Activity {
 						  if (count_list == 2)
 						  {
 							  list_two.clear();
-							  TestScanResult. FillList_On1ch(list_two);
+							  TestScanResult.FillListSecondUpdated_1(list_two);
 							  draw_barChart.test_scan_list = list_two;						  
 						  }
 						  if (count_list == 3)
 						  {
 							  list_two.clear();
-							  TestScanResult. FillListSecondUpdated_On1ch(list_two);
-							  draw_barChart.test_scan_list = list_two;	
+							  TestScanResult.FillListSecondUpdated_2(list_two);
+							  draw_barChart.test_scan_list = list_two;						  
+						  }
+						  if (count_list == 4)
+						  {
+							  list_two.clear();
+							  TestScanResult.FillListThird(list_two);
+							  draw_barChart.test_scan_list = list_two;
+							  
 							  count_list = 0;
-						  }				
+						  }
+						  
+						  /* SECTION FOR UPGRADE on 1channel*/ 
+//						  if (count_list == 1)
+//						  {						  
+//							  draw_barChart.test_scan_list = list_two;						  
+//						  }  
+//						  if (count_list == 2)
+//						  {
+//							  list_two.clear();
+//							  TestScanResult. FillList_On1ch(list_two);
+//							  draw_barChart.test_scan_list = list_two;						  
+//						  }
+//						  if (count_list == 3)
+//						  {
+//							  list_two.clear();
+//							  TestScanResult. FillListSecondUpdated_On1ch(list_two);
+//							  draw_barChart.test_scan_list = list_two;	
+//							  count_list = 0;
+//						  }				
 						  
 						    draw_barChart.surfaceCreated(draw_barChart.getHolder());  
 					  }				  

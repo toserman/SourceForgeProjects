@@ -30,78 +30,78 @@ public class ChartEngine {
 	final int NUMBER_OF_COLORS = 20;
 	final int USE = 1;
 	final int NOT_USE = 0;
-//	final int [] arr_const_color = new int[]{
-////			0x6409e9a3 /*green*/, // 0
-////			0x64FF00CC /*raspberry*/,
-////			0x64CC0000 /*red*/,
-//			0x64FFD700 /* gold */,		
-//			0x643C3C7E /*black purple*/,
-//			0x644B0082 /* indigo */,
-//			0x6400FFFF /*aqua*/,
-//			0x64696969 /* dim gray */,
-//			0x64da6e17 /*orange*/,
-//			0x64db311e /*pink*/,
-//			0x6464E80C /*green*/,
-//			0x64238be6 /*blue*/,
-//			0x64CCBBDD /*grey*/,
-//			0x64e5cb47 /*yellow*/,			
-//			0x64b741cc /*purple*/,
-//			0x64FF00FF /* magenta */,
-//			0x64ed1b79 /*raspberry*/,
-//			0x64DAA520 /*goldenRod*/,		
-//			0x64008000 /*green*/,
-//			0x64006666 /*cyan black*/,//19
-//			
-//			0x64AA9BEB /*purple*/,
-//			0x64688266 /*green black*/,
-//			0x64808000 /* olive */,		
-//			0x64FF8509 /* orange lighter */,
-//			0x64E0FFFF /* cyan light */,
-//			0x64F2AAA2 /* pink light */,
-//			0x64FFFF00 /* yellow */,
-//			0x64008B8B /* darkCyan */,
-//			0x64800000 /* red (maroon)*/,			
-//			0x643E8C2A /*green*/, //29			
-//			
-//			//http://www.w3schools.com/html/html_colornames.asp
-//	};
-	
-	/* NOT TRANSPARENT*/
 	final int [] arr_const_color = new int[]{
-			0xF109e9a3 /*green*/, // 0
-			0xF1FF00CC /*raspberry*/,
-			0xF1CC0000 /*red*/,
-			0xF1FFD700 /* gold */,		
-			0xF13C3C7E /*black purple*/,
-			0xF14B0082 /* indigo */,
-			0xF100FFFF /*aqua*/,
-			0xF1696969 /* dim gray */,
-			0xF1da6e17 /*orange*/,
-			0xF1db311e /*pink*/,
-			0xF164E80C /*green*/,
-			0xF1238be6 /*blue*/,
-			0xF1CCBBDD /*grey*/,
-			0xF1e5cb47 /*yellow*/,			
-			0xF1b741cc /*purple*/,
-			0xF1FF00FF /* magenta */,
-			0xF1ed1b79 /*raspberry*/,
-			0xF1DAA520 /*goldenRod*/,		
-			0xF1008000 /*green*/,
-			0xF1006666 /*cyan black*/,//19
+//			0x6409e9a3 /*green*/, // 0
+//			0x64FF00CC /*raspberry*/,
+//			0x64CC0000 /*red*/,
+			0x64FFD700 /* gold */,		
+			0x643C3C7E /*black purple*/,
+			0x644B0082 /* indigo */,
+			0x6400FFFF /*aqua*/,
+			0x64696969 /* dim gray */,
+			0x64da6e17 /*orange*/,
+			0x64db311e /*pink*/,
+			0x6464E80C /*green*/,
+			0x64238be6 /*blue*/,
+			0x64CCBBDD /*grey*/,
+			0x64e5cb47 /*yellow*/,			
+			0x64b741cc /*purple*/,
+			0x64FF00FF /* magenta */,
+			0x64ed1b79 /*raspberry*/,
+			0x64DAA520 /*goldenRod*/,		
+			0x64008000 /*green*/,
+			0x64006666 /*cyan black*/,//19
 			
-			0xF1AA9BEB /*purple*/,
-			0xF1688266 /*green black*/,
-			0xF1808000 /* olive */,		
-			0xF1FF8509 /* orange lighter */,
-			0xF1E0FFFF /* cyan light */,
-			0xF1F2AAA2 /* pink light */,
-			0xF1FFFF00 /* yellow */,
-			0xF1008B8B /* darkCyan */,
-			0xF1800000 /* red (maroon)*/,			
-			0xF13E8C2A /*green*/, //29			
+			0x64AA9BEB /*purple*/,
+			0x64688266 /*green black*/,
+			0x64808000 /* olive */,		
+			0x64FF8509 /* orange lighter */,
+			0x64E0FFFF /* cyan light */,
+			0x64F2AAA2 /* pink light */,
+			0x64FFFF00 /* yellow */,
+			0x64008B8B /* darkCyan */,
+			0x64800000 /* red (maroon)*/,			
+			0x643E8C2A /*green*/, //29			
 			
 			//http://www.w3schools.com/html/html_colornames.asp
 	};
+	
+//	/* NOT TRANSPARENT*/
+//	final int [] arr_const_color = new int[]{
+//			0xF109e9a3 /*green*/, // 0
+//			0xF1FF00CC /*raspberry*/,
+//			0xF1CC0000 /*red*/,
+//			0xF1FFD700 /* gold */,		
+//			0xF13C3C7E /*black purple*/,
+//			0xF14B0082 /* indigo */,
+//			0xF100FFFF /*aqua*/,
+//			0xF1696969 /* dim gray */,
+//			0xF1da6e17 /*orange*/,
+//			0xF1db311e /*pink*/,
+//			0xF164E80C /*green*/,
+//			0xF1238be6 /*blue*/,
+//			0xF1CCBBDD /*grey*/,
+//			0xF1e5cb47 /*yellow*/,			
+//			0xF1b741cc /*purple*/,
+//			0xF1FF00FF /* magenta */,
+//			0xF1ed1b79 /*raspberry*/,
+//			0xF1DAA520 /*goldenRod*/,		
+//			0xF1008000 /*green*/,
+//			0xF1006666 /*cyan black*/,//19
+//			
+//			0xF1AA9BEB /*purple*/,
+//			0xF1688266 /*green black*/,
+//			0xF1808000 /* olive */,		
+//			0xF1FF8509 /* orange lighter */,
+//			0xF1E0FFFF /* cyan light */,
+//			0xF1F2AAA2 /* pink light */,
+//			0xF1FFFF00 /* yellow */,
+//			0xF1008B8B /* darkCyan */,
+//			0xF1800000 /* red (maroon)*/,			
+//			0xF13E8C2A /*green*/, //29			
+//			
+//			//http://www.w3schools.com/html/html_colornames.asp
+//	};
 	
 	int evalX_px = 0; //Size of segment X axis in pixels
 	int evalY_px = 0; //Size of segment Y axis in pixels
@@ -448,12 +448,22 @@ public class ChartEngine {
 	}
 	private void drawAPrect(Canvas canvas, int channel,int draw_step,String ssid_name,int color, int debug_rssi) 
 	{	
+
+		/* COLOR FOR BORDER*/
+		p.setColor(color & 0xFFFFFFFF) ;//WORKING VERSION
+//		Log.d("MY ChartEngine "," drawAPrect" + " color= 0x" +Integer.toHexString(color)  +" (color & 0xFFFFFFFF) = 0x" +
+//				Integer.toHexString(color & 0xFFFFFFFF));
+		p.setStrokeWidth(25);
+		canvas.drawRect(rect_ch_coord[channel].x1 - 3,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2 +3,(canvas.getHeight() - 70 - draw_step -3 ),p);
+		p.setStrokeWidth(0);
+		
+//		Log.d("MY ChartEngine "," drawAPrect" + " MAIN RECT color  = 0x" + Integer.toHexString(color));
+		/* COLOR FOR MAIN КУСЕ*/
 		p.setColor(color);
-//		Log.d("MY ChartEngine "," drawAPrect" + " draw_step = " + Integer.toString(draw_step));
-		 p.setStrokeWidth(10);
+		
 		canvas.drawRect(rect_ch_coord[channel].x1,(canvas.getHeight() - 70 ),rect_ch_coord[channel].x2,(canvas.getHeight() - 70 - draw_step),p);
-	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 4 /*just for shift*/ - draw_step,ssid_name + " " + channel + " " + debug_rssi);
-	    p.setStrokeWidth(0);
+	    setName(canvas,12,0, rect_ch_coord[channel].x1 ,canvas.getHeight() - 70 - 6 /*just for shift*/ - draw_step,ssid_name + " " + channel + " " + debug_rssi);
+	    
 	}
 	protected int getCoordRSSILevel(int rssi_level){
 		int coord_rssi = RSSI_START_AXISXY - RSSI_STEP - rssi_level;
