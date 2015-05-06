@@ -285,7 +285,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
-//			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
+			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
 				   
 		  results_new_intent = wifiManager.getScanResults();
 			  
