@@ -50,7 +50,7 @@ public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	    	 if (ActivityTwo.PHONE)
 	    		 drawThread = new DrawThread(getHolder(),getResources(),getContext(),wifi_results,inp_chart); // FOR PHONE
 	    	 else
-	    		drawThread = new DrawThread(getHolder(),getResources(),getContext(),test_scan_list,inp_chart); // FOR AVD
+	    		 drawThread = new DrawThread(getHolder(),getResources(),getContext(),test_scan_list,inp_chart); // FOR AVD
 	    	
 	    	drawThread.setRunning(true);
 	        drawThread.start();	        

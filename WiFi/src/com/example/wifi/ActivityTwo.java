@@ -14,12 +14,17 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
 public class ActivityTwo extends Activity {
@@ -40,8 +45,9 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
-	 public static final boolean PHONE = true; //true = PHONE , false = AVD
-	 
+	 public static final boolean PHONE = false; //true = PHONE , false = AVD
+ 
+
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
@@ -80,8 +86,7 @@ public class ActivityTwo extends Activity {
 //		    	TestScanResult.FillListThird(list_third);
 		    	draw_barChart = new ChartSurfaceView(this,list_two); // FOR AVD
 
-			}		    
-		    	
+			}		    		    	
 		    
 		    setContentView(draw_barChart);		   
 		}
@@ -156,10 +161,50 @@ public class ActivityTwo extends Activity {
 //			   1	2	3	4    5     6    7    8    9    10   11  12   13    14
 //public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
 		  }	
-		  protected void onStart() {
+
+	 	@Override
+		public boolean onCreateOptionsMenu(Menu sec_act_menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+	 		getMenuInflater().inflate(R.menu.menu_second_act, sec_act_menu);
+			return true;
+		}
+	 	
+	 	public void showSortPopupMenu(){
+	 	    View menuItemView = findViewById(R.id.menu_sort_ap);
+	 	    PopupMenu popupMenu = new PopupMenu(this, menuItemView);
+	 	    MenuInflater inflate = popupMenu.getMenuInflater();
+	 	    inflate.inflate(R.menu.filter_pop_menu, popupMenu.getMenu());
+	    	popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {  
+	             public boolean onMenuItemClick(MenuItem item) {  
+	            	 switch (item.getItemId()) {
+	 			    	case R.id.filterAPname:
+	 			    		Toast.makeText(getApplicationContext(),"You Clicked :  filterAPname",Toast.LENGTH_SHORT).show();
+	 			    		break;
+	 			    	case R.id.filterChannel:
+	 			    		Toast.makeText(getApplicationContext(),"You Clicked :  filterChannel",Toast.LENGTH_SHORT).show();
+	 			    		break;	 			    		
+	            	 }
+	            	 //Toast.makeText(getApplicationContext(),"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();  
+	              return true;  
+	             }
+	        }); 
+	 	    popupMenu.show();
+	 	}
+
+	 	
+		public boolean onOptionsItemSelected(MenuItem item) {
+			    // TODO Auto-generated method stub	        
+			    switch (item.getItemId()) {
+			    case R.id.menu_sort_ap:
+			    	showSortPopupMenu();
+			    }
+			    return super.onOptionsItemSelected(item);
+		  }
+	 	
+	 	  protected void onStart() {
 //			  this.registerReceiver(this.WifiScanResultReceiver, wifiScanAvailIntentSecond);
 			  /** Run timer*/
-			  timerMethodSecondAct();
+//			  timerMethodSecondAct();
 			  super.onStart();
 		  }
 		  protected void onStop() {

@@ -6,12 +6,11 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     <item
- 		android:id="@+id/switch_screen"
-		android:icon="@drawable/bar_chart"
-		android:showAsAction="ifRoom"
- 		android:title="@string/item1">
-</item>
+        android:id="@+id/switch_screen"
+        android:icon="@drawable/bar_chart"
+        android:showAsAction="ifRoom"
+        android:title="@string/item1">
+    </item>
 
-</menu>
-<!-- android:icon="@android:drawable/ic_menu_call" /-->
-<!--  android:icon="@drawable/wireless"-->
+</menu> <!-- android:icon="@android:drawable/ic_menu_call" / -->
+<!-- android:icon="@drawable/wireless" -->

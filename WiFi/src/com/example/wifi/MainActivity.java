@@ -51,12 +51,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	CustomDialogWindow cdd;
 	MyProgressDialog waiting_icon, temp_waiting_icon;
-	
-	
-		 
-	  /** Called when the activity is first created. */
+	 
+	/** Called when the activity is first created. */
 	  @Override
-	  public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);
 	      setContentView(R.layout.activity_main);	      
 	      WifiOn = (Button)findViewById(R.id.wifi_on);
@@ -187,25 +185,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 	};
 			  	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	public boolean  onOptionsItemSelected(MenuItem item) {
-		    // TODO Auto-generated method stub
-		    switch (item.getItemId()) {		    
-		    case R.id.switch_screen:
-		    	Log.d("MY TAG ", "Choose item GO TO ActivityTwo = ");
-		    	Intent intent = new Intent(this, ActivityTwo.class);
-		    	startActivity(intent);	    
-		      break;	
-		    }
-		    return super.onOptionsItemSelected(item);
-	  }
+	
  	  
-	  private BroadcastReceiver WifiStateChangedReceiver
+	private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
 	  public void onReceive(Context context, Intent intent) {
 		  // TODO Auto-generated method stub
@@ -239,53 +221,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		 }	 	  
 		  };
 		  
-		  protected void onStart() {
-			  this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
-		      this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
-		      /** Run timer*/
-		      timerMethod();//Need investigate: no need to run timer when
-			  super.onStart();// WIFI state is DISABLED !!!!!!!!!!
-	
-			//  Log.d("MY ON_STATE ", "onStart Timer Stop ActivityTwo.activity = " + ActivityTwo.activity );
-//			  Log.d("MY 1 ON_STATE ", "onStart" );
-		  }
-		  protected void onPause() {
-//			  Log.d("MY 1 ON_STATE ", "onPause" );
-//			  unregisterReceiver(WifiScanResultReceiver);
-//			  unregisterReceiver(WifiStateChangedReceiver);			  			  
-			  //timerScanUpdate.cancel();//Timer stop
-		      super.onPause();
-		    }
-		  @Override
-		  protected void onResume() {
-			  super.onResume();
-			  //timerMethod();
-//			  Log.d("MY 1 ON_STATE ", "onResume" );
-		  }
-		  protected void onStop()
-		  {
-		      unregisterReceiver(WifiScanResultReceiver);
-		      unregisterReceiver(WifiStateChangedReceiver);
-//		      Log.d("MY 1 ON_STATE ", "onStop" );		    
-		      if(timerScanUpdate != null)
-		    	  timerScanUpdate.cancel();//Timer stop	
-		    //  if(ActivityTwo.activity == false)
-		    	//  timerScanUpdate.cancel();
-		      super.onStop();
-		  }
-		  protected void onDestroy()
-		  {
-//		      Log.d("MY 1 ON_STATE ", "onDestroy" );
-		      //timerScanUpdate.cancel();//Timer stop
-		      super.onDestroy();
-		  }
-		  
-	  //private BroadcastReceiver WifiScanResultReceiver
-	  public BroadcastReceiver WifiScanResultReceiver
+    		  
+	//private BroadcastReceiver WifiScanResultReceiver
+	public BroadcastReceiver WifiScanResultReceiver
 	  = new BroadcastReceiver(){
 		  public void onReceive(Context context, Intent intent) {
 			 // Log.d("MY WifiScanResultReceiver !!!  ", "INSIDE" );				  
-			  Toast.makeText(getApplicationContext(), "MY WifiScanResultReceiver INSIDE !!!", Toast.LENGTH_LONG).show();		  			   
+			  Toast.makeText(getApplicationContext(), "MainActivity WifiScanResultReceiver !!!", Toast.LENGTH_LONG).show();		  			   
 				   
 		  results_new_intent = wifiManager.getScanResults();
 			  
@@ -318,15 +260,73 @@ public class MainActivity extends Activity implements OnClickListener {
 			  	 }			 
 		}	 	 		  
 	  };
-	  void timerMethod()
-	  {
-		  timerScanUpdate = new Timer();
-		  tasktimer = new TimerTask() {
-			  public void run() {
+	void timerMethod()
+	{
+	  timerScanUpdate = new Timer();
+	  tasktimer = new TimerTask() {
+	   public void run() {
 				 // Log.d("MY Timer", "run code in Timer");
-//				  wifiManager.startScan();
+				  wifiManager.startScan();
 			  }
   		  };
-  		  timerScanUpdate.schedule(tasktimer, 5000, 5000);
-	  }		  
+  		  timerScanUpdate.schedule(tasktimer, 5000, 10000);
+	  }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem item) {
+		    // TODO Auto-generated method stub
+		    switch (item.getItemId()) {
+		    	  case R.id.switch_screen:
+			    	Log.d("MY TAG ", "Choose item GO TO ActivityTwo");		    	
+			    	Intent intent = new Intent(this, ActivityTwo.class);
+			    	startActivity(intent);	    
+			      break;	
+		    }
+		    return super.onOptionsItemSelected(item);
+	  }
+	protected void onStart() {
+    	this.registerReceiver(this.WifiStateChangedReceiver,wifiStateIntent);
+        this.registerReceiver(this.WifiScanResultReceiver,wifiScanAvailIntent);
+        /** Run timer*/
+      	timerMethod();//Need investigate: no need to run timer when
+      	super.onStart();// WIFI state is DISABLED !!!!!!!!!!
+
+      	//  Log.d("MY ON_STATE ", "onStart Timer Stop ActivityTwo.activity = " + ActivityTwo.activity );
+      	
+    }
+    protected void onPause() {
+//			  Log.d("MY 1 ON_STATE ", "onPause" );
+//			  unregisterReceiver(WifiScanResultReceiver);
+//			  unregisterReceiver(WifiStateChangedReceiver);			  			  
+  //timerScanUpdate.cancel();//Timer stop
+      super.onPause();
+    }
+   @Override
+    protected void onResume() {
+	   super.onResume();
+	   //timerMethod();
+    //			  Log.d("MY 1 ON_STATE ", "onResume" );
+    }
+    protected void onStop()
+    {
+        unregisterReceiver(WifiScanResultReceiver);
+        unregisterReceiver(WifiStateChangedReceiver);
+  //		      Log.d("MY 1 ON_STATE ", "onStop" );		    
+   if(timerScanUpdate != null)
+	   timerScanUpdate.cancel();//Timer stop	
+//  if(ActivityTwo.activity == false)
+	//  timerScanUpdate.cancel();
+      super.onStop();
+   }
+    protected void onDestroy()
+	{
+//	     Log.d("MY 1 ON_STATE ", "onDestroy" );
+	     //timerScanUpdate.cancel();//Timer stop
+	     super.onDestroy();
+	}
 }

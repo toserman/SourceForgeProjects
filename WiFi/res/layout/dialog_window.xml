@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:background="#999999"
     android:orientation="vertical" >
-    
-<!-- android:background="@drawable/dialog_window_style" -->
-<!-- android:background="#999999" -->
+
+    <!-- android:background="@drawable/dialog_window_style" -->
+    <!-- android:background="#999999" -->
+
     <TextView
         android:id="@+id/title_dialog"
         android:layout_width="match_parent"
@@ -69,7 +70,6 @@
             android:text="No"
             android:textColor="#403f40"
             android:textStyle="bold" />
-
     </LinearLayout>
 
 </LinearLayout>

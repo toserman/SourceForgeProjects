@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".ActivityTwo"
-     >
+    tools:context=".ActivityTwo" >
 
     <com.example.wifi.DrawChart
         android:id="@+id/barchart"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#444" />
-        
+
     <!-- android:layout_height="fill_parent" -->
-<!-- 
+    <!--
     <Button
         android:id="@+id/test_button_generate"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
-        android:text="Button" />
-     -->
+        android:text="Button" />
+    -->
 
-    <!-- 
+
+    <!--
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="30dp"
@@ -48,7 +48,7 @@ xmlns:tools="http://schemas.android.com/tools"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cycling" />
-    </LinearLayout>
- -->
- 
+    </LinearLayout>
+    -->
+
 </LinearLayout>

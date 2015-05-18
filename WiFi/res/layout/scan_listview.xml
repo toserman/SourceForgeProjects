@@ -5,21 +5,21 @@
     android:minHeight="50dp"
     android:orientation="horizontal"
     android:padding="5dip" >
- 
+
     <TextView
         android:id="@+id/ap_ssid"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"  
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/icon"       
-        android:layout_marginTop="5dip"        
+        android:layout_marginTop="5dip"
+        android:layout_toRightOf="@+id/icon"
         android:paddingRight="1dip"
-        android:text=""        
-        android:textStyle = "bold"
-                  
-        android:textColor="#A9F3A9"        
-        android:textSize="16sp" />
-    <!-- accented analogic  
+        android:text=""
+        android:textColor="#A9F3A9"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <!--
+accented analogic  
     http://colorschemedesigner.com/#
 Primary Color:				
 00CC00 	269926	008500	39E639	67E667 
@@ -34,87 +34,83 @@ complement
 Primary Color:			
 00CC00	269926	008500	39E639	67E667
 Complementary Color:				
-FF0000	BF3030	A60000	FF4040	FF7373
-               -->
-               
-               
+FF0000	BF3030	A60000	FF4040	FF7373
+    -->
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-     	android:paddingRight="5dip"     	
-     	android:layout_alignParentLeft ="true"         
+        android:layout_alignParentLeft="true"
+        android:paddingRight="5dip"
         android:src="@drawable/wireless" />
-        
+
     <TextView
         android:id="@+id/ap_rssi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ap_ssid" 
-        android:textColor="#A0E6E6"         
-        android:text=""   
-        android:textSize="12sp"  />    
- 
+        android:layout_below="@+id/ap_ssid"
+        android:text=""
+        android:textColor="#A0E6E6"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/ap_freq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid"
+        android:layout_toRightOf="@+id/ap_rssi"
         android:paddingLeft="5dip"
-        android:layout_toRightOf="@+id/ap_rssi"         
         android:text=""
-        android:textColor="#A0E6E6" 
+        android:textColor="#A0E6E6"
         android:textSize="12sp" />
-    
+
     <TextView
         android:id="@+id/ap_channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid"
+        android:layout_toRightOf="@+id/ap_freq"
         android:paddingLeft="5dip"
-        android:layout_toRightOf="@+id/ap_freq"         
         android:text=""
-        android:textColor="#A0E6E6" 
+        android:textColor="#A0E6E6"
         android:textSize="12sp" />
-    
-	<TextView
+
+    <TextView
         android:id="@+id/ap_bssid"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"       
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
         android:layout_toRightOf="@+id/ap_channel"
-        android:layout_marginTop="10dip"     
         android:text=""
-        android:textColor="#A0E6E6" 
+        android:textColor="#A0E6E6"
         android:textSize="12sp" />
-	    
-	    <ImageView
+
+    <ImageView
         android:id="@+id/wifi_connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dip"
-     	android:layout_alignParentRight ="true" />
-	    
-	  <TextView
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dip" />
+
+    <TextView
         android:id="@+id/crypted_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ap_ssid"       
+        android:layout_below="@+id/ap_ssid"
         android:layout_toRightOf="@+id/ap_channel"
-        android:paddingLeft="5dip"     
+        android:paddingLeft="5dip"
         android:text=""
-        android:textColor="#A0E6E6" 
+        android:textColor="#A0E6E6"
         android:textSize="12sp" />
-	    	
-	    <ImageView      
-	    android:id="@+id/wifi_capabilities"
+
+    <ImageView
+        android:id="@+id/wifi_capabilities"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ap_ssid"
-        android:paddingLeft="1dip"
-        android:layout_toRightOf="@+id/crypted_mode"/>
-    	<!-- android:src="@drawable/wifi_connected" -->
-    	
+        android:layout_toRightOf="@+id/crypted_mode"
+        android:paddingLeft="1dip" />
+    <!-- android:src="@drawable/wifi_connected" -->
 
-  
- 
 </RelativeLayout>

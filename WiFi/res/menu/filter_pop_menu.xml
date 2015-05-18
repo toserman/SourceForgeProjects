@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/filterAPname"
+        android:showAsAction="ifRoom"
+        android:title="@string/Item_AP_name">
+    </item>
+
+    <item
+        android:id="@+id/filterChannel"
+        android:showAsAction="ifRoom"
+        android:title="@string/Item_Channel"/>
+    
+</menu>
