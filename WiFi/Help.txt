@@ -37,6 +37,7 @@ try {
 	  	throw new Exception();
 	} 
 	  catch (Exception e) {
+	  System.out.println(e.getStackTrace()[0].getMethodName()); // Just print method name where exception was called 
 	  Log.e("ERROR", "ERROR IN CODE" + e.toString());
 	  e.printStackTrace();
 	}
@@ -60,4 +61,8 @@ try {
  - Other fields start with a lower case letter.
  - Public static final fields (constants) are ALL_CAPS_WITH_UNDERSCORES.
  -------------------------------------------------------------------------------------------
+ // IMEI number of Android phone. 
+  	 TelephonyManager mTelephonyMgr = (TelephonyManager)
+     getSystemService(Context.TELEPHONY_SERVICE);
+     String imei = mTelephonyMgr.getDeviceId();
  
