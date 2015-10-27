@@ -40,12 +40,16 @@ public class ActivityTwo extends Activity {
 	 ChartSurfaceView draw_barChart; 
 	 static int test  = 1;
 	 static int count_list = 0; //JUST FOR TEST
+	 public static final boolean PHONE = false; //true = PHONE , false = AVD
+	 public static final int AP_FILTER = 1;
+	 public static final int CH_NUM_FILTER = 2;
+	 
 	 ArrayList<TestScanResult> list_one = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_two = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
-	 public static final boolean PHONE = false; //true = PHONE , false = AVD
+	 
  
 
 	 public BroadcastReceiver WifiScanResultReceiver =
@@ -56,9 +60,7 @@ public class ActivityTwo extends Activity {
 					  								Toast.LENGTH_LONG).show();
 			  results.clear();
 			  results = wifiManager.getScanResults();
-//			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " + Integer.toString(results.size()) );			  
-
-			  draw_barChart.wifi_results = results;
+//			  Log.e("MY ActivityTwo ", "WifiScanResultReceiver !!! results.size = " + Integer.toString(results.size()) );			  draw_barChart.wifi_results = results;
 			  draw_barChart.destroyDrawingCache();
 			  draw_barChart.surfaceCreated(draw_barChart.getHolder());			  
 			  	 
@@ -174,11 +176,28 @@ public class ActivityTwo extends Activity {
 	 	    PopupMenu popupMenu = new PopupMenu(this, menuItemView);
 	 	    MenuInflater inflate = popupMenu.getMenuInflater();
 	 	    inflate.inflate(R.menu.filter_pop_menu, popupMenu.getMenu());
+
 	    	popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {  
 	             public boolean onMenuItemClick(MenuItem item) {  
 	            	 switch (item.getItemId()) {
 	 			    	case R.id.filterAPname:
-	 			    		Toast.makeText(getApplicationContext(),"You Clicked :  filterAPname",Toast.LENGTH_SHORT).show();
+	 			    		//Toast.makeText(getApplicationContext(),"You Clicked :  filterAPname",Toast.LENGTH_SHORT).show();
+	 			    		draw_barChart.surfaceDestroyed(draw_barChart.getHolder());//Need to destroy surface for prevent Thread crash
+
+//	 			    		ArrayList<String> list = new ArrayList<String>();
+//	 			    		Intent intent = new Intent(ActivityTwo.this,ActitvityFilter.class);
+//	 			    		intent.putExtra("arraylist", list);
+//	 			    		startActivity(intent);
+//	 			    		ArrayList<String> list = getIntent().getSerializableExtra("arraylist");
+//	 			    		
+//	 			    		Bundle bundle = new Bundle();
+//	 			    		bundle.putParcelable("data", results);
+//	 			    		intent.putExtras(bundle);
+	 			    		
+	 			    		Intent intentAPfilter = new Intent(ActivityTwo.this,ActitvityFilter.class);
+	 			    		intentAPfilter.putExtra("chosen_id",AP_FILTER);
+	 				    	startActivity(intentAPfilter);
+	 
 	 			    		break;
 	 			    	case R.id.filterChannel:
 	 			    		Toast.makeText(getApplicationContext(),"You Clicked :  filterChannel",Toast.LENGTH_SHORT).show();
@@ -197,6 +216,7 @@ public class ActivityTwo extends Activity {
 			    switch (item.getItemId()) {
 			    case R.id.menu_sort_ap:
 			    	showSortPopupMenu();
+			    	break;
 			    }
 			    return super.onOptionsItemSelected(item);
 		  }

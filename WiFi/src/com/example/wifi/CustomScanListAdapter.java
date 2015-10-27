@@ -43,7 +43,7 @@ public class CustomScanListAdapter extends BaseAdapter {
     public static final int NUM_CHANNELS = 15;
     public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
     
-     public CustomScanListAdapter(Context context, List<ScanResult> listData) {
+    public CustomScanListAdapter(Context context, List<ScanResult> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);        
         font_roboto = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
@@ -55,19 +55,20 @@ public class CustomScanListAdapter extends BaseAdapter {
     
     public void setData(List<ScanResult> listData)
     {
-    	this.listData = listData;    	        
-        Log.d("MY CSListAdapter ", "setData() ");
+//    	Log.d("MY CSListAdapter ", "setData() ");
+    	this.listData = listData;
     }
  
     @Override
-    public int getCount() {    	
-  //  	Log.d("MY CSListAdapter: ", "getCount() size list = " + Integer.toString(listData.size()));
+    public int getCount() {
+    	//HELPFUL !!!! Show size of AP list. How many AP was received after scanning 
+//    	Log.d("MY CSListAdapter: ", "getCount() size list = " + Integer.toString(listData.size()));
         return listData.size();
     }
  
     @Override
     public Object getItem(int position) {    	
-  //  	Log.d("MY CSListAdapter: ", "getItem() position = " + Integer.toString(position));
+//    	Log.d("MY CSListAdapter: ", "getItem() position = " + Integer.toString(position));
         return listData.get(position);
     }
  
@@ -79,15 +80,17 @@ public class CustomScanListAdapter extends BaseAdapter {
     //	Log.d("MY CSListAdapter: ", "getItemId(): " + listData.get(position).BSSID);
         return position;
     }
-    
-    public void setIcons ( ViewHolder inholder,List<ScanResult> inlistData,int position) {
-    	
-    	//Find connected AP 
-    	if(inlistData.get(position).BSSID.matches(wifi_info.getBSSID()))
-    		inholder.wifi_state_icon.setImageResource(R.drawable.internet_radio_new);  
-        else
-        	inholder.wifi_state_icon.setImageResource(0);//Reset old icon        	
-                        
+
+    public void setIcons ( ViewHolder inholder,List<ScanResult> inlistData,int position) {    	
+    	/** Verification for connected AP */ 
+    	if(wifi_info.getBSSID() != null) {
+			//Find connected AP			
+			if(inlistData.get(position).BSSID.matches(wifi_info.getBSSID()))
+				inholder.wifi_state_icon.setImageResource(R.drawable.internet_radio_new);  
+		    else
+		    	inholder.wifi_state_icon.setImageResource(0);//Reset old icon			
+    	}
+  	
         if(inlistData.get(position).capabilities.contains("WPA2"))
         {
         	inholder.crypted_mode.setText("WPA2");
@@ -113,7 +116,7 @@ public class CustomScanListAdapter extends BaseAdapter {
     //	 Log.d("MY CSListAdapter: ", "Start getView() " + Integer.toString(call_counter++));
     	 	ViewHolder holder; 
         
-        	//Log.d("MY CSListAdapter", "getView()");        	
+        	//Log.d("MY CSListAdapter", "getView()l");        	
     	 //	Log.d("MY CSListAdapter: position =  ", Integer.toString(position));
         if (convertView == null) {        	
             convertView = layoutInflater.inflate(R.layout.scan_listview, null);            

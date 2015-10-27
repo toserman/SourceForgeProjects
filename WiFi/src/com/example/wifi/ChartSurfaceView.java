@@ -13,7 +13,7 @@ import android.view.SurfaceView;
 public class ChartSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	private DrawThread drawThread;
 	public int just_test = 100;
-
+	
 	ChartEngine inp_chart;
 	public ArrayList<TestScanResult> test_scan_list; //JUST FOR TEST
 	List<ScanResult> wifi_results;

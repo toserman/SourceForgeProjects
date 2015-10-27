@@ -34,8 +34,7 @@ complement
 Primary Color:			
 00CC00	269926	008500	39E639	67E667
 Complementary Color:				
-FF0000	BF3030	A60000	FF4040	FF7373
-    -->
+FF0000	BF3030	A60000	FF4040	FF7373 -->
 
     <ImageView
         android:id="@+id/icon"

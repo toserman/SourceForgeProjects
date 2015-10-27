@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	      waiting_icon = new MyProgressDialog(this);
 	      temp_waiting_icon = new MyProgressDialog(this);
 		  
-	      /**Debug Buttons */
+	      /** Debug Buttons */
 	      WifiOn.setOnClickListener(this);
 	      WifiOff.setOnClickListener(this);
 	      WifiParam.setOnClickListener(this);
@@ -107,10 +107,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		      //lvAP.setAdapter(new CustomScanListAdapter(this,results));
 			  lvAP.setAdapter(adapterlist);
 		      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
+		     
 		 }	 		 
 			  //Switch to old version
-	      //final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
-	      //lvAP.setAdapter(new CustomListAdapter(this, scanDetails));		 
+	      		//final ListView lvAP = (ListView) findViewById(R.id.listAP);	     
+		 	//lvAP.setAdapter(new CustomListAdapter(this, scanDetails));		 
 	  }
 
 	  @Override  
@@ -184,9 +185,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		}		    
 		
 	};
-			  	
-	
- 	  
 	private BroadcastReceiver WifiStateChangedReceiver
 	  = new BroadcastReceiver(){		  
 	  public void onReceive(Context context, Intent intent) {
@@ -220,8 +218,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		 }	 	  
 		  };
-		  
-    		  
 	//private BroadcastReceiver WifiScanResultReceiver
 	public BroadcastReceiver WifiScanResultReceiver
 	  = new BroadcastReceiver(){
@@ -283,8 +279,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		    switch (item.getItemId()) {
 		    	  case R.id.switch_screen:
 			    	Log.d("MY TAG ", "Choose item GO TO ActivityTwo");		    	
-			    	Intent intent = new Intent(this, ActivityTwo.class);
-			    	startActivity(intent);	    
+			    	Intent intent = new Intent(this, ActivityTwo.class);			 
+			    	startActivity(intent);	
 			      break;	
 		    }
 		    return super.onOptionsItemSelected(item);

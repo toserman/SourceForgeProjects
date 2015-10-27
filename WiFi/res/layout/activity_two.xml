@@ -18,7 +18,7 @@
         android:id="@+id/test_button_generate"
         android:layout_width="152dp"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Button" />
     -->
 
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cycling" />
-    </LinearLayout>
+    </LinearLayout>
     -->
 
 </LinearLayout>
