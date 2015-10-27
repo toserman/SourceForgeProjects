@@ -99,7 +99,7 @@ public class CustomListAdapter extends BaseAdapter {
              listData.get(position).getCipherType() == "WPS" ||
              listData.get(position).getCipherType() == "WEP" ){
         	//holder.wifi_capab_icon.setImageResource(R.drawable.padlock_closed);
-        	//holder.wifi_capab_icon.setImageResource(R.drawable.wireless_new);
+        	//holder.wifi_capab_icon.setImageResource(R.drawable.wireless_new);//
         	holder.crypted_mode.setText(listData.get(position).getCipherType());
         	holder.wifi_capab_icon.setImageResource(R.drawable.encrypted);
         	Log.d("MY TAG ", "ENCRYPTED: " + listData.get(position).getCipherType() + " :"
