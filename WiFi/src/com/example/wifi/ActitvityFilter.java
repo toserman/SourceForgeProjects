@@ -24,7 +24,7 @@ public class ActitvityFilter extends Activity {
 	List<ScanResult> results;
 	WifiManager wifiManager;
 
-	CustomScanListAdapter testadapterlist;
+	CustomAPFilterAdapter testadapterlist;
 	ListView testlvAP;
 	ArrayList<TestScanResult> test_list_filter = new ArrayList<TestScanResult>(); //JUST FOR TEST
 	
@@ -48,11 +48,14 @@ public class ActitvityFilter extends Activity {
 		 {	
 	    	if(results != null) Log.d("MY TAG ", "NOT EMPTY results" );
 	    	  
-	    	testadapterlist = new CustomScanListAdapter(this,results); 	 
-	    	if(testadapterlist != null) Log.d("MY TAG ", "NOT EMPTY testadapterlist" );
+	    	testadapterlist = new CustomAPFilterAdapter(this,results); 	 
+	    	if(testadapterlist != null)
+	    		Log.d("MY TAG ", "NOT EMPTY testadapterlist" );
+	    	
+	    	Toast.makeText(getApplicationContext(),"ActivityFilter onCreate() scaned AP = " + Integer.toString(testadapterlist.getCount()),Toast.LENGTH_SHORT).show();
 		      //lvAP.setAdapter(new CustomScanListAdapter(this,results));
 			  testlvAP.setAdapter(testadapterlist);
-		      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));
+		      Log.d("MY TAG ", "WIFI STATE:" + Integer.toString(wifiManager.getWifiState()));		      
 		     
 		 }	 	
 	    

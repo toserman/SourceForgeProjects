@@ -49,8 +49,6 @@ public class ActivityTwo extends Activity {
 	 ArrayList<TestScanResult> list_third = new ArrayList<TestScanResult>(); //JUST FOR TEST
 
 	 ArrayList<ScanItem> list_wifi_ready = new ArrayList<ScanItem>();//READY LIST from WIFI
-	 
- 
 
 	 public BroadcastReceiver WifiScanResultReceiver =
 			  new BroadcastReceiver(){
@@ -196,7 +194,7 @@ public class ActivityTwo extends Activity {
 	 			    		
 	 			    		Intent intentAPfilter = new Intent(ActivityTwo.this,ActitvityFilter.class);
 	 			    		intentAPfilter.putExtra("chosen_id",AP_FILTER);
-	 				    	startActivity(intentAPfilter);
+	 			    		startActivity(intentAPfilter);
 	 
 	 			    		break;
 	 			    	case R.id.filterChannel:

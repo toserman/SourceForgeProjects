@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,19 @@ public class CustomScanListAdapter extends BaseAdapter {
     14 	2484
     */
     public static final int NUM_CHANNELS = 15;
-    public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484}; 
+    public static int[] arr_freq = {0,2412,2417,2422,2427,2432,2437,2442,2447,2452,2457,2462,2467,2472,2484};
+    
+    static class ViewHolder {
+        TextView ssidname;
+        TextView bssid;
+        TextView channelfreq;
+        TextView channelnum;
+        TextView rssilevel;
+        TextView crypted_mode;
+        ImageView ap_symbol_icon;
+        ImageView wifi_state_icon;
+        ImageView wifi_capab_icon;        
+    }
     
     public CustomScanListAdapter(Context context, List<ScanResult> listData) {
         this.listData = listData;
@@ -129,7 +142,7 @@ public class CustomScanListAdapter extends BaseAdapter {
             holder.rssilevel = (TextView) convertView.findViewById(R.id.ap_rssi);
             holder.crypted_mode = (TextView) convertView.findViewById(R.id.crypted_mode);
             holder.wifi_state_icon = (ImageView)convertView.findViewById(R.id.wifi_connect);
-            holder.wifi_capab_icon = (ImageView)convertView.findViewById(R.id.wifi_capabilities);         
+            holder.wifi_capab_icon = (ImageView)convertView.findViewById(R.id.wifi_capabilities);           
             convertView.setTag(holder);                   
         } else {
             holder = (ViewHolder)convertView.getTag();
@@ -158,18 +171,6 @@ public class CustomScanListAdapter extends BaseAdapter {
         setIcons(holder,listData,position);        
         		
         return convertView;
-    }
- 
-    static class ViewHolder {
-        TextView ssidname;
-        TextView bssid;
-        TextView channelfreq;
-        TextView channelnum;
-        TextView rssilevel;
-        TextView crypted_mode;
-        ImageView ap_symbol_icon;
-        ImageView wifi_state_icon;
-        ImageView wifi_capab_icon;        
     }
     
     public static int convertFreqtoChannelNum(int inpfreq,int[] inp_array)
